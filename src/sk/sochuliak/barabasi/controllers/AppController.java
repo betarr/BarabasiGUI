@@ -86,8 +86,8 @@ public class AppController {
 				.setData(data);
 		
 		DegreeDistributionDialog dialog = new DegreeDistributionDialog(Strings.DEGREE_DISTRIBUTION_GRAPH_TITLE, this.mainScreen, config);
-		dialog.setVisible(true);
 		ControllerService.registerDegreeDistributionController(new DegreeDistributionController(dialog));
+		dialog.setVisible(true);
 	}
 	
 	public void showClusterDistributionDialog() {
@@ -115,7 +115,7 @@ public class AppController {
 				.setData(data);
 		
 		ClusterDistributionDialog dialog = new ClusterDistributionDialog(Strings.CLUSTER_DISTRIBUTION_GRAPH_TITLE, this.mainScreen, config);
-		dialog.setVisible(true);
 		ControllerService.registerClusterDistributionController(new ClusterDistributionController(dialog));
+		dialog.setVisible(true);
 	}
 }
