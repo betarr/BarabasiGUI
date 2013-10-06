@@ -46,6 +46,7 @@ public class DegreeDistributionDialog extends JDialog {
 		
 		this.setTitle(title);
 		this.setSize(MainGuiConfiguration.ANALYSIS_GRAPH_SIZE);
+		this.setModalityType(ModalityType.APPLICATION_MODAL);
 		this.setLocationRelativeTo(this.owner);
 		this.setLayout(new BorderLayout());
 		
