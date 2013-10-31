@@ -1,5 +1,7 @@
 package sk.sochuliak.barabasi.network;
 
+import java.util.List;
+
 public interface Network {
 
 	//public static Network buildNetwork(int edgeCount, int nodesCount);
@@ -138,4 +140,10 @@ public interface Network {
 	 * @return Build statistics
 	 */
 	public NetworkBuildStatistics getNetworkBuildStatistics();
+
+	/**
+	 * Returns pairs of neighboring nodes in network.
+	 * @return list of neighboring nodes pairs
+	 */
+	public List<int[]> getPairsOfNeighboringNodes();
 }

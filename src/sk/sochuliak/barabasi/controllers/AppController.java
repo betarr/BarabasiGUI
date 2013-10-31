@@ -1,5 +1,6 @@
 package sk.sochuliak.barabasi.controllers;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -7,14 +8,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.swing.JFileChooser;
+
 import sk.sochuliak.barabasi.analysisdialogs.ClusterDistributionDialog;
 import sk.sochuliak.barabasi.analysisdialogs.DegreeDistributionDialog;
 import sk.sochuliak.barabasi.analysisdialogs.GraphConfiguration;
 import sk.sochuliak.barabasi.gui.Strings;
+import sk.sochuliak.barabasi.gui.mainscreen.BMenuBar;
 import sk.sochuliak.barabasi.gui.mainscreen.BasicPropertiesTable;
 import sk.sochuliak.barabasi.gui.mainscreen.MainScreen;
 import sk.sochuliak.barabasi.gui.newgraphdialog.NewGraphDialog;
 import sk.sochuliak.barabasi.gui.newgraphdialog.NewGraphProgressBar;
+import sk.sochuliak.barabasi.utils.NetworkImportExport;
 
 public class AppController {
 	
@@ -46,9 +51,34 @@ public class AppController {
 		}
 	}
 	
+	public void exportGraph() {
+		JFileChooser fc = new JFileChooser(NetworkImportExport.DEFAULT_DIRECTORY);
+		int returnValue = fc.showSaveDialog(this.mainScreen);
+		if (returnValue == JFileChooser.APPROVE_OPTION) {
+			File file = fc.getSelectedFile();
+			NetworkImportExport.DEFAULT_DIRECTORY = file.getParent();
+			List<int[]> pairsOfNeighboringNodes = ControllerService.getNetworkController().getPairsOfNeighboringNodes();
+			NetworkImportExport.export(file, pairsOfNeighboringNodes);
+		}
+	}
+	
+	public void importGraph() {
+		JFileChooser fc = new JFileChooser(NetworkImportExport.DEFAULT_DIRECTORY);
+		int returnValue = fc.showOpenDialog(this.mainScreen);
+		if (returnValue == JFileChooser.APPROVE_OPTION) {
+			File file = fc.getSelectedFile();
+			NetworkImportExport.DEFAULT_DIRECTORY = file.getParent();
+			List<int[]> neighboringPairs = NetworkImportExport.importFromFile(file);
+			if (neighboringPairs.size() != 0) {
+				ControllerService.getNetworkController().createNetwork(neighboringPairs);
+				this.updateDataInBasicPropertiesTable();
+				this.enableAnalysisMenuItems(true);
+			}
+		}
+	}
+	
 	public void enableAnalysisMenuItems(boolean enable) {
-		this.mainScreen.getBMenuBar().enableShowDegreeDistributionMenuItem(enable);
-		this.mainScreen.getBMenuBar().enableShowClusterDistributionMenuItem(enable);
+		BMenuBar.onGraphBuilded();
 	}
 	
 	public void updateDataInBasicPropertiesTable() {

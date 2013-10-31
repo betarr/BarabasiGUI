@@ -1,6 +1,7 @@
 package sk.sochuliak.barabasi.network;
 
 import java.util.Arrays;
+import java.util.List;
 
 
 
@@ -275,5 +276,11 @@ public class ArrayNetwork extends NetworkBase implements Network {
 	 */
 	private int getNodeIdAtIndex(int indexOfNode) {
 		return this.nodesIndexes[indexOfNode];
+	}
+
+	@Override
+	public List<int[]> getPairsOfNeighboringNodes() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

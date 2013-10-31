@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class MapNetwork extends NetworkBase implements Network {
 
@@ -148,6 +149,23 @@ public class MapNetwork extends NetworkBase implements Network {
 	@Override
 	public NetworkBuildStatistics getNetworkBuildStatistics() {
 		return this.getBuildStatistics();
+	}
+	
+	@Override
+	public List<int[]> getPairsOfNeighboringNodes() {
+		List<int[]> result = new ArrayList<int[]>();
+		Set<Integer> nodesIds = this.nodes.keySet();
+		List<Integer> alreadyAddedNodesIds = new ArrayList<Integer>();
+		for (Integer nodeId : nodesIds) {
+			List<Integer> adjacentNodes = this.nodes.get(nodeId);
+			for (Integer adjacentNodeId : adjacentNodes) {
+				if (!alreadyAddedNodesIds.contains(adjacentNodeId)) {
+					result.add(new int[]{nodeId, adjacentNodeId});
+				}
+			}
+			alreadyAddedNodesIds.add(nodeId);
+		}
+		return result;
 	}
 
 	@Override

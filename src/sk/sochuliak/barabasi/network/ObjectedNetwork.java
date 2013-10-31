@@ -160,6 +160,12 @@ public class ObjectedNetwork extends NetworkBase implements Network {
 		return this.getBuildStatistics();
 	}
 	
+	@Override
+	public List<int[]> getPairsOfNeighboringNodes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	/**
 	 * Returns node identified by nodeId.
 	 * 

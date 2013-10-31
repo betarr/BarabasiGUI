@@ -190,6 +190,12 @@ public class NodeToNodeNetwork extends NetworkBase implements Network {
 		return this.getBuildStatistics();
 	}
 	
+	@Override
+	public List<int[]> getPairsOfNeighboringNodes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	/**
 	 * Makes nodesIds array two times larger.
 	 */

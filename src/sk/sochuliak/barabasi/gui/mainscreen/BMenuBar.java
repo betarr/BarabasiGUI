@@ -4,6 +4,8 @@ import java.awt.Event;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -17,6 +19,9 @@ public class BMenuBar extends JMenuBar {
 	
 	private static final long serialVersionUID = 1L;
 	
+	public static List<JMenuItem> menuItemsEnabledOnGraphBuilded = new ArrayList<JMenuItem>();
+	
+	JMenuItem exportMenuItem = null;
 	JMenuItem showDegreeDistributionMenuItem = null;
 	JMenuItem showClusterDistributionMenuItem = null;
 	
@@ -37,6 +42,31 @@ public class BMenuBar extends JMenuBar {
 						ControllerService.getAppController().showNewGraphDialog();
 					}
 				}));
+		
+		programMenu.addSeparator();
+		
+		programMenu.add(this.buildJMenuItem(Strings.MENU_IMPORT,
+				KeyStroke.getKeyStroke(KeyEvent.VK_I, Event.CTRL_MASK),
+				new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						ControllerService.getAppController().importGraph();
+					}
+				}));
+		
+		this.exportMenuItem = this.buildJMenuItem(Strings.MENU_EXPORT,
+				KeyStroke.getKeyStroke(KeyEvent.VK_E, Event.CTRL_MASK),
+				new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						ControllerService.getAppController().exportGraph();
+					}
+				});
+		this.exportMenuItem.setEnabled(false);
+		BMenuBar.registerMenuItemEnabledOnGraphBuilded(this.exportMenuItem);
+		programMenu.add(this.exportMenuItem);
 		
 		programMenu.addSeparator();
 		
@@ -66,7 +96,8 @@ public class BMenuBar extends JMenuBar {
 						ControllerService.getAppController().showDegreeDistributionDialog();
 					}
 				});
-		showDegreeDistributionMenuItem.setEnabled(false);
+		this.showDegreeDistributionMenuItem.setEnabled(false);
+		BMenuBar.registerMenuItemEnabledOnGraphBuilded(this.showDegreeDistributionMenuItem);
 		analysisMenu.add(showDegreeDistributionMenuItem);
 		
 		this.showClusterDistributionMenuItem = this.buildJMenuItem(Strings.MENU_ANALYSIS_SHOW_CLUSTER_DISTRIBUTION,
@@ -78,7 +109,8 @@ public class BMenuBar extends JMenuBar {
 						ControllerService.getAppController().showClusterDistributionDialog();
 					}
 				});
-		showClusterDistributionMenuItem.setEnabled(false);
+		this.showClusterDistributionMenuItem.setEnabled(false);
+		BMenuBar.registerMenuItemEnabledOnGraphBuilded(this.showClusterDistributionMenuItem);
 		analysisMenu.add(showClusterDistributionMenuItem);
 		
 		
@@ -92,11 +124,13 @@ public class BMenuBar extends JMenuBar {
 		return jMenuItem;
 	}
 	
-	public void enableShowDegreeDistributionMenuItem(boolean enable) {
-		this.showDegreeDistributionMenuItem.setEnabled(enable);
+	public static void registerMenuItemEnabledOnGraphBuilded(JMenuItem jMenuItem) {
+		BMenuBar.menuItemsEnabledOnGraphBuilded.add(jMenuItem);
 	}
 	
-	public void enableShowClusterDistributionMenuItem(boolean enable) {
-		this.showClusterDistributionMenuItem.setEnabled(enable);
+	public static void onGraphBuilded() {
+		for (JMenuItem menuItem : BMenuBar.menuItemsEnabledOnGraphBuilded) {
+			menuItem.setEnabled(true);
+		}
 	}
 }

@@ -15,6 +15,8 @@ public class Strings {
 	// MENU
 	public static String MENU_PROGRAM = "Program";
 	public static String MENU_NEW_NETWORK = "Vygenerovaù nov˙ sieù";
+	public static String MENU_IMPORT = "Import";
+	public static String MENU_EXPORT = "Export";
 	public static String MENU_CLOSE_PROGRAM = "Zavrieù";
 	public static String MENU_ANALYSIS = "Anal˝za";
 	public static String MENU_ANALYSIS_SHOW_DEGREE_DISTRIBUTION = "Distrib˙cia stupÚa uzlov";
