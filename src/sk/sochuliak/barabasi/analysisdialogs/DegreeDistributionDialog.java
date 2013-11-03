@@ -3,6 +3,7 @@ package sk.sochuliak.barabasi.analysisdialogs;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,7 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.util.ShapeUtilities;
 
 import sk.sochuliak.barabasi.controllers.ControllerService;
 import sk.sochuliak.barabasi.gui.MainGuiConfiguration;
@@ -74,7 +76,14 @@ public class DegreeDistributionDialog extends JDialog {
 			}
 
 			@Override
-			public void chartMouseMoved(ChartMouseEvent e) {}
+			public void chartMouseMoved(ChartMouseEvent e) {
+				ChartEntity entity = e.getEntity();
+				if (entity instanceof XYItemEntity) {
+					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				} else {
+					setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+				}
+			}
 		});
 		
 		return chartPanel;
@@ -97,12 +106,13 @@ public class DegreeDistributionDialog extends JDialog {
 		chart.setBackgroundPaint(Color.white);
 		
 		final XYPlot plot = chart.getXYPlot();
-		plot.setBackgroundPaint(Color.LIGHT_GRAY);
-		plot.setDomainGridlinePaint(Color.WHITE);
-		plot.setRangeGridlinePaint(Color.WHITE);
+		plot.setBackgroundPaint(Color.WHITE);
+		plot.setDomainGridlinePaint(Color.LIGHT_GRAY);
+		plot.setRangeGridlinePaint(Color.LIGHT_GRAY);
 		
 		final XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer(false, true);
-		renderer.setSeriesPaint(0, Color.RED);
+		renderer.setSeriesPaint(0, Color.BLUE);
+		renderer.setSeriesShape(0, ShapeUtilities.createDiamond(2.5f));
 		plot.setRenderer(renderer);
 		
 		final NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
@@ -183,7 +193,7 @@ public class DegreeDistributionDialog extends JDialog {
 		XYLineAndShapeRenderer lrRenderer = (XYLineAndShapeRenderer) xyplot.getRenderer();
 		lrRenderer.setSeriesShapesVisible(seriesIndex, false);
 		lrRenderer.setSeriesLinesVisible(seriesIndex, true);
-		lrRenderer.setSeriesPaint(seriesIndex, Color.BLUE);
+		lrRenderer.setSeriesPaint(seriesIndex, Color.RED);
 		xyplot.setRenderer(lrRenderer);
 	}
 	

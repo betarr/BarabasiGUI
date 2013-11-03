@@ -36,6 +36,12 @@ public class NetworkUtils {
 		return -1;
 	}
 	
+	/**
+	 * Returns cluster ratios of given nodes in network.
+	 * @param nodesIds Nodes ids
+	 * @param network Network
+	 * @return Array of cluster ratios.
+	 */
 	public static double[] calculateClusterRatios(int[] nodesIds, Network network) {
 		double[] result = new double[nodesIds.length];
 		for (int i = 0; i < nodesIds.length; i++) {

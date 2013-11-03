@@ -49,8 +49,11 @@ public class NetworkAnalyse {
 	}
 	
 	/**
-	 * Calculates cluster distribution.
-	 * Cluster distribution is represented as map where key is 
+	 * Calculates cluster distribution. 
+	 * Cluster distribution is represented as map where key is node degree 
+	 * and value is average cluster ratio of nodes
+	 * with this degree.
+	 * 
 	 * @param network
 	 * @return
 	 */
