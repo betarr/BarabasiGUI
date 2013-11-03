@@ -10,8 +10,8 @@ import java.util.Set;
 
 import javax.swing.JFileChooser;
 
-import sk.sochuliak.barabasi.analysisdialogs.ClusterDistributionDialog;
-import sk.sochuliak.barabasi.analysisdialogs.DegreeDistributionDialog;
+import sk.sochuliak.barabasi.analysisdialogs.ClusterDistributionFrame;
+import sk.sochuliak.barabasi.analysisdialogs.DegreeDistributionFrame;
 import sk.sochuliak.barabasi.analysisdialogs.GraphConfiguration;
 import sk.sochuliak.barabasi.gui.Strings;
 import sk.sochuliak.barabasi.gui.mainscreen.BMenuBar;
@@ -104,6 +104,7 @@ public class AppController {
 			double logx = (x == 0) ? 0 : Math.log10(x);
 			double logy = (y == 0) ? 0 : Math.log10(y);
 			points.add(new double[]{logx, logy});
+			System.out.println(String.valueOf(logx).replace('.', ',') + "\t" + String.valueOf(logy).replace('.', ','));
 		}
 		
 		Map<String, List<double[]>> data = new HashMap<String, List<double[]>>();
@@ -115,9 +116,9 @@ public class AppController {
 				.setyAxisLabel(Strings.DEGREE_DISTRIBUTION_GRAPH_Y_AXIS_LABEL)
 				.setData(data);
 		
-		DegreeDistributionDialog dialog = new DegreeDistributionDialog(Strings.DEGREE_DISTRIBUTION_GRAPH_TITLE, this.mainScreen, config);
-		ControllerService.registerDegreeDistributionController(new DegreeDistributionController(dialog));
-		dialog.setVisible(true);
+		DegreeDistributionFrame frame = new DegreeDistributionFrame(Strings.DEGREE_DISTRIBUTION_GRAPH_TITLE, this.mainScreen, config);
+		ControllerService.registerDegreeDistributionController(new DegreeDistributionController(frame));
+		frame.setVisible(true);
 	}
 	
 	public void showClusterDistributionDialog() {
@@ -133,6 +134,7 @@ public class AppController {
 			double logx = (x == 0) ? 0 : Math.log10(x);
 			double logy = (y == 0) ? 0 : Math.log10(y);
 			points.add(new double[]{logx, logy});
+			System.out.println(String.valueOf(logx).replace('.', ',') + "\t" + String.valueOf(logy).replace('.', ','));
 		}
 		
 		Map<String, List<double[]>> data = new HashMap<String, List<double[]>>();
@@ -144,8 +146,8 @@ public class AppController {
 				.setyAxisLabel(Strings.CLUSTER_DISTRIBUTION_GRAPH_Y_AXIS_LABEL)
 				.setData(data);
 		
-		ClusterDistributionDialog dialog = new ClusterDistributionDialog(Strings.CLUSTER_DISTRIBUTION_GRAPH_TITLE, this.mainScreen, config);
-		ControllerService.registerClusterDistributionController(new ClusterDistributionController(dialog));
-		dialog.setVisible(true);
+		ClusterDistributionFrame frame = new ClusterDistributionFrame(Strings.CLUSTER_DISTRIBUTION_GRAPH_TITLE, this.mainScreen, config);
+		ControllerService.registerClusterDistributionController(new ClusterDistributionController(frame));
+		frame.setVisible(true);
 	}
 }

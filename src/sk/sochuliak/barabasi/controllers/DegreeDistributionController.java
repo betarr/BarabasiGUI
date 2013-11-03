@@ -2,14 +2,14 @@ package sk.sochuliak.barabasi.controllers;
 
 import java.util.List;
 
-import sk.sochuliak.barabasi.analysisdialogs.DegreeDistributionDialog;
+import sk.sochuliak.barabasi.analysisdialogs.DegreeDistributionFrame;
 import sk.sochuliak.barabasi.utils.LinearRegression;
 
 public class DegreeDistributionController {
 
-	private DegreeDistributionDialog degreeDistributionDialog = null;
+	private DegreeDistributionFrame degreeDistributionDialog = null;
 
-	public DegreeDistributionController(DegreeDistributionDialog degreeDistributionDialog) {
+	public DegreeDistributionController(DegreeDistributionFrame degreeDistributionDialog) {
 		this.degreeDistributionDialog = degreeDistributionDialog;
 	}
 	

@@ -74,7 +74,7 @@ public class NetworkAnalyse {
 				clusterSum += clustersRatios[indexOfNode];
 			}
 			double averageCluster = clusterSum / (double) nodes.size();
-			result.put(degree, averageCluster);				
+			result.put(degree, averageCluster);
 		}
 		return result;
 	}

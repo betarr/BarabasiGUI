@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import org.jfree.chart.ChartFactory;
@@ -33,7 +33,7 @@ import sk.sochuliak.barabasi.controllers.ControllerService;
 import sk.sochuliak.barabasi.gui.MainGuiConfiguration;
 import sk.sochuliak.barabasi.gui.Strings;
 
-public class DegreeDistributionDialog extends JDialog {
+public class DegreeDistributionDialog extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -48,7 +48,7 @@ public class DegreeDistributionDialog extends JDialog {
 		
 		this.setTitle(title);
 		this.setSize(MainGuiConfiguration.ANALYSIS_GRAPH_SIZE);
-		this.setModalityType(ModalityType.APPLICATION_MODAL);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setLocationRelativeTo(this.owner);
 		this.setLayout(new BorderLayout());
 		

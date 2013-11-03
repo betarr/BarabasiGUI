@@ -33,7 +33,7 @@ import sk.sochuliak.barabasi.controllers.ControllerService;
 import sk.sochuliak.barabasi.gui.MainGuiConfiguration;
 import sk.sochuliak.barabasi.gui.Strings;
 
-public class ClusterDistributionDialog extends JFrame {
+public class ClusterDistributionFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -43,7 +43,7 @@ public class ClusterDistributionDialog extends JFrame {
 	
 	private JFreeChart chart = null;
 	
-	public ClusterDistributionDialog(String title, Component owner, GraphConfiguration config) {
+	public ClusterDistributionFrame(String title, Component owner, GraphConfiguration config) {
 		this.owner = owner;
 		
 		this.setTitle(title);

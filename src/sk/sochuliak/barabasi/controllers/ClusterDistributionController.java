@@ -2,14 +2,14 @@ package sk.sochuliak.barabasi.controllers;
 
 import java.util.List;
 
-import sk.sochuliak.barabasi.analysisdialogs.ClusterDistributionDialog;
+import sk.sochuliak.barabasi.analysisdialogs.ClusterDistributionFrame;
 import sk.sochuliak.barabasi.utils.LinearRegression;
 
 public class ClusterDistributionController {
 
-	private ClusterDistributionDialog clusterDistributionDialog = null;
+	private ClusterDistributionFrame clusterDistributionDialog = null;
 
-	public ClusterDistributionController(ClusterDistributionDialog clusterDistributionDialog) {
+	public ClusterDistributionController(ClusterDistributionFrame clusterDistributionDialog) {
 		this.clusterDistributionDialog = clusterDistributionDialog;
 	}
 	

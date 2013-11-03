@@ -33,17 +33,17 @@ import sk.sochuliak.barabasi.controllers.ControllerService;
 import sk.sochuliak.barabasi.gui.MainGuiConfiguration;
 import sk.sochuliak.barabasi.gui.Strings;
 
-public class ClusterDistributionDialog extends JFrame {
+public class DegreeDistributionFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	
 	private Component owner;
 	
-	private ClusterDistributionInfoPanel infoPanel = null;
+	private DegreeDistributionInfoPanel infoPanel = null;
 	
 	private JFreeChart chart = null;
 	
-	public ClusterDistributionDialog(String title, Component owner, GraphConfiguration config) {
+	public DegreeDistributionFrame(String title, Component owner, GraphConfiguration config) {
 		this.owner = owner;
 		
 		this.setTitle(title);
@@ -54,10 +54,10 @@ public class ClusterDistributionDialog extends JFrame {
 		
 		this.add(this.buildChartPanel(config), BorderLayout.CENTER);
 		
-		this.infoPanel = ClusterDistributionInfoPanel.getInstance();
+		this.infoPanel = DegreeDistributionInfoPanel.getInstance();
 		this.add(this.infoPanel, BorderLayout.EAST);
 	}
-	
+
 	private JPanel buildChartPanel(GraphConfiguration config) {
 		this.chart = this.createChart(config);
 		final ChartPanel chartPanel = new ChartPanel(chart);
@@ -71,7 +71,7 @@ public class ClusterDistributionDialog extends JFrame {
 				if (entity instanceof XYItemEntity) {
 					XYItemEntity itemEntity = (XYItemEntity) entity;
 					double[] coord = getCoordFromXYItemEntity(itemEntity);
-					ControllerService.getClusterDistributionController().setPointToInfoPanel(coord[0], coord[1]);
+					ControllerService.getDegreeDistributionController().setPointToInfoPanel(coord[0], coord[1]);
 				}
 			}
 
@@ -215,7 +215,7 @@ public class ClusterDistributionDialog extends JFrame {
 		}
 	}
 
-	public ClusterDistributionInfoPanel getInfoPanel() {
+	public DegreeDistributionInfoPanel getInfoPanel() {
 		return infoPanel;
 	}
 }
