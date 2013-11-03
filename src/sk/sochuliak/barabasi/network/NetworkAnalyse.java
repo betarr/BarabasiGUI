@@ -10,6 +10,12 @@ import sk.sochuliak.barabasi.utils.NetworkUtils;
 
 public class NetworkAnalyse {
 	
+	/**
+	 * Calculates degree distribution.
+	 * Degree distribution is map where key is the degree of node and value is a list of nodes with this degree.
+	 * @param network Network
+	 * @return Map of degree distribution
+	 */
 	public static Map<Integer, List<Integer>> getDegreeDistribution(Network network) {
 		Map<Integer, List<Integer>> result = new HashMap<Integer, List<Integer>>();
 		
@@ -24,6 +30,12 @@ public class NetworkAnalyse {
 		return result;
 	}
 
+	/**
+	 * Calculates standardized degree distribution.
+	 * Degree distribution is map where key is the degree of node and value is normalized count of nodes with this degree.
+	 * @param network Network
+	 * @return Map of standardized degree distribution
+	 */
 	public static Map<Integer, Double> getStandardizedDegreeDistribution(Network network) {
 		Map<Integer, List<Integer>> degreeDistribution = NetworkAnalyse.getDegreeDistribution(network);
 		
@@ -36,6 +48,12 @@ public class NetworkAnalyse {
 		return result;
 	}
 	
+	/**
+	 * Calculates cluster distribution.
+	 * Cluster distribution is represented as map where key is 
+	 * @param network
+	 * @return
+	 */
 	public static Map<Integer, Double> getClusterDistribution(Network network) {
 		Map<Integer, Double> result = new HashMap<Integer, Double>();
 		

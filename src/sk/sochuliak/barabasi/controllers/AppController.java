@@ -132,7 +132,7 @@ public class AppController {
 			double y = clusterDistribution.get(degreesList.get(i));
 			double logx = (x == 0) ? 0 : Math.log10(x);
 			double logy = (y == 0) ? 0 : Math.log10(y);
-			points.add(new double[]{logx, logy});
+			points.add(new double[]{x, y});
 		}
 		
 		Map<String, List<double[]>> data = new HashMap<String, List<double[]>>();
