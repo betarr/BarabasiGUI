@@ -5,7 +5,6 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -103,9 +102,7 @@ public class DegreeDistributionInfoPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (startPoint != null && endPoint != null) {
-					List<double[]> points = ControllerService.getDegreeDistributionController().getPointsBetweenXYItemsEntities(startPoint[0], endPoint[0]);
-					List<double[]> linearRegressionPoints = ControllerService.getDegreeDistributionController().computeLine(points);
-					ControllerService.getDegreeDistributionController().drawLinearRegression(linearRegressionPoints);
+					ControllerService.getDegreeDistributionController().doRegression(startPoint[0], endPoint[0]);
 				} else {
 					System.err.println("Nebol zvoleny zaciatocny alebo koncovy bod!");
 				}

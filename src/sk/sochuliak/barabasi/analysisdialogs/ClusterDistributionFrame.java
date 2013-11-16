@@ -31,7 +31,6 @@ import org.jfree.util.ShapeUtilities;
 
 import sk.sochuliak.barabasi.controllers.ControllerService;
 import sk.sochuliak.barabasi.gui.MainGuiConfiguration;
-import sk.sochuliak.barabasi.gui.Strings;
 
 public class ClusterDistributionFrame extends JFrame {
 
@@ -167,36 +166,6 @@ public class ClusterDistributionFrame extends JFrame {
 		return result;
 	}
 	
-	public void drawLinearRegression(List<double[]> linearRegressionPoints) {
-		String seriesName = Strings.LINEAR_REGRESION;
-		
-		Plot plot = this.chart.getPlot();
-		XYPlot xyplot = null;
-		XYSeriesCollection dataset = null;
-		if (plot instanceof XYPlot) {
-			xyplot = (XYPlot) plot;
-			dataset = (XYSeriesCollection) xyplot.getDataset();
-		} else {
-			return;
-		}
-		
-		int testSeriesIndex = dataset.getSeriesIndex(seriesName);
-		
-		if (testSeriesIndex != -1) {
-			dataset.removeSeries(testSeriesIndex);
-		}
-		
-		XYSeries linearRegressionSeries = this.createSeries(Strings.LINEAR_REGRESION, linearRegressionPoints);
-		dataset.addSeries(linearRegressionSeries);
-		
-		int seriesIndex = dataset.getSeriesIndex(seriesName);
-		XYLineAndShapeRenderer lrRenderer = (XYLineAndShapeRenderer) xyplot.getRenderer();
-		lrRenderer.setSeriesShapesVisible(seriesIndex, false);
-		lrRenderer.setSeriesLinesVisible(seriesIndex, true);
-		lrRenderer.setSeriesPaint(seriesIndex, Color.RED);
-		xyplot.setRenderer(lrRenderer);
-	}
-	
 	public void drawLinearRegression(XYSeries series) {
 		Plot plot = this.chart.getPlot();
 		XYPlot xyplot = null;
@@ -221,14 +190,6 @@ public class ClusterDistributionFrame extends JFrame {
 		lrRenderer.setSeriesLinesVisible(seriesIndex, true);
 		lrRenderer.setSeriesPaint(seriesIndex, Color.RED);
 		xyplot.setRenderer(lrRenderer);
-	}
-	
-	private XYSeries createSeries(String name, List<double[]> linearRegressionPoints) {
-		XYSeries result = new XYSeries(name);
-		for (double[] point : linearRegressionPoints) {
-			result.add(point[0], point[1]);
-		}
-		return result;
 	}
 	
 	private XYSeriesCollection getDatasetFromChart() {

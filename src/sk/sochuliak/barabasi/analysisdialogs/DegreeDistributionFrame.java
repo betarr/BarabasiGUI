@@ -31,7 +31,6 @@ import org.jfree.util.ShapeUtilities;
 
 import sk.sochuliak.barabasi.controllers.ControllerService;
 import sk.sochuliak.barabasi.gui.MainGuiConfiguration;
-import sk.sochuliak.barabasi.gui.Strings;
 
 public class DegreeDistributionFrame extends JFrame {
 
@@ -167,9 +166,7 @@ public class DegreeDistributionFrame extends JFrame {
 		return result;
 	}
 	
-	public void drawLinearRegression(List<double[]> linearRegressionPoints) {
-		String seriesName = Strings.LINEAR_REGRESION;
-		
+	public void drawLinearRegression(XYSeries series) {
 		Plot plot = this.chart.getPlot();
 		XYPlot xyplot = null;
 		XYSeriesCollection dataset = null;
@@ -180,29 +177,19 @@ public class DegreeDistributionFrame extends JFrame {
 			return;
 		}
 		
-		int testSeriesIndex = dataset.getSeriesIndex(seriesName);
-		
+		int testSeriesIndex = dataset.getSeriesIndex(series.getKey());
 		if (testSeriesIndex != -1) {
 			dataset.removeSeries(testSeriesIndex);
 		}
 		
-		XYSeries linearRegressionSeries = this.createSeries(Strings.LINEAR_REGRESION, linearRegressionPoints);
-		dataset.addSeries(linearRegressionSeries);
+		dataset.addSeries(series);
 		
-		int seriesIndex = dataset.getSeriesIndex(seriesName);
+		int seriesIndex = dataset.getSeriesIndex(series.getKey());
 		XYLineAndShapeRenderer lrRenderer = (XYLineAndShapeRenderer) xyplot.getRenderer();
 		lrRenderer.setSeriesShapesVisible(seriesIndex, false);
 		lrRenderer.setSeriesLinesVisible(seriesIndex, true);
 		lrRenderer.setSeriesPaint(seriesIndex, Color.RED);
 		xyplot.setRenderer(lrRenderer);
-	}
-	
-	private XYSeries createSeries(String name, List<double[]> linearRegressionPoints) {
-		XYSeries result = new XYSeries(name);
-		for (double[] point : linearRegressionPoints) {
-			result.add(point[0], point[1]);
-		}
-		return result;
 	}
 	
 	private XYSeriesCollection getDatasetFromChart() {
@@ -217,5 +204,14 @@ public class DegreeDistributionFrame extends JFrame {
 
 	public DegreeDistributionInfoPanel getInfoPanel() {
 		return infoPanel;
+	}
+
+	public XYSeriesCollection getXYSeriesCollection() {
+		Plot plot = this.chart.getPlot();
+		if (plot instanceof XYPlot) {
+			XYPlot xyplot = (XYPlot) plot;
+			return (XYSeriesCollection)xyplot.getDataset();
+		}
+		return null;
 	}
 }

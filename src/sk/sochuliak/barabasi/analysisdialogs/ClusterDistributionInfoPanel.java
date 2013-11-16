@@ -5,7 +5,6 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -103,9 +102,6 @@ private static final long serialVersionUID = 1L;
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (startPoint != null && endPoint != null) {
-//					List<double[]> points = ControllerService.getClusterDistributionController().getPointsBetweenXYItemsEntities(startPoint[0], endPoint[0]);
-//					List<double[]> linearRegressionPoints = ControllerService.getClusterDistributionController().computeLine(points);
-//					ControllerService.getClusterDistributionController().drawLinearRegression(linearRegressionPoints);
 					ControllerService.getClusterDistributionController().doRegression(startPoint[0], endPoint[0]);
 				} else {
 					System.err.println("Nebol zvoleny zaciatocny alebo koncovy bod!");
