@@ -1,9 +1,13 @@
 package sk.sochuliak.barabasi.controllers;
 
-import java.util.List;
+import org.jfree.data.function.LineFunction2D;
+import org.jfree.data.general.DatasetUtilities;
+import org.jfree.data.statistics.Regression;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
 import sk.sochuliak.barabasi.analysisdialogs.ClusterDistributionFrame;
-import sk.sochuliak.barabasi.utils.LinearRegression;
+import sk.sochuliak.barabasi.gui.Strings;
 
 public class ClusterDistributionController {
 
@@ -17,25 +21,16 @@ public class ClusterDistributionController {
 		this.clusterDistributionDialog.getInfoPanel().setPoint(x, y);
 	}
 	
-	public List<double[]> getPointsBetweenXYItemsEntities(double startX, double endX) {
-		if (startX <= endX) {
-			return this.clusterDistributionDialog.getPointsBetweenXYItemsEntities(startX, endX);
-		} else {
-			return this.clusterDistributionDialog.getPointsBetweenXYItemsEntities(endX, startX);
-		}
+	public void drawLinearRegression(XYSeries series) {
+		this.clusterDistributionDialog.drawLinearRegression(series);
 	}
 	
-	public List<double[]> computeLine(List<double[]> points) {
-		LinearRegression lr = new LinearRegression(points);
-		List<double[]> linearRegression = lr.doLinearRegression();
-		
-		this.clusterDistributionDialog.getInfoPanel().setK(lr.getK());
-		
-		return linearRegression;
-	}
-	
-	public void drawLinearRegression(List<double[]> linearRegressionPoints) {
-		this.clusterDistributionDialog.drawLinearRegression(linearRegressionPoints);
+	public void doRegression(double startX, double endX) {
+		XYSeriesCollection dataset = this.clusterDistributionDialog.getXYSeriesCollection();
+		double[] aAndB = Regression.getOLSRegression(dataset, 0);
+		XYSeries series = DatasetUtilities.sampleFunction2DToSeries(new LineFunction2D(aAndB[0], aAndB[1]), startX, endX, 2, Strings.LINEAR_REGRESION);
+		this.drawLinearRegression(series);
+		this.clusterDistributionDialog.getInfoPanel().setK(aAndB[1]);
 	}
 	
 	

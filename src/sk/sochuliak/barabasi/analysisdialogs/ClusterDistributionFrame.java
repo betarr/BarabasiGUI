@@ -197,6 +197,32 @@ public class ClusterDistributionFrame extends JFrame {
 		xyplot.setRenderer(lrRenderer);
 	}
 	
+	public void drawLinearRegression(XYSeries series) {
+		Plot plot = this.chart.getPlot();
+		XYPlot xyplot = null;
+		XYSeriesCollection dataset = null;
+		if (plot instanceof XYPlot) {
+			xyplot = (XYPlot) plot;
+			dataset = (XYSeriesCollection) xyplot.getDataset();
+		} else {
+			return;
+		}
+		
+		int testSeriesIndex = dataset.getSeriesIndex(series.getKey());
+		if (testSeriesIndex != -1) {
+			dataset.removeSeries(testSeriesIndex);
+		}
+		
+		dataset.addSeries(series);
+		
+		int seriesIndex = dataset.getSeriesIndex(series.getKey());
+		XYLineAndShapeRenderer lrRenderer = (XYLineAndShapeRenderer) xyplot.getRenderer();
+		lrRenderer.setSeriesShapesVisible(seriesIndex, false);
+		lrRenderer.setSeriesLinesVisible(seriesIndex, true);
+		lrRenderer.setSeriesPaint(seriesIndex, Color.RED);
+		xyplot.setRenderer(lrRenderer);
+	}
+	
 	private XYSeries createSeries(String name, List<double[]> linearRegressionPoints) {
 		XYSeries result = new XYSeries(name);
 		for (double[] point : linearRegressionPoints) {
@@ -218,4 +244,14 @@ public class ClusterDistributionFrame extends JFrame {
 	public ClusterDistributionInfoPanel getInfoPanel() {
 		return infoPanel;
 	}
+
+	public XYSeriesCollection getXYSeriesCollection() {
+		Plot plot = this.chart.getPlot();
+		if (plot instanceof XYPlot) {
+			XYPlot xyplot = (XYPlot) plot;
+			return (XYSeriesCollection)xyplot.getDataset();
+		}
+		return null;
+	}
+
 }

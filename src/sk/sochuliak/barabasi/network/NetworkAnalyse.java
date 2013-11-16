@@ -71,7 +71,8 @@ public class NetworkAnalyse {
 			double clusterSum = 0d;
 			for (Integer nodeId : nodes) {
 				int indexOfNode = NetworkUtils.getIndexOfNodeIdInNodesIdsArray(nodeId, nodesIds);
-				clusterSum += clustersRatios[indexOfNode];
+				double clusterRatio = clustersRatios[indexOfNode];
+				clusterSum += clusterRatio;
 			}
 			double averageCluster = clusterSum / (double) nodes.size();
 			result.put(degree, averageCluster);

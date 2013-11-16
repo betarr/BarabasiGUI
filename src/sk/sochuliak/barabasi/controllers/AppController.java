@@ -101,8 +101,8 @@ public class AppController {
 		for (int i = 0; i < degreesList.size(); i++) {
 			double x = (double) degreesList.get(i);
 			double y = degreeDistribution.get(degreesList.get(i));
-			double logx = (x == 0) ? 0 : Math.log10(x);
-			double logy = (y == 0) ? 0 : Math.log10(y);
+			double logx = (x == 0) ? 0 : Math.log(x);
+			double logy = (y == 0) ? 0 : Math.log(y);
 			points.add(new double[]{logx, logy});
 			System.out.println(String.valueOf(logx).replace('.', ',') + "\t" + String.valueOf(logy).replace('.', ','));
 		}
@@ -131,8 +131,8 @@ public class AppController {
 		for (int i = 0; i < degreesList.size();i++) {
 			double x = (double) degreesList.get(i);
 			double y = clusterDistribution.get(degreesList.get(i));
-			double logx = (x == 0) ? 0 : Math.log10(x);
-			double logy = (y == 0) ? 0 : Math.log10(y);
+			double logx = (x == 0) ? 0 : Math.log(x);
+			double logy = (y == 0) ? 0 : Math.log(y);
 			points.add(new double[]{logx, logy});
 			System.out.println(String.valueOf(logx).replace('.', ',') + "\t" + String.valueOf(logy).replace('.', ','));
 		}
