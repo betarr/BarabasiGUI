@@ -21,6 +21,11 @@ public class ClusterDistributionFrame extends DistributionFrame {
 	public void onMouseClickedOnItemEntity(double x, double y) {
 		ControllerService.getClusterDistributionController().setPointToInfoPanel(x, y);
 	}
+
+	@Override
+	public void onFrameClosed() {
+		ControllerService.getAppController().setClusterDistributionShowed(false);
+	}
 	
 	
 

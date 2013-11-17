@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -214,8 +215,18 @@ public abstract class DistributionFrame extends JFrame {
 		return null;
 	}
 	
+	@Override
+	protected void processWindowEvent(WindowEvent e) {
+		if (e.getID() == WindowEvent.WINDOW_CLOSING) {
+			onFrameClosed();
+		}
+		super.processWindowEvent(e);
+	}
+	
 	public abstract DistributionInfoPanel getInstanceOfDistributionInfoPanel();
 	
 	public abstract void onMouseClickedOnItemEntity(double x, double y);
+	
+	public abstract void onFrameClosed();
 
 }

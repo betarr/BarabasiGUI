@@ -93,7 +93,10 @@ public class BMenuBar extends JMenuBar {
 					
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
-						ControllerService.getAppController().showDegreeDistributionDialog();
+						if (!ControllerService.getAppController().isDegreeDistributionShowed()) { 
+							ControllerService.getAppController().showDegreeDistributionDialog();
+							ControllerService.getAppController().setDegreeDistributionShowed(true);
+						}
 					}
 				});
 		this.showDegreeDistributionMenuItem.setEnabled(false);
@@ -106,7 +109,10 @@ public class BMenuBar extends JMenuBar {
 					
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
-						ControllerService.getAppController().showClusterDistributionDialog();
+						if (!ControllerService.getAppController().isClusterDistributionShowed()) {
+							ControllerService.getAppController().showClusterDistributionDialog();
+							ControllerService.getAppController().setClusterDistributionShowed(true);
+						}
 					}
 				});
 		this.showClusterDistributionMenuItem.setEnabled(false);

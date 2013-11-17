@@ -21,4 +21,9 @@ public class DegreeDistributionFrame extends DistributionFrame {
 	public void onMouseClickedOnItemEntity(double x, double y) {
 		ControllerService.getDegreeDistributionController().setPointToInfoPanel(x, y);
 	}
+
+	@Override
+	public void onFrameClosed() {
+		ControllerService.getAppController().setDegreeDistributionShowed(false);
+	}
 }

@@ -26,6 +26,9 @@ public class AppController {
 	private MainScreen mainScreen;
 	
 	private NewGraphProgressBar newGraphProgressBarDialog = null;
+	
+	private boolean degreeDistributionShowed = false;
+	private boolean clusterDistributionShowed = false;
 
 	public AppController(MainScreen mainScreen) {
 		this.mainScreen = mainScreen;
@@ -148,4 +151,21 @@ public class AppController {
 		ControllerService.registerClusterDistributionController(new DistributionController(frame));
 		frame.setVisible(true);
 	}
+
+	public boolean isDegreeDistributionShowed() {
+		return degreeDistributionShowed;
+	}
+
+	public void setDegreeDistributionShowed(boolean degreeDistributionShowed) {
+		this.degreeDistributionShowed = degreeDistributionShowed;
+	}
+
+	public boolean isClusterDistributionShowed() {
+		return clusterDistributionShowed;
+	}
+
+	public void setClusterDistributionShowed(boolean clusterDistributionShowed) {
+		this.clusterDistributionShowed = clusterDistributionShowed;
+	}
+
 }
