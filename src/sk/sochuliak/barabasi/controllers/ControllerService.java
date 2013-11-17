@@ -6,20 +6,20 @@ public class ControllerService {
 
 	private static AppController appController = null;	
 	private static NetworkController networkController = null;
-	private static DegreeDistributionController degreeDistributionController = null;
-	private static ClusterDistributionController clusterDistributionController = null;
+	private static DistributionController degreeDistributionController = null;
+	private static DistributionController clusterDistributionController = null;
 	
 	public static void init(MainScreen mainScreen) {
 		ControllerService.appController = new AppController(mainScreen);
 		ControllerService.networkController = new NetworkController();
 	}
 	
-	public static void registerDegreeDistributionController(DegreeDistributionController degreeDistributionController) {
-		ControllerService.degreeDistributionController = degreeDistributionController;
+	public static void registerDegreeDistributionController(DistributionController distributionController) {
+		ControllerService.degreeDistributionController = distributionController;
 	}
 	
-	public static void registerClusterDistributionController(ClusterDistributionController clusterDistributionController) {
-		ControllerService.clusterDistributionController = clusterDistributionController;
+	public static void registerClusterDistributionController(DistributionController distributionController) {
+		ControllerService.clusterDistributionController = distributionController;
 	}
 	
 	public static AppController getAppController() {
@@ -30,11 +30,11 @@ public class ControllerService {
 		return ControllerService.networkController;
 	}
 	
-	public static DegreeDistributionController getDegreeDistributionController() {
+	public static DistributionController getDegreeDistributionController() {
 		return ControllerService.degreeDistributionController;
 	}
 	
-	public static ClusterDistributionController getClusterDistributionController() {
+	public static DistributionController getClusterDistributionController() {
 		return ControllerService.clusterDistributionController;
 	}
 }

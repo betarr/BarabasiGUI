@@ -9,30 +9,30 @@ import org.jfree.data.xy.XYDataItem;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-import sk.sochuliak.barabasi.analysisdialogs.DegreeDistributionFrame;
+import sk.sochuliak.barabasi.analysisdialogs.DistributionFrame;
 import sk.sochuliak.barabasi.gui.Strings;
 
-public class DegreeDistributionController {
+public class DistributionController {
 
-	private DegreeDistributionFrame degreeDistributionFrame = null;
-
-	public DegreeDistributionController(DegreeDistributionFrame degreeDistributionDialog) {
-		this.degreeDistributionFrame = degreeDistributionDialog;
+	private DistributionFrame distributionFrame = null;
+	
+	public DistributionController(DistributionFrame distributionFrame) {
+		this.distributionFrame = distributionFrame;
 	}
 	
 	public void setPointToInfoPanel(double x, double y) {
-		this.degreeDistributionFrame.getInfoPanel().setPoint(x, y);
+		this.distributionFrame.getInfoPanel().setPoint(x, y);
 	}
 	
 	public void drawLinearRegression(XYSeries series) {
-		this.degreeDistributionFrame.drawLinearRegression(series);
+		this.distributionFrame.drawLinearRegression(series);
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	public void doRegression(double startX, double endX) {
-		XYSeriesCollection dataset = this.degreeDistributionFrame.getXYSeriesCollection();
+		XYSeriesCollection dataset = this.distributionFrame.getXYSeriesCollection();
 		XYSeries seriesTemp = new XYSeries("temp");
-		for (XYDataItem dataItem : (List<XYDataItem>) dataset.getSeries(0).getItems()) {
+		for (XYDataItem dataItem: (List<XYDataItem>) dataset.getSeries(0).getItems()) {
 			if (dataItem.getXValue() >= startX && dataItem.getXValue() <= endX) {
 				seriesTemp.add(dataItem);
 			}
@@ -42,6 +42,6 @@ public class DegreeDistributionController {
 		double[] aAndB = Regression.getOLSRegression(datasetTemp, 0);
 		XYSeries series = DatasetUtilities.sampleFunction2DToSeries(new LineFunction2D(aAndB[0], aAndB[1]), startX, endX, 2, Strings.LINEAR_REGRESION);
 		this.drawLinearRegression(series);
-		this.degreeDistributionFrame.getInfoPanel().setK(aAndB[1]);
+		this.distributionFrame.getInfoPanel().setK(aAndB[1]);
 	}
 }

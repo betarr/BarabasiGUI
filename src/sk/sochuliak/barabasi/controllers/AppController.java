@@ -104,7 +104,6 @@ public class AppController {
 			double logx = (x == 0) ? 0 : Math.log(x);
 			double logy = (y == 0) ? 0 : Math.log(y);
 			points.add(new double[]{logx, logy});
-			System.out.println(String.valueOf(logx).replace('.', ',') + "\t" + String.valueOf(logy).replace('.', ','));
 		}
 		
 		Map<String, List<double[]>> data = new HashMap<String, List<double[]>>();
@@ -117,7 +116,7 @@ public class AppController {
 				.setData(data);
 		
 		DegreeDistributionFrame frame = new DegreeDistributionFrame(Strings.DEGREE_DISTRIBUTION_GRAPH_TITLE, this.mainScreen, config);
-		ControllerService.registerDegreeDistributionController(new DegreeDistributionController(frame));
+		ControllerService.registerDegreeDistributionController(new DistributionController(frame));
 		frame.setVisible(true);
 	}
 	
@@ -134,7 +133,6 @@ public class AppController {
 			double logx = (x == 0) ? 0 : Math.log(x);
 			double logy = (y == 0) ? 0 : Math.log(y);
 			points.add(new double[]{logx, logy});
-			System.out.println(String.valueOf(logx).replace('.', ',') + "\t" + String.valueOf(logy).replace('.', ','));
 		}
 		
 		Map<String, List<double[]>> data = new HashMap<String, List<double[]>>();
@@ -147,7 +145,7 @@ public class AppController {
 				.setData(data);
 		
 		ClusterDistributionFrame frame = new ClusterDistributionFrame(Strings.CLUSTER_DISTRIBUTION_GRAPH_TITLE, this.mainScreen, config);
-		ControllerService.registerClusterDistributionController(new ClusterDistributionController(frame));
+		ControllerService.registerClusterDistributionController(new DistributionController(frame));
 		frame.setVisible(true);
 	}
 }
