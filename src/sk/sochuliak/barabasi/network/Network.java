@@ -40,6 +40,13 @@ public interface Network {
 	public int[] calculateAdjacentNodesClusterDriven(int nodesCount);
 	
 	/**
+	 * Returns array of nodes ids calculated by random.
+	 * @param edgesCount
+	 * @return
+	 */
+	public int[] calculateAdjacentNodesRandomDriven(int nodesCount);
+	
+	/**
 	 * Returns number of existing edges between nodes identified by their ids.
 	 * 
 	 * @param nodesIds Ids of nodes

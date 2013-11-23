@@ -81,6 +81,11 @@ public class ArrayNetwork extends NetworkBase implements Network {
 	public int[] calculateAdjacentNodesClusterDriven(int nodesCount) {
 		return this.calculateAdjacentNodesClusterDriven(nodesCount, this);
 	}
+	
+	@Override
+	public int[] calculateAdjacentNodesRandomDriven(int nodesCount) {
+		return this.calculateAdjacentNodesRandomDriven(nodesCount, this);
+	}
 
 	@Override
 	public int getNumberOfExistingEdgesBetweenNodes(int[] nodesIds) {

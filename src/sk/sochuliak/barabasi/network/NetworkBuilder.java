@@ -29,6 +29,8 @@ public class NetworkBuilder extends SwingWorker<Void, Void> {
 				adjacentNodes = network.calculateAdjacentNodesDegreeDriven(config.getEdgesCount());
 			} else if (this.config.getMethodDriven() == NetworkBuildConfiguration.CLUSTER_DRIVEN) {
 				adjacentNodes = network.calculateAdjacentNodesClusterDriven(config.getEdgesCount());
+			} else if (this.config.getMethodDriven() == NetworkBuildConfiguration.RANDOM_DRIVEN) {
+				adjacentNodes = network.calculateAdjacentNodesRandomDriven(config.getEdgesCount());
 			} else {
 				System.err.println("Method driven '" + config.getMethodDriven() + "' is not valid");
 				this.resultNetwork = null;

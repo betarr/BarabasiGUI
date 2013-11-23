@@ -4,6 +4,7 @@ public class NetworkBuildConfiguration {
 	
 	public static final int DEGREE_DRIVEN = 0;
 	public static final int CLUSTER_DRIVEN = 1;
+	public static final int RANDOM_DRIVEN = 2;
 	
 	public static NetworkBuildConfiguration getInstance() {
 		return new NetworkBuildConfiguration();

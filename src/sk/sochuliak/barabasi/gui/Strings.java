@@ -20,7 +20,9 @@ public class Strings {
 	public static String MENU_CLOSE_PROGRAM = "Zavrieù";
 	public static String MENU_ANALYSIS = "Anal˝za";
 	public static String MENU_ANALYSIS_SHOW_DEGREE_DISTRIBUTION = "Distrib˙cia stupÚa uzlov";
+	public static String MENU_ANALYSIS_SHOW_DEGREE_DISTRIBUTION_LOG = "Distrib˙cia stupÚa uzlov - Log";
 	public static String MENU_ANALYSIS_SHOW_CLUSTER_DISTRIBUTION = "Distrib˙cia klasterizaËn˝ch koeficientov";
+	public static String MENU_ANALYSIS_SHOW_CLUSTER_DISTRIBUTION_LOG = "Distrib˙cia klasterizaËn˝ch koeficientov - Log";
 	
 	// BASIC PROPERTIES
 	public static String BASIC_PROPERTIES_TITLE = "Z·kladnÈ vlastnosti siete";
@@ -35,6 +37,7 @@ public class Strings {
 	public static String NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT = "Rast riaden˝";
 	public static String NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_NODE_DEGREE = "StupÚom uzla";
 	public static String NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_NODE_CLASTER = "Klasteriz·ciou";
+	public static String NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_RANDOM = "N·hodne";
 	public static String NEW_GRAPH_DIALOG_NUMBER_OF_NODES = "PoËet uzlov";
 	public static String NEW_GRAPH_DIALOG_NUMBER_OF_EDGES = "PoËet susedov uzla";
 	
@@ -47,10 +50,14 @@ public class Strings {
 	public static String DEGREE_DISTRIBUTION_GRAPH_X_AXIS_LABEL = "StupeÚ vrchola";
 	public static String DEGREE_DISTRIBUTION_GRAPH_Y_AXIS_LABEL = "Normovan˝ # uzlov stupÚa k";
 	
+	public static String DEGREE_DISTRIBUTION_LOG_GRAPH_TITLE = "Distrib˙cia stupÚa uzlov - Log";
+	
 	// CLUSTER DISTRIBUTION GRAPH
 	public static String CLUSTER_DISTRIBUTION_GRAPH_TITLE = "Distrib˙cia klasteriz·cie uzlov";
 	public static String CLUSTER_DISTRIBUTION_GRAPH_X_AXIS_LABEL = "StupeÚ vrchola";
 	public static String CLUSTER_DISTRIBUTION_GRAPH_Y_AXIS_LABEL = "Priemern· klasteriz·cia uzla stupÚa k";
+	
+	public static String CLUSTER_DISTRIBUTION_LOG_GRAPH_TITLE = "Distrib˙cia klasteriz·cie uzlov - Log";
 	
 	// INFO
 	public static String INFO_PANEL_START_POINT = "ZaËiatoËn˝ bod";

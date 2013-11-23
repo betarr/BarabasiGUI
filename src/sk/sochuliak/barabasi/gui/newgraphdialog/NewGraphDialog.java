@@ -67,7 +67,8 @@ public class NewGraphDialog extends JDialog {
 		
 		String[] growthManagementOptions = new String[] {
 			Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_NODE_DEGREE,
-			Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_NODE_CLASTER
+			Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_NODE_CLASTER,
+			Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_RANDOM
 		};
 		this.growthManagementComboBox = new JComboBox<String>(growthManagementOptions);
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -126,7 +127,8 @@ public class NewGraphDialog extends JDialog {
 				
 				StringBuilder sb = new StringBuilder();
 				if (!growthManagementComboValue.equals(Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_NODE_DEGREE)
-						&& !growthManagementComboValue.equals(Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_NODE_CLASTER)) {
+						&& !growthManagementComboValue.equals(Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_NODE_CLASTER)
+						&& !growthManagementComboValue.equals(Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_RANDOM)) {
 					sb.append(Strings.WRONG_VALUE).append(": ").append(Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT).append("\n");
 				}
 				if (!CommonUtils.isPositiveNumber(numberOfNodesText)) {
@@ -141,6 +143,8 @@ public class NewGraphDialog extends JDialog {
 						growthManagement = NetworkBuildConfiguration.DEGREE_DRIVEN;
 					} else if (growthManagementComboValue.equals(Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_NODE_CLASTER)) {
 						growthManagement = NetworkBuildConfiguration.CLUSTER_DRIVEN;
+					} else if (growthManagementComboValue.equals(Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_RANDOM)) {
+						growthManagement = NetworkBuildConfiguration.RANDOM_DRIVEN;
 					}
 					int numberOfNodes = Integer.parseInt(numberOfNodesText);
 					int numberOfEdges = Integer.parseInt(numberOfEdgesText);

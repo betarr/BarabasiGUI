@@ -23,7 +23,9 @@ public class BMenuBar extends JMenuBar {
 	
 	JMenuItem exportMenuItem = null;
 	JMenuItem showDegreeDistributionMenuItem = null;
+	JMenuItem showDegreeDistributionLogMenuItem = null;
 	JMenuItem showClusterDistributionMenuItem = null;
+	JMenuItem showClusterDistributionLogMenuItem = null;
 	
 	public BMenuBar() {
 		this.add(this.buildProgramMenu());
@@ -94,14 +96,31 @@ public class BMenuBar extends JMenuBar {
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
 						if (!ControllerService.getAppController().isDegreeDistributionShowed()) { 
-							ControllerService.getAppController().showDegreeDistributionDialog();
+							ControllerService.getAppController().showDegreeDistributionDialog(false);
 							ControllerService.getAppController().setDegreeDistributionShowed(true);
 						}
 					}
 				});
 		this.showDegreeDistributionMenuItem.setEnabled(false);
 		BMenuBar.registerMenuItemEnabledOnGraphBuilded(this.showDegreeDistributionMenuItem);
-		analysisMenu.add(showDegreeDistributionMenuItem);
+		analysisMenu.add(this.showDegreeDistributionMenuItem);
+		
+		this.showDegreeDistributionLogMenuItem = this.buildJMenuItem(Strings.MENU_ANALYSIS_SHOW_DEGREE_DISTRIBUTION_LOG,
+				KeyStroke.getKeyStroke(KeyEvent.VK_D, Event.ALT_MASK),
+				new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						if (!ControllerService.getAppController().isDegreeDistributionLogShowed()) { 
+							ControllerService.getAppController().showDegreeDistributionDialog(true);
+							ControllerService.getAppController().setDegreeDistributionLogShowed(true);
+						}
+					}
+			
+				});
+		this.showDegreeDistributionLogMenuItem.setEnabled(false);
+		BMenuBar.registerMenuItemEnabledOnGraphBuilded(this.showDegreeDistributionLogMenuItem);
+		analysisMenu.add(this.showDegreeDistributionLogMenuItem);
 		
 		this.showClusterDistributionMenuItem = this.buildJMenuItem(Strings.MENU_ANALYSIS_SHOW_CLUSTER_DISTRIBUTION,
 				KeyStroke.getKeyStroke(KeyEvent.VK_C, Event.CTRL_MASK),
@@ -110,16 +129,30 @@ public class BMenuBar extends JMenuBar {
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
 						if (!ControllerService.getAppController().isClusterDistributionShowed()) {
-							ControllerService.getAppController().showClusterDistributionDialog();
+							ControllerService.getAppController().showClusterDistributionDialog(false);
 							ControllerService.getAppController().setClusterDistributionShowed(true);
 						}
 					}
 				});
 		this.showClusterDistributionMenuItem.setEnabled(false);
 		BMenuBar.registerMenuItemEnabledOnGraphBuilded(this.showClusterDistributionMenuItem);
-		analysisMenu.add(showClusterDistributionMenuItem);
+		analysisMenu.add(this.showClusterDistributionMenuItem);
 		
-		
+		this.showClusterDistributionLogMenuItem = this.buildJMenuItem(Strings.MENU_ANALYSIS_SHOW_CLUSTER_DISTRIBUTION_LOG,
+				KeyStroke.getKeyStroke(KeyEvent.VK_C, Event.ALT_MASK),
+				new ActionListener() {
+			
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						if (!ControllerService.getAppController().isClusterDistributionLogShowed()) {
+							ControllerService.getAppController().showClusterDistributionDialog(true);
+							ControllerService.getAppController().setClusterDistributionLogShowed(true);
+						}
+					}
+				});
+		this.showClusterDistributionLogMenuItem.setEnabled(false);
+		BMenuBar.registerMenuItemEnabledOnGraphBuilded(this.showClusterDistributionLogMenuItem);
+		analysisMenu.add(this.showClusterDistributionLogMenuItem);
 		return analysisMenu;
 	}
 	

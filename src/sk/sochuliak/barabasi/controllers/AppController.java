@@ -10,9 +10,9 @@ import java.util.Set;
 
 import javax.swing.JFileChooser;
 
-import sk.sochuliak.barabasi.analysisdialogs.ClusterDistributionFrame;
-import sk.sochuliak.barabasi.analysisdialogs.DegreeDistributionFrame;
-import sk.sochuliak.barabasi.analysisdialogs.GraphConfiguration;
+import sk.sochuliak.barabasi.analysisframes.ClusterDistributionFrame;
+import sk.sochuliak.barabasi.analysisframes.DegreeDistributionFrame;
+import sk.sochuliak.barabasi.analysisframes.GraphConfiguration;
 import sk.sochuliak.barabasi.gui.Strings;
 import sk.sochuliak.barabasi.gui.mainscreen.BMenuBar;
 import sk.sochuliak.barabasi.gui.mainscreen.BasicPropertiesTable;
@@ -28,7 +28,9 @@ public class AppController {
 	private NewGraphProgressBar newGraphProgressBarDialog = null;
 	
 	private boolean degreeDistributionShowed = false;
+	private boolean degreeDistributionLogShowed = false;
 	private boolean clusterDistributionShowed = false;
+	private boolean clusterDistributionLogShowed = false;
 
 	public AppController(MainScreen mainScreen) {
 		this.mainScreen = mainScreen;
@@ -94,7 +96,7 @@ public class AppController {
 		this.mainScreen.getBasicPropertiesPanel().getBasicPropertiesTable().setValue(BasicPropertiesTable.AVERAGE_CLUSTER_RATIO, averageClusterRatio);
 	}
 	
-	public void showDegreeDistributionDialog() {
+	public void showDegreeDistributionDialog(boolean useLogScale) {
 		Map<Integer, Double> degreeDistribution = ControllerService.getNetworkController().getNetworkDegreeDistribution();
 		Set<Integer> degrees = degreeDistribution.keySet();
 		List<Integer> degreesList = new ArrayList<Integer>(degrees);
@@ -104,26 +106,30 @@ public class AppController {
 		for (int i = 0; i < degreesList.size(); i++) {
 			double x = (double) degreesList.get(i);
 			double y = degreeDistribution.get(degreesList.get(i));
-			double logx = (x == 0) ? 0 : Math.log(x);
-			double logy = (y == 0) ? 0 : Math.log(y);
-			points.add(new double[]{logx, logy});
+			if (useLogScale) {
+				x = (x == 0) ? 0 : Math.log(x);
+				y = (y == 0) ? 0 : Math.log(y);
+			}
+			points.add(new double[]{x, y});
 		}
 		
+		String graphTitle = useLogScale ? Strings.DEGREE_DISTRIBUTION_LOG_GRAPH_TITLE
+				: Strings.DEGREE_DISTRIBUTION_GRAPH_TITLE;
 		Map<String, List<double[]>> data = new HashMap<String, List<double[]>>();
-		data.put(Strings.DEGREE_DISTRIBUTION_GRAPH_TITLE, points);
+		data.put(graphTitle, points);
 		
 		GraphConfiguration config = GraphConfiguration.getInstance()
-				.setTitle(Strings.DEGREE_DISTRIBUTION_GRAPH_TITLE)
+				.setTitle(graphTitle)
 				.setxAxisLabel(Strings.DEGREE_DISTRIBUTION_GRAPH_X_AXIS_LABEL)
 				.setyAxisLabel(Strings.DEGREE_DISTRIBUTION_GRAPH_Y_AXIS_LABEL)
 				.setData(data);
 		
-		DegreeDistributionFrame frame = new DegreeDistributionFrame(Strings.DEGREE_DISTRIBUTION_GRAPH_TITLE, this.mainScreen, config);
+		DegreeDistributionFrame frame = new DegreeDistributionFrame(graphTitle, this.mainScreen, config, useLogScale);
 		ControllerService.registerDegreeDistributionController(new DistributionController(frame));
 		frame.setVisible(true);
 	}
 	
-	public void showClusterDistributionDialog() {
+	public void showClusterDistributionDialog(boolean useLogScale) {
 		Map<Integer, Double> clusterDistribution = ControllerService.getNetworkController().getNetworkClusterDistribution();
 		Set<Integer> degrees = clusterDistribution.keySet();
 		List<Integer> degreesList = new ArrayList<Integer>(degrees);
@@ -133,21 +139,25 @@ public class AppController {
 		for (int i = 0; i < degreesList.size();i++) {
 			double x = (double) degreesList.get(i);
 			double y = clusterDistribution.get(degreesList.get(i));
-			double logx = (x == 0) ? 0 : Math.log(x);
-			double logy = (y == 0) ? 0 : Math.log(y);
-			points.add(new double[]{logx, logy});
+			if (useLogScale) {
+				x = (x == 0) ? 0 : Math.log(x);
+				y = (y == 0) ? 0 : Math.log(y);
+			}
+			points.add(new double[]{x, y});
 		}
 		
+		String graphTitle = useLogScale ? Strings.CLUSTER_DISTRIBUTION_LOG_GRAPH_TITLE
+				: Strings.CLUSTER_DISTRIBUTION_GRAPH_TITLE;
 		Map<String, List<double[]>> data = new HashMap<String, List<double[]>>();
-		data.put(Strings.CLUSTER_DISTRIBUTION_GRAPH_TITLE, points);
+		data.put(graphTitle, points);
 		
 		GraphConfiguration config = GraphConfiguration.getInstance()
-				.setTitle(Strings.CLUSTER_DISTRIBUTION_GRAPH_TITLE)
+				.setTitle(graphTitle)
 				.setxAxisLabel(Strings.CLUSTER_DISTRIBUTION_GRAPH_X_AXIS_LABEL)
 				.setyAxisLabel(Strings.CLUSTER_DISTRIBUTION_GRAPH_Y_AXIS_LABEL)
 				.setData(data);
 		
-		ClusterDistributionFrame frame = new ClusterDistributionFrame(Strings.CLUSTER_DISTRIBUTION_GRAPH_TITLE, this.mainScreen, config);
+		ClusterDistributionFrame frame = new ClusterDistributionFrame(graphTitle, this.mainScreen, config, useLogScale);
 		ControllerService.registerClusterDistributionController(new DistributionController(frame));
 		frame.setVisible(true);
 	}
@@ -160,6 +170,14 @@ public class AppController {
 		this.degreeDistributionShowed = degreeDistributionShowed;
 	}
 
+	public boolean isDegreeDistributionLogShowed() {
+		return degreeDistributionLogShowed;
+	}
+
+	public void setDegreeDistributionLogShowed(boolean degreeDistributionLogShowed) {
+		this.degreeDistributionLogShowed = degreeDistributionLogShowed;
+	}
+
 	public boolean isClusterDistributionShowed() {
 		return clusterDistributionShowed;
 	}
@@ -168,4 +186,11 @@ public class AppController {
 		this.clusterDistributionShowed = clusterDistributionShowed;
 	}
 
+	public boolean isClusterDistributionLogShowed() {
+		return clusterDistributionLogShowed;
+	}
+
+	public void setClusterDistributionLogShowed(boolean clusterDistributionLogShowed) {
+		this.clusterDistributionLogShowed = clusterDistributionLogShowed;
+	}
 }

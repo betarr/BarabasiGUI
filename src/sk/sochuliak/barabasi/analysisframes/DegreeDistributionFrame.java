@@ -1,4 +1,4 @@
-package sk.sochuliak.barabasi.analysisdialogs;
+package sk.sochuliak.barabasi.analysisframes;
 
 import java.awt.Component;
 
@@ -8,8 +8,11 @@ public class DegreeDistributionFrame extends DistributionFrame {
 
 	private static final long serialVersionUID = 1L;
 	
-	public DegreeDistributionFrame(String title, Component owner, GraphConfiguration config) {
+	private boolean logScaleUsed = false;
+	
+	public DegreeDistributionFrame(String title, Component owner, GraphConfiguration config, boolean logScaleUsed) {
 		super(title, owner, config);
+		this.logScaleUsed = logScaleUsed;
 	}
 
 	@Override
@@ -24,6 +27,10 @@ public class DegreeDistributionFrame extends DistributionFrame {
 
 	@Override
 	public void onFrameClosed() {
-		ControllerService.getAppController().setDegreeDistributionShowed(false);
+		if (this.logScaleUsed) {
+			ControllerService.getAppController().setDegreeDistributionLogShowed(false);
+		} else {
+			ControllerService.getAppController().setDegreeDistributionShowed(false);
+		}
 	}
 }

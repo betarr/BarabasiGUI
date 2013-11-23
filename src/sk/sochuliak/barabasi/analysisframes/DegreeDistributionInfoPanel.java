@@ -1,4 +1,4 @@
-package sk.sochuliak.barabasi.analysisdialogs;
+package sk.sochuliak.barabasi.analysisframes;
 
 import sk.sochuliak.barabasi.controllers.ControllerService;
 

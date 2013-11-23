@@ -47,6 +47,11 @@ public class MapNetwork extends NetworkBase implements Network {
 		int[] adjacentNodesClusterDriven = this.calculateAdjacentNodesClusterDriven(nodesCount, this);
 		return adjacentNodesClusterDriven;
 	}
+	
+	@Override
+	public int[] calculateAdjacentNodesRandomDriven(int nodesCount) {
+		return this.calculateAdjacentNodesRandomDriven(nodesCount, this);
+	}
 
 	@Override
 	public int getNumberOfExistingEdgesBetweenNodes(int[] nodesIds) {

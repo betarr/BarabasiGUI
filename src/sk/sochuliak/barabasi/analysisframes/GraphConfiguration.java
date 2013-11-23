@@ -1,4 +1,4 @@
-package sk.sochuliak.barabasi.analysisdialogs;
+package sk.sochuliak.barabasi.analysisframes;
 
 import java.util.HashMap;
 import java.util.List;
