@@ -125,7 +125,11 @@ public class AppController {
 				.setData(data);
 		
 		DegreeDistributionFrame frame = new DegreeDistributionFrame(graphTitle, this.mainScreen, config, useLogScale);
-		ControllerService.registerDegreeDistributionController(new DistributionController(frame));
+		if (useLogScale) {
+			ControllerService.registerDegreeDistributionLogController(new DistributionController(frame));
+		} else {
+			ControllerService.registerDegreeDistributionController(new DistributionController(frame));
+		}
 		frame.setVisible(true);
 	}
 	
@@ -158,7 +162,11 @@ public class AppController {
 				.setData(data);
 		
 		ClusterDistributionFrame frame = new ClusterDistributionFrame(graphTitle, this.mainScreen, config, useLogScale);
-		ControllerService.registerClusterDistributionController(new DistributionController(frame));
+		if (useLogScale) {
+			ControllerService.registerClusterDistributionLogController(new DistributionController(frame));
+		} else {
+			ControllerService.registerClusterDistributionController(new DistributionController(frame));
+		}
 		frame.setVisible(true);
 	}
 

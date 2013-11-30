@@ -42,8 +42,11 @@ public abstract class DistributionFrame extends JFrame {
 	
 	private JFreeChart chart = null;
 	
-	public DistributionFrame(String title, Component owner, GraphConfiguration config) {
+	private boolean logScaleUsed = false;
+	
+	public DistributionFrame(String title, Component owner, GraphConfiguration config, boolean logScaleUsed) {
 		this.owner = owner;
+		this.logScaleUsed = logScaleUsed;
 		
 		this.setTitle(title);
 		this.setSize(MainGuiConfiguration.ANALYSIS_GRAPH_SIZE);
@@ -53,7 +56,7 @@ public abstract class DistributionFrame extends JFrame {
 		
 		this.add(this.buildChartPanel(config), BorderLayout.CENTER);
 		
-		this.infoPanel = this.getInstanceOfDistributionInfoPanel();
+		this.infoPanel = this.getInstanceOfDistributionInfoPanel(logScaleUsed);
 		this.add(this.infoPanel, BorderLayout.EAST);
 	}
 	
@@ -223,7 +226,11 @@ public abstract class DistributionFrame extends JFrame {
 		super.processWindowEvent(e);
 	}
 	
-	public abstract DistributionInfoPanel getInstanceOfDistributionInfoPanel();
+	public boolean isLogScaleUsed() {
+		return logScaleUsed;
+	}
+
+	public abstract DistributionInfoPanel getInstanceOfDistributionInfoPanel(boolean logScaleUsed);
 	
 	public abstract void onMouseClickedOnItemEntity(double x, double y);
 	

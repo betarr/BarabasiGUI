@@ -4,15 +4,23 @@ import sk.sochuliak.barabasi.controllers.ControllerService;
 
 public class ClusterDistributionInfoPanel extends DistributionInfoPanel {
 
-private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	
-	public static DistributionInfoPanel getInstance() {
-		return new ClusterDistributionInfoPanel();
+	public ClusterDistributionInfoPanel(boolean logScaleUsed) {
+		super(logScaleUsed);
+	}
+
+	public static DistributionInfoPanel getInstance(boolean logScaleUsed) {
+		return new ClusterDistributionInfoPanel(logScaleUsed);
 	}
 	
 	@Override
 	public void onCalculateButtonClick(double[] startPoint, double[] endPoint) {
-		ControllerService.getClusterDistributionController().doRegression(startPoint[0], endPoint[0]);
+		if (this.isLogScaleUsed()) {
+			ControllerService.getClusterDistributionLogController().doRegression(startPoint[0], endPoint[0]);
+		} else {
+			ControllerService.getClusterDistributionController().doRegression(startPoint[0], endPoint[0]);
+		}
 	}
 
 }

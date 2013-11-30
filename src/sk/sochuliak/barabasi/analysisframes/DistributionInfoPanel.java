@@ -17,6 +17,8 @@ public abstract class DistributionInfoPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	
+	private boolean logScaleUsed = false;
+	
 	private JLabel startPointLabel = new JLabel(Strings.INFO_PANEL_START_POINT);
 	private JLabel endPointLabel = new JLabel(Strings.INFO_PANEL_END_POINT);
 	
@@ -45,7 +47,9 @@ public abstract class DistributionInfoPanel extends JPanel {
 	private int pointSetterCounter = 0;
 	
 
-	public DistributionInfoPanel() {
+	public DistributionInfoPanel(boolean logScaleUsed) {
+		this.logScaleUsed = logScaleUsed;
+		
 		this.setLayout(new GridBagLayout());
 		this.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
@@ -163,5 +167,9 @@ public abstract class DistributionInfoPanel extends JPanel {
 		return constrains;
 	}
 	
+	public boolean isLogScaleUsed() {
+		return logScaleUsed;
+	}
+
 	public abstract void onCalculateButtonClick(double[] startPoint, double[] endPoint);
 }
