@@ -1,4 +1,4 @@
-package sk.sochuliak.barabasi.gui.newgraphdialog2;
+package sk.sochuliak.barabasi.gui.newgraphdialog;
 
 import java.util.ArrayList;
 import java.util.List;

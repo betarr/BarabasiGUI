@@ -1,4 +1,4 @@
-package sk.sochuliak.barabasi.gui.newgraphdialog2;
+package sk.sochuliak.barabasi.gui.newgraphdialog;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
