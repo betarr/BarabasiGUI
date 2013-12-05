@@ -150,7 +150,7 @@ public class NewGraphDialog extends JDialog {
 					int numberOfEdges = Integer.parseInt(numberOfEdgesText);
 					
 					dispose();
-					ControllerService.getNetworkController().buildNetwork(growthManagement, numberOfNodes, numberOfEdges);
+//					ControllerService.getNetworkController().buildNetwork(growthManagement, numberOfNodes, numberOfEdges);
 				} else {
 					JOptionPane.showMessageDialog(
 							owner,

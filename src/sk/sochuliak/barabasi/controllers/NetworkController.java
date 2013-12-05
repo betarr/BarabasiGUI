@@ -7,6 +7,7 @@ import java.util.Map;
 import sk.sochuliak.barabasi.network.MapNetwork;
 import sk.sochuliak.barabasi.network.Network;
 import sk.sochuliak.barabasi.network.NetworkAnalyse;
+import sk.sochuliak.barabasi.network.NetworkBuildConfiguration2;
 
 
 public class NetworkController {
@@ -26,8 +27,8 @@ public class NetworkController {
 		}
 	}
 	
-	public void buildNetwork(int growthManagement, int numberOfNodes, int numberOfEdges) {
-		ControllerService.getAppController().showNewGraphProgressBarAndBuildNetwork(growthManagement, numberOfNodes, numberOfEdges);
+	public void buildNetwork(NetworkBuildConfiguration2 config) {
+		ControllerService.getAppController().showNewGraphProgressBarAndBuildNetwork(config);
 	}
 	
 	public int getTotalNodesCount() {

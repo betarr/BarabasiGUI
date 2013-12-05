@@ -41,6 +41,16 @@ public class Strings {
 	public static String NEW_GRAPH_DIALOG_NUMBER_OF_NODES = "PoËet uzlov";
 	public static String NEW_GRAPH_DIALOG_NUMBER_OF_EDGES = "PoËet susedov uzla";
 	
+	public static String NEW_GRAPH_DIALOG_BASIC_INFO = "Z·kladnÈ inform·cie";
+	public static String NEW_GRAPH_DIALOG_ADVANCED_INFO = "PokroËilÈ inform·cie";
+	public static String NEW_GRAPH_DIALOG_PREDEFINED = "PreddefinovanÈ";
+	public static String NEW_GRAPH_DIALOG_OWN = "VlastnÈ";
+	public static String NEW_GRAPH_DIALOG_FIRST_EDGE = "Prv· hrana";
+	public static String NEW_GRAPH_DIALOG_CONNECTING_WITH_SELECTING_NODE = "Prip·janie k susedom vybranÈho uzla";
+	public static String NEW_GRAPH_DIALOG_EDGES = "Hr·n";
+	public static String NEW_GRAPH_DIALOG_ADD = "Pridaù";
+	public static String NEW_GRAPH_DIALOG_REMOVE = "Odobraù";
+	
 	// NEW GRAPH PROGRESS BAR
 	public static String NEW_GRAPH_PROGRESS_BAR_TITLE = "Generujem graf";
 	public static String NEW_GRAPH_PROGRESS_BAR_LABEL = "Generujem graf";

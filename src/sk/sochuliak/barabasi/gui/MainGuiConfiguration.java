@@ -6,7 +6,7 @@ public class MainGuiConfiguration {
 
 	public static final Dimension APPLICATION_SIZE = new Dimension(800, 600);
 	
-	public static final Dimension NEW_GRAPH_DIALOG_SIZE = new Dimension(300, 200);
+	public static final Dimension NEW_GRAPH_DIALOG_SIZE = new Dimension(400, 500);
 	
 	public static final Dimension NEW_GRAPH_PROGRESS_BAR_DIALOG_SIZE = new Dimension(200, 100);
 	

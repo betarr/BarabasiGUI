@@ -1,4 +1,4 @@
-package sk.sochuliak.barabasi.gui.newgraphdialog;
+package sk.sochuliak.barabasi.gui.newgraphdialog2;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -44,6 +44,7 @@ public class NewGraphProgressBar extends JDialog implements PropertyChangeListen
 		this.networkBuilder = new NetworkBuilder(config);
 		this.networkBuilder.addPropertyChangeListener(this);
 		this.networkBuilder.execute();
+		
 	}
 
 	@Override

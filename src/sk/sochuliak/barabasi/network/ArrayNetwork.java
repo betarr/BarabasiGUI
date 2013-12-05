@@ -73,18 +73,33 @@ public class ArrayNetwork extends NetworkBase implements Network {
 	}
 
 	@Override
-	public int[] calculateAdjacentNodesDegreeDriven(int nodesCount) {
-		return this.calculateAdjacentNodesDegreeDriven(nodesCount, this);
+	public int getNodeToConnectDegreeDriven() {
+		return this.getNodeToConnectDegreeDriven();
 	}
 
 	@Override
-	public int[] calculateAdjacentNodesClusterDriven(int nodesCount) {
-		return this.calculateAdjacentNodesClusterDriven(nodesCount, this);
+	public int getNodeToConnectDegreeDriven(int[] nodesIds) {
+		return this.getNodeToConnectDegreeDriven(nodesIds);
 	}
-	
+
 	@Override
-	public int[] calculateAdjacentNodesRandomDriven(int nodesCount) {
-		return this.calculateAdjacentNodesRandomDriven(nodesCount, this);
+	public int getNodeToConnectClusterDriven() {
+		return this.getNodeToConnectClusterDriven();
+	}
+
+	@Override
+	public int getNodeToConnectClusterDriven(int[] nodesIds) {
+		return this.getNodeToConnectClusterDriven(nodesIds);
+	}
+
+	@Override
+	public int getNodeToConnectRandomDriven() {
+		return this.getNodeToConnectRandomDriven();
+	}
+
+	@Override
+	public int getNodeToConnectRandomDriven(int[] nodesIds) {
+		return this.getNodeToConnectRandomDriven(nodesIds);
 	}
 
 	@Override
@@ -187,6 +202,12 @@ public class ArrayNetwork extends NetworkBase implements Network {
 		return result / 2;
 	}
 	
+	@Override
+	public int getNumberOfEdges(int[] nodesIds) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	@Override
 	public double getClusterRatio(int nodeId) {
 		int[] adjacentNodesIds = this.getAdjacentNodesIds(nodeId);

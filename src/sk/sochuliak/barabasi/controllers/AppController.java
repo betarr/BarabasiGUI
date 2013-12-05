@@ -17,8 +17,9 @@ import sk.sochuliak.barabasi.gui.Strings;
 import sk.sochuliak.barabasi.gui.mainscreen.BMenuBar;
 import sk.sochuliak.barabasi.gui.mainscreen.BasicPropertiesTable;
 import sk.sochuliak.barabasi.gui.mainscreen.MainScreen;
-import sk.sochuliak.barabasi.gui.newgraphdialog.NewGraphDialog;
+import sk.sochuliak.barabasi.gui.newgraphdialog2.NewGraphDialog;
 import sk.sochuliak.barabasi.gui.newgraphdialog.NewGraphProgressBar;
+import sk.sochuliak.barabasi.network.NetworkBuildConfiguration2;
 import sk.sochuliak.barabasi.utils.NetworkImportExport;
 
 public class AppController {
@@ -45,8 +46,9 @@ public class AppController {
 		dialog.setVisible(true);
 	}
 	
-	public void showNewGraphProgressBarAndBuildNetwork(int growthManagement, int numberOfNodes, int numberOfEdges) {
-		this.newGraphProgressBarDialog = new NewGraphProgressBar(this.mainScreen, growthManagement, numberOfNodes, numberOfEdges);
+	public void showNewGraphProgressBarAndBuildNetwork(
+			NetworkBuildConfiguration2 config) {
+		this.newGraphProgressBarDialog = new NewGraphProgressBar(this.mainScreen, config);
 		this.newGraphProgressBarDialog.setVisible(true);
 	}
 	
@@ -169,7 +171,7 @@ public class AppController {
 		}
 		frame.setVisible(true);
 	}
-
+	
 	public boolean isDegreeDistributionShowed() {
 		return degreeDistributionShowed;
 	}

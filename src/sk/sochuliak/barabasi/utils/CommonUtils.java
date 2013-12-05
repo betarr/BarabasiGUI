@@ -1,5 +1,8 @@
 package sk.sochuliak.barabasi.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CommonUtils {
 
 	/**
@@ -39,5 +42,21 @@ public class CommonUtils {
 			sum += value;
 		}
 		return sum;
+	}
+
+	public static List<Integer> convertIntArrayToList(int[] arr) {
+		List<Integer> result = new ArrayList<Integer>();
+		for (int value : arr) {
+			result.add(value);
+		}
+		return result;
+	}
+	
+	public static int[] converIntListToArray(List<Integer> list) {
+		int[] result = new int[list.size()];
+		for (int i = 0; i < list.size(); i++) {
+			result[i] = list.get(i);
+		}
+		return result;
 	}
 }

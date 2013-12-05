@@ -37,20 +37,33 @@ public class MapNetwork extends NetworkBase implements Network {
 	}
 
 	@Override
-	public int[] calculateAdjacentNodesDegreeDriven(int nodesCount) {
-		int[] adjacentNodesDegreeDriven = this.calculateAdjacentNodesDegreeDriven(nodesCount, this);
-		return adjacentNodesDegreeDriven;
+	public int getNodeToConnectDegreeDriven() {
+		return this.getNodeToConnectDegreeDriven(this);
 	}
 
 	@Override
-	public int[] calculateAdjacentNodesClusterDriven(int nodesCount) {
-		int[] adjacentNodesClusterDriven = this.calculateAdjacentNodesClusterDriven(nodesCount, this);
-		return adjacentNodesClusterDriven;
+	public int getNodeToConnectDegreeDriven(int[] nodesIds) {
+		return this.getNodeToConnectDegreeDriven(nodesIds, this);
 	}
-	
+
 	@Override
-	public int[] calculateAdjacentNodesRandomDriven(int nodesCount) {
-		return this.calculateAdjacentNodesRandomDriven(nodesCount, this);
+	public int getNodeToConnectClusterDriven() {
+		return this.getNodeToConnectClusterDriven(this);
+	}
+
+	@Override
+	public int getNodeToConnectClusterDriven(int[] nodesIds) {
+		return this.getNodeToConnectClusterDriven(nodesIds, this);
+	}
+
+	@Override
+	public int getNodeToConnectRandomDriven() {
+		return this.getNodeToConnectRandomDriven(this);
+	}
+
+	@Override
+	public int getNodeToConnectRandomDriven(int[] nodesIds) {
+		return this.getNodeToConnectRandomDriven(nodesIds, this);
 	}
 
 	@Override
@@ -124,6 +137,15 @@ public class MapNetwork extends NetworkBase implements Network {
 		return result / 2;
 	}
 	
+	@Override
+	public int getNumberOfEdges(int[] nodesIds) {
+		int result = 0;
+		for (Integer nodeId : nodesIds) {
+			result += this.nodes.get(nodeId).size();
+		}
+		return result / 2;
+	}
+
 	@Override
 	public double getClusterRatio(int nodeId) {
 		int[] adjacentNodesIds = this.getAdjacentNodesIds(nodeId);

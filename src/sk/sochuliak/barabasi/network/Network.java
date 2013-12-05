@@ -4,8 +4,6 @@ import java.util.List;
 
 public interface Network {
 
-	//public static Network buildNetwork(int edgeCount, int nodesCount);
-	
 	/**
 	 * Adds node to network identified by its id.
 	 * 
@@ -24,27 +22,43 @@ public interface Network {
 	public boolean addEdge(int nodeId1, int nodeId2);
 	
 	/**
-	 * Returns array of node ids calculated by probability depending on degree of nodes. 
-	 * 
-	 * @param nodesCount Number of calculated nodes
-	 * @return array of node ids
+	 * Returns id of node by degree driven method.
+	 * @return ID of node
 	 */
-	public int[] calculateAdjacentNodesDegreeDriven(int nodesCount);
+	public int getNodeToConnectDegreeDriven();
 	
 	/**
-	 * Returns array of node ids calculated by probability depending on cluster of nodes.
-	 * 
-	 * @param nodesCount Number of calculated nodes 
-	 * @return array of node ids
+	 * Returns id of node by degree driven method.
+	 * @param nodesIds ids from which result will be given
+	 * @return ID of node
 	 */
-	public int[] calculateAdjacentNodesClusterDriven(int nodesCount);
+	public int getNodeToConnectDegreeDriven(int[] nodesIds);
 	
 	/**
-	 * Returns array of nodes ids calculated by random.
-	 * @param edgesCount
-	 * @return
+	 * Returns id of node by cluster driven method.
+	 * @return ID of node
 	 */
-	public int[] calculateAdjacentNodesRandomDriven(int nodesCount);
+	public int getNodeToConnectClusterDriven();
+	
+	/**
+	 * Returns id of node by cluster driven method.
+	 * @param nodesIds ids from which result will be given
+	 * @return ID of node
+	 */
+	public int getNodeToConnectClusterDriven(int[] nodesIds);
+	
+	/**
+	 * Returns id of node by random driven method.
+	 * @return ID of node
+	 */
+	public int getNodeToConnectRandomDriven();
+	
+	/**
+	 * Returns id of node by random driven method.
+	 * @param nodesIds ids from which result will be given
+	 * @return ID of node
+	 */
+	public int getNodeToConnectRandomDriven(int[] nodesIds);
 	
 	/**
 	 * Returns number of existing edges between nodes identified by their ids.
@@ -110,9 +124,16 @@ public interface Network {
 	
 	/**
 	 * Returns number of edges in network.
+	 * @return numberOfEdges
 	 */
 	public int getNumberOfEdges();
 	
+	/**
+	 * Returns number of edges of specific nodes.
+	 * @param nodesIds IDs of nodes
+	 * @return number of edges
+	 */
+	public int getNumberOfEdges(int[] nodesIds);
 	
 	/**
 	 * Returns cluster ratio of given node identified by its id.

@@ -14,6 +14,7 @@ import javax.swing.KeyStroke;
 
 import sk.sochuliak.barabasi.controllers.ControllerService;
 import sk.sochuliak.barabasi.gui.Strings;
+import sk.sochuliak.barabasi.utils.GuiUtils;
 
 public class BMenuBar extends JMenuBar {
 	
@@ -35,7 +36,7 @@ public class BMenuBar extends JMenuBar {
 	private JMenu buildProgramMenu() {
 		JMenu programMenu = new JMenu(Strings.MENU_PROGRAM);
 		
-		programMenu.add(this.buildJMenuItem(Strings.MENU_NEW_NETWORK, 
+		programMenu.add(GuiUtils.buildJMenuItem(Strings.MENU_NEW_NETWORK, 
 				KeyStroke.getKeyStroke(KeyEvent.VK_N, Event.CTRL_MASK),
 				new ActionListener() {
 					
@@ -47,7 +48,7 @@ public class BMenuBar extends JMenuBar {
 		
 		programMenu.addSeparator();
 		
-		programMenu.add(this.buildJMenuItem(Strings.MENU_IMPORT,
+		programMenu.add(GuiUtils.buildJMenuItem(Strings.MENU_IMPORT,
 				KeyStroke.getKeyStroke(KeyEvent.VK_I, Event.CTRL_MASK),
 				new ActionListener() {
 					
@@ -57,7 +58,7 @@ public class BMenuBar extends JMenuBar {
 					}
 				}));
 		
-		this.exportMenuItem = this.buildJMenuItem(Strings.MENU_EXPORT,
+		this.exportMenuItem = GuiUtils.buildJMenuItem(Strings.MENU_EXPORT,
 				KeyStroke.getKeyStroke(KeyEvent.VK_E, Event.CTRL_MASK),
 				new ActionListener() {
 					
@@ -72,7 +73,7 @@ public class BMenuBar extends JMenuBar {
 		
 		programMenu.addSeparator();
 		
-		programMenu.add(this.buildJMenuItem(Strings.MENU_CLOSE_PROGRAM,
+		programMenu.add(GuiUtils.buildJMenuItem(Strings.MENU_CLOSE_PROGRAM,
 				KeyStroke.getKeyStroke(KeyEvent.VK_Q, Event.CTRL_MASK),
 				new ActionListener() {
 					
@@ -89,7 +90,7 @@ public class BMenuBar extends JMenuBar {
 	private JMenu buildAnalysisMenu() {
 		JMenu analysisMenu = new JMenu(Strings.MENU_ANALYSIS);
 		
-		this.showDegreeDistributionMenuItem = this.buildJMenuItem(Strings.MENU_ANALYSIS_SHOW_DEGREE_DISTRIBUTION, 
+		this.showDegreeDistributionMenuItem = GuiUtils.buildJMenuItem(Strings.MENU_ANALYSIS_SHOW_DEGREE_DISTRIBUTION, 
 				KeyStroke.getKeyStroke(KeyEvent.VK_D, Event.CTRL_MASK),
 				new ActionListener() {
 					
@@ -105,7 +106,7 @@ public class BMenuBar extends JMenuBar {
 		BMenuBar.registerMenuItemEnabledOnGraphBuilded(this.showDegreeDistributionMenuItem);
 		analysisMenu.add(this.showDegreeDistributionMenuItem);
 		
-		this.showDegreeDistributionLogMenuItem = this.buildJMenuItem(Strings.MENU_ANALYSIS_SHOW_DEGREE_DISTRIBUTION_LOG,
+		this.showDegreeDistributionLogMenuItem = GuiUtils.buildJMenuItem(Strings.MENU_ANALYSIS_SHOW_DEGREE_DISTRIBUTION_LOG,
 				KeyStroke.getKeyStroke(KeyEvent.VK_D, Event.ALT_MASK),
 				new ActionListener() {
 
@@ -122,7 +123,7 @@ public class BMenuBar extends JMenuBar {
 		BMenuBar.registerMenuItemEnabledOnGraphBuilded(this.showDegreeDistributionLogMenuItem);
 		analysisMenu.add(this.showDegreeDistributionLogMenuItem);
 		
-		this.showClusterDistributionMenuItem = this.buildJMenuItem(Strings.MENU_ANALYSIS_SHOW_CLUSTER_DISTRIBUTION,
+		this.showClusterDistributionMenuItem = GuiUtils.buildJMenuItem(Strings.MENU_ANALYSIS_SHOW_CLUSTER_DISTRIBUTION,
 				KeyStroke.getKeyStroke(KeyEvent.VK_C, Event.CTRL_MASK),
 				new ActionListener() {
 					
@@ -138,7 +139,7 @@ public class BMenuBar extends JMenuBar {
 		BMenuBar.registerMenuItemEnabledOnGraphBuilded(this.showClusterDistributionMenuItem);
 		analysisMenu.add(this.showClusterDistributionMenuItem);
 		
-		this.showClusterDistributionLogMenuItem = this.buildJMenuItem(Strings.MENU_ANALYSIS_SHOW_CLUSTER_DISTRIBUTION_LOG,
+		this.showClusterDistributionLogMenuItem = GuiUtils.buildJMenuItem(Strings.MENU_ANALYSIS_SHOW_CLUSTER_DISTRIBUTION_LOG,
 				KeyStroke.getKeyStroke(KeyEvent.VK_C, Event.ALT_MASK),
 				new ActionListener() {
 			
@@ -154,13 +155,6 @@ public class BMenuBar extends JMenuBar {
 		BMenuBar.registerMenuItemEnabledOnGraphBuilded(this.showClusterDistributionLogMenuItem);
 		analysisMenu.add(this.showClusterDistributionLogMenuItem);
 		return analysisMenu;
-	}
-	
-	private JMenuItem buildJMenuItem(String label, KeyStroke keyStroke, ActionListener listener) {
-		JMenuItem jMenuItem = new JMenuItem(label);
-		jMenuItem.setAccelerator(keyStroke);
-		jMenuItem.addActionListener(listener);
-		return jMenuItem;
 	}
 	
 	public static void registerMenuItemEnabledOnGraphBuilded(JMenuItem jMenuItem) {
