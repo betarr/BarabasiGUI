@@ -26,7 +26,7 @@ import sk.sochuliak.barabasi.controllers.ControllerService;
 import sk.sochuliak.barabasi.gui.MainGuiConfiguration;
 import sk.sochuliak.barabasi.gui.Strings;
 import sk.sochuliak.barabasi.network.EdgeConnectingMethodRowConfig;
-import sk.sochuliak.barabasi.network.NetworkBuildConfiguration2;
+import sk.sochuliak.barabasi.network.NetworkBuildConfiguration;
 import sk.sochuliak.barabasi.utils.CommonUtils;
 import sk.sochuliak.barabasi.utils.GuiUtils;
 
@@ -199,7 +199,7 @@ public class NewGraphDialog extends JDialog {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				NetworkBuildConfiguration2 config = new NetworkBuildConfiguration2();
+				NetworkBuildConfiguration config = new NetworkBuildConfiguration();
 				StringBuffer sb = new StringBuffer();
 				String numberOfNodesText = numberOfNodesTextField.getText();
 				if (!CommonUtils.isPositiveNumber(numberOfNodesText)) {
@@ -224,18 +224,18 @@ public class NewGraphDialog extends JDialog {
 					if (sb.toString().equals("")) {
 						int numberOfNodes = Integer.parseInt(numberOfNodesText);
 						int numberOfEdges = Integer.parseInt(numberOfEdgesText);
-						config = NetworkBuildConfiguration2.createDefaultConfig(growthManagement, numberOfNodes, numberOfEdges);
+						config = NetworkBuildConfiguration.createDefaultConfig(growthManagement, numberOfNodes, numberOfEdges);
 					}
 				} else { // own configuration
 					config.setNumberOfNodes(Integer.parseInt(numberOfNodesText));
 					String firstEdgeConnectingMethodComboBoxValue = (String) firstEdgeConnectingMethodComboBox.getSelectedItem();
 					int firstEdgeConnectingMethod = -1;
 					if (firstEdgeConnectingMethodComboBoxValue.equals(Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_NODE_DEGREE)) {
-						firstEdgeConnectingMethod = NetworkBuildConfiguration2.DEGREE_DRIVEN;
+						firstEdgeConnectingMethod = NetworkBuildConfiguration.DEGREE_DRIVEN;
 					} else if (firstEdgeConnectingMethodComboBoxValue.equals(Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_NODE_CLASTER)) {
-						firstEdgeConnectingMethod = NetworkBuildConfiguration2.CLUSTER_DRIVEN;
+						firstEdgeConnectingMethod = NetworkBuildConfiguration.CLUSTER_DRIVEN;
 					} else if (firstEdgeConnectingMethodComboBoxValue.equals(Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_RANDOM)) {
-						firstEdgeConnectingMethod = NetworkBuildConfiguration2.RANDOM_DRIVEN;
+						firstEdgeConnectingMethod = NetworkBuildConfiguration.RANDOM_DRIVEN;
 					}
 					config.setFirstEdgeConnecting(firstEdgeConnectingMethod);
 					try {

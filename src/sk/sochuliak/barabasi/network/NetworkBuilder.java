@@ -11,10 +11,10 @@ import sk.sochuliak.barabasi.utils.CommonUtils;
 
 public class NetworkBuilder extends SwingWorker<Void, Void> {
 	
-	private NetworkBuildConfiguration2 config = null;
+	private NetworkBuildConfiguration config = null;
 	private Network resultNetwork = null;
 	
-	public NetworkBuilder(NetworkBuildConfiguration2 config) {
+	public NetworkBuilder(NetworkBuildConfiguration config) {
 		this.config = config;
 	}
 

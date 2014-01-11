@@ -19,7 +19,7 @@ import sk.sochuliak.barabasi.gui.mainscreen.BasicPropertiesTable;
 import sk.sochuliak.barabasi.gui.mainscreen.MainScreen;
 import sk.sochuliak.barabasi.gui.newgraphdialog.NewGraphDialog;
 import sk.sochuliak.barabasi.gui.newgraphdialog.NewGraphProgressBar;
-import sk.sochuliak.barabasi.network.NetworkBuildConfiguration2;
+import sk.sochuliak.barabasi.network.NetworkBuildConfiguration;
 import sk.sochuliak.barabasi.utils.NetworkImportExport;
 
 public class AppController {
@@ -47,7 +47,7 @@ public class AppController {
 	}
 	
 	public void showNewGraphProgressBarAndBuildNetwork(
-			NetworkBuildConfiguration2 config) {
+			NetworkBuildConfiguration config) {
 		this.newGraphProgressBarDialog = new NewGraphProgressBar(this.mainScreen, config);
 		this.newGraphProgressBarDialog.setVisible(true);
 	}

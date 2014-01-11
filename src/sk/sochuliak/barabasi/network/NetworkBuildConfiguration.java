@@ -1,34 +1,69 @@
 package sk.sochuliak.barabasi.network;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class NetworkBuildConfiguration {
 	
 	public static final int DEGREE_DRIVEN = 0;
 	public static final int CLUSTER_DRIVEN = 1;
 	public static final int RANDOM_DRIVEN = 2;
 	
+	private Network network = new MapNetwork();
+	
+	private int numberOfNodes = 0;
+	
+	private int firstEdgeConnecting = 0;
+	
+	private List<EdgeConnectingMethodRowConfig> edgeConnectingMethodRowConfigs = null;
+	
 	public static NetworkBuildConfiguration getInstance() {
 		return new NetworkBuildConfiguration();
 	}
 	
-	/**
-	 * Network
-	 */
-	private Network network = null;
-	
-	/**
-	 * Number of nodes to be added to network.
-	 */
-	private int nodesCount = 500;
-	
-	/**
-	 * Number of edges that new node uses for connecting to network.
-	 */
-	private int edgesCount = 2;
-	
-	/**
-	 * Method of connecting new nodes to network.
-	 */
-	private int methodDriven = NetworkBuildConfiguration.DEGREE_DRIVEN;
+	public static NetworkBuildConfiguration createDefaultConfig(int method, int numberOfNodes, int numberOfEdges) {
+		NetworkBuildConfiguration config = new NetworkBuildConfiguration();
+		config.setNumberOfNodes(numberOfNodes);
+		config.setFirstEdgeConnecting(method);
+		
+		EdgeConnectingMethodRowConfig rowConfig = new EdgeConnectingMethodRowConfig();
+		rowConfig.setConnectingMethod(EdgeConnectingMethodRowConfig.RANDOM_DRIVEN);
+		rowConfig.setNumberOfEdges(numberOfEdges-1);
+		
+		List<EdgeConnectingMethodRowConfig> rowsConfig = new ArrayList<EdgeConnectingMethodRowConfig>();
+		rowsConfig.add(rowConfig);
+		
+		config.setEdgeConnectingMethodRowConfigs(rowsConfig);
+		return config;
+	}
+
+	public int getNumberOfNodes() {
+		return numberOfNodes;
+	}
+
+	public NetworkBuildConfiguration setNumberOfNodes(int numberOfNodes) {
+		this.numberOfNodes = numberOfNodes;
+		return this;
+	}
+
+	public int getFirstEdgeConnecting() {
+		return firstEdgeConnecting;
+	}
+
+	public NetworkBuildConfiguration setFirstEdgeConnecting(int firstEdgeConnecting) {
+		this.firstEdgeConnecting = firstEdgeConnecting;
+		return this;
+	}
+
+	public List<EdgeConnectingMethodRowConfig> getEdgeConnectingMethodRowConfigs() {
+		return edgeConnectingMethodRowConfigs;
+	}
+
+	public NetworkBuildConfiguration setEdgeConnectingMethodRowConfigs(
+			List<EdgeConnectingMethodRowConfig> edgeConnectingMethodRowConfigs) {
+		this.edgeConnectingMethodRowConfigs = edgeConnectingMethodRowConfigs;
+		return this;
+	}
 
 	public Network getNetwork() {
 		return network;
@@ -39,31 +74,15 @@ public class NetworkBuildConfiguration {
 		return this;
 	}
 
-	public int getNodesCount() {
-		return nodesCount;
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		sb.append(this.getClass().getName()).append("\n");
+		sb.append("\t").append("Number of nodes: ").append(this.getNumberOfNodes()).append("\n");
+		sb.append("\t").append("First edge connecting: ").append(this.getFirstEdgeConnecting()).append("\n");
+		sb.append("\t").append("Other edges connecting").append("\n");
+		for (EdgeConnectingMethodRowConfig rowConfig : this.getEdgeConnectingMethodRowConfigs()) {
+			sb.append("\t\t").append(rowConfig).append("\n");
+		}
+		return sb.toString();
 	}
-
-	public NetworkBuildConfiguration setNodesCount(int nodesCount) {
-		this.nodesCount = nodesCount;
-		return this;
-	}
-
-	public int getEdgesCount() {
-		return edgesCount;
-	}
-
-	public NetworkBuildConfiguration setEdgesCount(int edgesCount) {
-		this.edgesCount = edgesCount;
-		return this;
-	}
-
-	public int getMethodDriven() {
-		return methodDriven;
-	}
-
-	public NetworkBuildConfiguration setMethodDriven(int methodDriven) {
-		this.methodDriven = methodDriven;
-		return this;
-	}
-	
 }

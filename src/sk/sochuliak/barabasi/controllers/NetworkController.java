@@ -7,7 +7,7 @@ import java.util.Map;
 import sk.sochuliak.barabasi.network.MapNetwork;
 import sk.sochuliak.barabasi.network.Network;
 import sk.sochuliak.barabasi.network.NetworkAnalyse;
-import sk.sochuliak.barabasi.network.NetworkBuildConfiguration2;
+import sk.sochuliak.barabasi.network.NetworkBuildConfiguration;
 
 
 public class NetworkController {
@@ -27,7 +27,7 @@ public class NetworkController {
 		}
 	}
 	
-	public void buildNetwork(NetworkBuildConfiguration2 config) {
+	public void buildNetwork(NetworkBuildConfiguration config) {
 		ControllerService.getAppController().showNewGraphProgressBarAndBuildNetwork(config);
 	}
 	

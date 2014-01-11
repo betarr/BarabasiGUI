@@ -13,7 +13,7 @@ import javax.swing.JProgressBar;
 
 import sk.sochuliak.barabasi.gui.MainGuiConfiguration;
 import sk.sochuliak.barabasi.gui.Strings;
-import sk.sochuliak.barabasi.network.NetworkBuildConfiguration2;
+import sk.sochuliak.barabasi.network.NetworkBuildConfiguration;
 import sk.sochuliak.barabasi.network.NetworkBuilder;
 
 public class NewGraphProgressBar extends JDialog implements PropertyChangeListener {
@@ -23,7 +23,7 @@ public class NewGraphProgressBar extends JDialog implements PropertyChangeListen
 	JProgressBar progressBar = null;
 	NetworkBuilder networkBuilder = null;
 	
-	public NewGraphProgressBar(Component owner, NetworkBuildConfiguration2 config) {
+	public NewGraphProgressBar(Component owner, NetworkBuildConfiguration config) {
 		this.setTitle(Strings.NEW_GRAPH_PROGRESS_BAR_TITLE);
 		this.setSize(MainGuiConfiguration.NEW_GRAPH_PROGRESS_BAR_DIALOG_SIZE);
 		this.setModalityType(ModalityType.APPLICATION_MODAL);
