@@ -11,6 +11,8 @@ public class NetworkBuildConfiguration {
 	
 	private Network network = new MapNetwork();
 	
+	private String name = "";
+	
 	private int numberOfNodes = 0;
 	
 	private int firstEdgeConnecting = 0;
@@ -21,8 +23,9 @@ public class NetworkBuildConfiguration {
 		return new NetworkBuildConfiguration();
 	}
 	
-	public static NetworkBuildConfiguration createDefaultConfig(int method, int numberOfNodes, int numberOfEdges) {
+	public static NetworkBuildConfiguration createDefaultConfig(int method, String name, int numberOfNodes, int numberOfEdges) {
 		NetworkBuildConfiguration config = new NetworkBuildConfiguration();
+		config.setName(name);
 		config.setNumberOfNodes(numberOfNodes);
 		config.setFirstEdgeConnecting(method);
 		
@@ -35,6 +38,15 @@ public class NetworkBuildConfiguration {
 		
 		config.setEdgeConnectingMethodRowConfigs(rowsConfig);
 		return config;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public NetworkBuildConfiguration setName(String name) {
+		this.name = name;
+		return this;
 	}
 
 	public int getNumberOfNodes() {
@@ -77,6 +89,7 @@ public class NetworkBuildConfiguration {
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		sb.append(this.getClass().getName()).append("\n");
+		sb.append("\t").append("Name: ").append(this.getName()).append("\n");
 		sb.append("\t").append("Number of nodes: ").append(this.getNumberOfNodes()).append("\n");
 		sb.append("\t").append("First edge connecting: ").append(this.getFirstEdgeConnecting()).append("\n");
 		sb.append("\t").append("Other edges connecting").append("\n");

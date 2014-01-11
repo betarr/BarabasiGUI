@@ -52,6 +52,8 @@ public class NewGraphDialog extends JDialog {
 	private JRadioButton predefinedRadioButton = new JRadioButton(Strings.NEW_GRAPH_DIALOG_PREDEFINED, true);
 	private JRadioButton ownRadioButton = new JRadioButton(Strings.NEW_GRAPH_DIALOG_OWN, false);
 	
+	private JTextField graphNameTextField = new JTextField();
+	
 	private JTextField numberOfNodesTextField = new JTextField();
 	
 	private JComboBox<String> predefinedGrowthMethodComboBox = new JComboBox<String>(this.predefinedGrowthMethods);
@@ -98,39 +100,43 @@ public class NewGraphDialog extends JDialog {
 		this.addToPanel(new JLabel(Strings.NEW_GRAPH_DIALOG_BASIC_INFO), contentPanel, constrains, 0, 0, 8, 1);
 		
 		// line 1
-		this.addToPanel(new JLabel(Strings.NEW_GRAPH_DIALOG_NUMBER_OF_NODES), contentPanel, constrains, 0, 1, 4, 1);
-		this.addToPanel(this.numberOfNodesTextField, contentPanel, constrains, 4, 1, 4, 1);
+		this.addToPanel(new JLabel(Strings.NEW_GRAPH_DIALOG_NAME), contentPanel, constrains, 0, 1, 4, 1);
+		this.addToPanel(this.graphNameTextField, contentPanel, constrains, 4, 1, 4, 1);
 		
 		// line 2
-		this.addToPanel(new JLabel(""), contentPanel, constrains, 0, 2, 8, 1);
+		this.addToPanel(new JLabel(Strings.NEW_GRAPH_DIALOG_NUMBER_OF_NODES), contentPanel, constrains, 0, 2, 4, 1);
+		this.addToPanel(this.numberOfNodesTextField, contentPanel, constrains, 4, 2, 4, 1);
 		
 		// line 3
-		this.addToPanel(new JLabel(Strings.NEW_GRAPH_DIALOG_ADVANCED_INFO), contentPanel, constrains, 0, 3, 8, 1);
+		this.addToPanel(new JLabel(""), contentPanel, constrains, 0, 3, 8, 1);
 		
 		// line 4
-		this.addToPanel(this.predefinedRadioButton, contentPanel, constrains, 0, 4, 8, 1);
+		this.addToPanel(new JLabel(Strings.NEW_GRAPH_DIALOG_ADVANCED_INFO), contentPanel, constrains, 0, 4, 8, 1);
 		
 		// line 5
-		this.addToPanel(new JLabel(Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT), contentPanel, constrains, 0, 5, 4, 1);
-		this.addToPanel(this.predefinedGrowthMethodComboBox, contentPanel, constrains, 4, 5, 4, 1);
+		this.addToPanel(this.predefinedRadioButton, contentPanel, constrains, 0, 5, 8, 1);
 		
 		// line 6
-		this.addToPanel(new JLabel(Strings.NEW_GRAPH_DIALOG_NUMBER_OF_EDGES), contentPanel, constrains, 0, 6, 4, 1);
-		this.addToPanel(this.numberOfEdgesTextField, contentPanel, constrains, 4, 6, 4, 1);
+		this.addToPanel(new JLabel(Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT), contentPanel, constrains, 0, 6, 4, 1);
+		this.addToPanel(this.predefinedGrowthMethodComboBox, contentPanel, constrains, 4, 6, 4, 1);
 		
 		// line 7
-		this.addToPanel(this.ownRadioButton, contentPanel, constrains, 0, 7, 8, 1);
+		this.addToPanel(new JLabel(Strings.NEW_GRAPH_DIALOG_NUMBER_OF_EDGES), contentPanel, constrains, 0, 7, 4, 1);
+		this.addToPanel(this.numberOfEdgesTextField, contentPanel, constrains, 4, 7, 4, 1);
 		
 		// line 8
-		this.addToPanel(new JLabel(Strings.NEW_GRAPH_DIALOG_FIRST_EDGE), contentPanel, constrains, 0, 8, 4, 1);
-		this.addToPanel(this.firstEdgeConnectingMethodComboBox, contentPanel, constrains, 4, 8, 4, 1);
+		this.addToPanel(this.ownRadioButton, contentPanel, constrains, 0, 8, 8, 1);
 		
 		// line 9
-		this.addToPanel(new JLabel(Strings.NEW_GRAPH_DIALOG_CONNECTING_WITH_SELECTING_NODE), contentPanel, constrains, 0, 9, 7, 1);
-		this.addToPanel(this.addOwnConnectionMethodButton, contentPanel, constrains, 7, 9, 1, 1);
+		this.addToPanel(new JLabel(Strings.NEW_GRAPH_DIALOG_FIRST_EDGE), contentPanel, constrains, 0, 9, 4, 1);
+		this.addToPanel(this.firstEdgeConnectingMethodComboBox, contentPanel, constrains, 4, 9, 4, 1);
 		
 		// line 10
-		this.addToPanel(this.edgeConnectingMethodPanel, contentPanel, constrains, 0, 10, 8, 5);
+		this.addToPanel(new JLabel(Strings.NEW_GRAPH_DIALOG_CONNECTING_WITH_SELECTING_NODE), contentPanel, constrains, 0, 10, 7, 1);
+		this.addToPanel(this.addOwnConnectionMethodButton, contentPanel, constrains, 7, 10, 1, 1);
+		
+		// line 11
+		this.addToPanel(this.edgeConnectingMethodPanel, contentPanel, constrains, 0, 11, 8, 5);
 		
 		this.enableOwnConnectingMethod(false);
 		this.createEventsOnContentPanel();
@@ -201,6 +207,10 @@ public class NewGraphDialog extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				NetworkBuildConfiguration config = new NetworkBuildConfiguration();
 				StringBuffer sb = new StringBuffer();
+				String graphNameText = graphNameTextField.getText();
+				if (graphNameText.equals("")) {
+					sb.append(Strings.WRONG_VALUE).append(": ").append(Strings.NEW_GRAPH_DIALOG_NAME).append("\n");
+				}
 				String numberOfNodesText = numberOfNodesTextField.getText();
 				if (!CommonUtils.isPositiveNumber(numberOfNodesText)) {
 					sb.append(Strings.WRONG_VALUE).append(": ").append(Strings.NEW_GRAPH_DIALOG_NUMBER_OF_NODES).append("\n");
@@ -224,7 +234,7 @@ public class NewGraphDialog extends JDialog {
 					if (sb.toString().equals("")) {
 						int numberOfNodes = Integer.parseInt(numberOfNodesText);
 						int numberOfEdges = Integer.parseInt(numberOfEdgesText);
-						config = NetworkBuildConfiguration.createDefaultConfig(growthManagement, numberOfNodes, numberOfEdges);
+						config = NetworkBuildConfiguration.createDefaultConfig(growthManagement, graphNameText, numberOfNodes, numberOfEdges);
 					}
 				} else { // own configuration
 					config.setNumberOfNodes(Integer.parseInt(numberOfNodesText));

@@ -24,6 +24,12 @@ public class Strings {
 	public static String MENU_ANALYSIS_SHOW_CLUSTER_DISTRIBUTION = "Distrib˙cia klasterizaËn˝ch koeficientov";
 	public static String MENU_ANALYSIS_SHOW_CLUSTER_DISTRIBUTION_LOG = "Distrib˙cia klasterizaËn˝ch koeficientov - Log";
 	
+	// GRAPHS LIST
+	public static String GRAPHS_LIST_GRAPHS_LIST = "Zoznam grafov";
+	public static String GRAPHS_LIST_ADD_GRAPH = "Pridaj";
+	public static String GRAPHS_LIST_SHOW_INFO_BUTTON = "Zobraz Info >";
+	public static String GRAPHS_LIST_REMOVE_GRAPH = "Odstr·Ú";
+	
 	// BASIC PROPERTIES
 	public static String BASIC_PROPERTIES_TITLE = "Z·kladnÈ vlastnosti siete";
 	public static String BASIC_PROPERTIES_PROPERTY_NAME = "Vlastnosù";
@@ -34,6 +40,7 @@ public class Strings {
 	
 	// NEW GRAPH DIALOG
 	public static String NEW_GRAPH_DIALOG_TITLE = "Nov˝ graf";
+	public static String NEW_GRAPH_DIALOG_NAME = "N·zov grafu";
 	public static String NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT = "Rast riaden˝";
 	public static String NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_NODE_DEGREE = "StupÚom uzla";
 	public static String NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_NODE_CLASTER = "Klasteriz·ciou";

@@ -1,5 +1,6 @@
 package sk.sochuliak.barabasi.gui.mainscreen;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
@@ -11,14 +12,17 @@ public class MainScreen extends JFrame {
 	
 	private BMenuBar bMenuBar = null;
 	private BasicPropertiesPanel basicPropertiesPanel = null;
+	private GraphList graphList = null;
 
 	public MainScreen(String title, Dimension size) {
 		this.setTitle(title);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setPreferredSize(size);
+		this.setLayout(new BorderLayout());
 		
 		this.addMenuBar();
-		this.addBasicPropertiesPanel();
+		this.addBasicPropertiesPanel(BorderLayout.CENTER);
+		this.addGraphList(BorderLayout.WEST);
 		
 		this.pack();
 		this.setLocationRelativeTo(null);
@@ -30,9 +34,14 @@ public class MainScreen extends JFrame {
 		this.setJMenuBar(bMenuBar);
 	}
 	
-	private void addBasicPropertiesPanel() {
+	private void addBasicPropertiesPanel(String position) {
 		this.basicPropertiesPanel = new BasicPropertiesPanel();
-		this.add(basicPropertiesPanel);
+		this.add(basicPropertiesPanel, position);
+	}
+	
+	private void addGraphList(String position) {
+		this.graphList = new GraphList();
+		this.add(this.graphList, position);
 	}
 
 	public BasicPropertiesPanel getBasicPropertiesPanel() {
