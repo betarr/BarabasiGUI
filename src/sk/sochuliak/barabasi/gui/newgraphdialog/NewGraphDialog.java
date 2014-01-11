@@ -26,7 +26,6 @@ import sk.sochuliak.barabasi.controllers.ControllerService;
 import sk.sochuliak.barabasi.gui.MainGuiConfiguration;
 import sk.sochuliak.barabasi.gui.Strings;
 import sk.sochuliak.barabasi.network.EdgeConnectingMethodRowConfig;
-import sk.sochuliak.barabasi.network.NetworkBuildConfiguration;
 import sk.sochuliak.barabasi.network.NetworkBuildConfiguration2;
 import sk.sochuliak.barabasi.utils.CommonUtils;
 import sk.sochuliak.barabasi.utils.GuiUtils;
@@ -232,11 +231,11 @@ public class NewGraphDialog extends JDialog {
 					String firstEdgeConnectingMethodComboBoxValue = (String) firstEdgeConnectingMethodComboBox.getSelectedItem();
 					int firstEdgeConnectingMethod = -1;
 					if (firstEdgeConnectingMethodComboBoxValue.equals(Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_NODE_DEGREE)) {
-						firstEdgeConnectingMethod = NetworkBuildConfiguration.DEGREE_DRIVEN;
+						firstEdgeConnectingMethod = NetworkBuildConfiguration2.DEGREE_DRIVEN;
 					} else if (firstEdgeConnectingMethodComboBoxValue.equals(Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_NODE_CLASTER)) {
-						firstEdgeConnectingMethod = NetworkBuildConfiguration.CLUSTER_DRIVEN;
+						firstEdgeConnectingMethod = NetworkBuildConfiguration2.CLUSTER_DRIVEN;
 					} else if (firstEdgeConnectingMethodComboBoxValue.equals(Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_RANDOM)) {
-						firstEdgeConnectingMethod = NetworkBuildConfiguration.RANDOM_DRIVEN;
+						firstEdgeConnectingMethod = NetworkBuildConfiguration2.RANDOM_DRIVEN;
 					}
 					config.setFirstEdgeConnecting(firstEdgeConnectingMethod);
 					try {
