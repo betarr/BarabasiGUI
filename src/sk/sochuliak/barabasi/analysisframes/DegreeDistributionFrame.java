@@ -8,7 +8,7 @@ public class DegreeDistributionFrame extends DistributionFrame {
 
 	private static final long serialVersionUID = 1L;
 	
-	public DegreeDistributionFrame(String title, Component owner, String networkName, GraphConfiguration config, boolean logScaleUsed) {
+	public DegreeDistributionFrame(String title, Component owner, String networkName, NetworkConfiguration config, boolean logScaleUsed) {
 		super(title, owner, networkName, config, logScaleUsed);
 	}
 

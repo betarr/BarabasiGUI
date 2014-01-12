@@ -46,13 +46,13 @@ public abstract class DistributionFrame extends JFrame {
 	
 	private boolean logScaleUsed = false;
 	
-	public DistributionFrame(String title, Component owner, String networkName, GraphConfiguration config, boolean logScaleUsed) {
+	public DistributionFrame(String title, Component owner, String networkName, NetworkConfiguration config, boolean logScaleUsed) {
 		this.owner = owner;
 		this.networkName = networkName;
 		this.logScaleUsed = logScaleUsed;
 		
 		this.setTitle(networkName + " - " + title);
-		this.setSize(MainGuiConfiguration.ANALYSIS_GRAPH_SIZE);
+		this.setSize(MainGuiConfiguration.ANALYSIS_DISTRIBUTION_SIZE);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setLocationRelativeTo(this.owner);
 		this.setLayout(new BorderLayout());
@@ -63,10 +63,10 @@ public abstract class DistributionFrame extends JFrame {
 		this.add(this.infoPanel, BorderLayout.EAST);
 	}
 	
-	private JPanel buildChartPanel(GraphConfiguration config) {
+	private JPanel buildChartPanel(NetworkConfiguration config) {
 		this.chart = this.createChart(config);
 		final ChartPanel chartPanel = new ChartPanel(chart);
-		chartPanel.setPreferredSize(MainGuiConfiguration.ANALYSIS_GRAPH_SIZE);
+		chartPanel.setPreferredSize(MainGuiConfiguration.ANALYSIS_DISTRIBUTION_SIZE);
 		
 		chartPanel.addChartMouseListener(new ChartMouseListener() {
 
@@ -94,7 +94,7 @@ public abstract class DistributionFrame extends JFrame {
 		return chartPanel;
 	}
 	
-	private JFreeChart createChart(final GraphConfiguration config) {
+	private JFreeChart createChart(final NetworkConfiguration config) {
 		XYDataset dataset = this.createDataset(config.getData());
 		
 		final JFreeChart chart = ChartFactory.createXYLineChart(

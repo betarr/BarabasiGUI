@@ -1,4 +1,4 @@
-package sk.sochuliak.barabasi.gui.newgraphdialog;
+package sk.sochuliak.barabasi.gui.newnetworkdialog;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -30,29 +30,29 @@ import sk.sochuliak.barabasi.network.NetworkBuildConfiguration;
 import sk.sochuliak.barabasi.utils.CommonUtils;
 import sk.sochuliak.barabasi.utils.GuiUtils;
 
-public class NewGraphDialog extends JDialog {
+public class NewNetworkDialog extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	
 	private Component owner;
 	
 	private String[] predefinedGrowthMethods = new String[] {
-			Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_NODE_DEGREE,
-			Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_NODE_CLASTER,
-			Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_RANDOM	
+			Strings.NEW_NETWORK_DIALOG_GROWTH_MANAGEMENT_NODE_DEGREE,
+			Strings.NEW_NETWORK_DIALOG_GROWTH_MANAGEMENT_NODE_CLASTER,
+			Strings.NEW_NETWORK_DIALOG_GROWTH_MANAGEMENT_RANDOM	
 	};
 	
 	private String[] firstEdgeConnectingMethod = new String[] {
-			Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_NODE_DEGREE,
-			Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_NODE_CLASTER,
-			Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_RANDOM	
+			Strings.NEW_NETWORK_DIALOG_GROWTH_MANAGEMENT_NODE_DEGREE,
+			Strings.NEW_NETWORK_DIALOG_GROWTH_MANAGEMENT_NODE_CLASTER,
+			Strings.NEW_NETWORK_DIALOG_GROWTH_MANAGEMENT_RANDOM	
 	};
 	
 	private ButtonGroup connectingMethodRadioGroup = new ButtonGroup();
-	private JRadioButton predefinedRadioButton = new JRadioButton(Strings.NEW_GRAPH_DIALOG_PREDEFINED, true);
-	private JRadioButton ownRadioButton = new JRadioButton(Strings.NEW_GRAPH_DIALOG_OWN, false);
+	private JRadioButton predefinedRadioButton = new JRadioButton(Strings.NEW_NETWORK_DIALOG_PREDEFINED, true);
+	private JRadioButton ownRadioButton = new JRadioButton(Strings.NEW_NETWORK_DIALOG_OWN, false);
 	
-	private JTextField graphNameTextField = new JTextField();
+	private JTextField networkNameTextField = new JTextField();
 	
 	private JTextField numberOfNodesTextField = new JTextField();
 	
@@ -64,13 +64,13 @@ public class NewGraphDialog extends JDialog {
 	
 	private EdgeConnectingMethodPanel edgeConnectingMethodPanel = new EdgeConnectingMethodPanel();
 	
-	private JButton addOwnConnectionMethodButton = new JButton(Strings.NEW_GRAPH_DIALOG_ADD);
+	private JButton addOwnConnectionMethodButton = new JButton(Strings.NEW_NETWORK_DIALOG_ADD);
 
-	public NewGraphDialog(Component owner) {
+	public NewNetworkDialog(Component owner) {
 		this.owner = owner;
 		
-		this.setTitle(Strings.NEW_GRAPH_DIALOG_TITLE);
-		this.setSize(MainGuiConfiguration.NEW_GRAPH_DIALOG_SIZE);
+		this.setTitle(Strings.NEW_NETWORK_DIALOG_TITLE);
+		this.setSize(MainGuiConfiguration.NEW_NETWORK_DIALOG_SIZE);
 		
 		this.setModalityType(ModalityType.APPLICATION_MODAL);
 		this.setLocationRelativeTo(this.owner);
@@ -97,42 +97,42 @@ public class NewGraphDialog extends JDialog {
 		constrains.weightx = 1;
 		
 		// line 0
-		this.addToPanel(new JLabel(Strings.NEW_GRAPH_DIALOG_BASIC_INFO), contentPanel, constrains, 0, 0, 8, 1);
+		this.addToPanel(new JLabel(Strings.NEW_NETWORK_DIALOG_BASIC_INFO), contentPanel, constrains, 0, 0, 8, 1);
 		
 		// line 1
-		this.addToPanel(new JLabel(Strings.NEW_GRAPH_DIALOG_NAME), contentPanel, constrains, 0, 1, 4, 1);
-		this.addToPanel(this.graphNameTextField, contentPanel, constrains, 4, 1, 4, 1);
+		this.addToPanel(new JLabel(Strings.NEW_NETWORK_DIALOG_NAME), contentPanel, constrains, 0, 1, 4, 1);
+		this.addToPanel(this.networkNameTextField, contentPanel, constrains, 4, 1, 4, 1);
 		
 		// line 2
-		this.addToPanel(new JLabel(Strings.NEW_GRAPH_DIALOG_NUMBER_OF_NODES), contentPanel, constrains, 0, 2, 4, 1);
+		this.addToPanel(new JLabel(Strings.NEW_NETWORK_DIALOG_NUMBER_OF_NODES), contentPanel, constrains, 0, 2, 4, 1);
 		this.addToPanel(this.numberOfNodesTextField, contentPanel, constrains, 4, 2, 4, 1);
 		
 		// line 3
 		this.addToPanel(new JLabel(""), contentPanel, constrains, 0, 3, 8, 1);
 		
 		// line 4
-		this.addToPanel(new JLabel(Strings.NEW_GRAPH_DIALOG_ADVANCED_INFO), contentPanel, constrains, 0, 4, 8, 1);
+		this.addToPanel(new JLabel(Strings.NEW_NETWORK_DIALOG_ADVANCED_INFO), contentPanel, constrains, 0, 4, 8, 1);
 		
 		// line 5
 		this.addToPanel(this.predefinedRadioButton, contentPanel, constrains, 0, 5, 8, 1);
 		
 		// line 6
-		this.addToPanel(new JLabel(Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT), contentPanel, constrains, 0, 6, 4, 1);
+		this.addToPanel(new JLabel(Strings.NEW_NETWORK_DIALOG_GROWTH_MANAGEMENT), contentPanel, constrains, 0, 6, 4, 1);
 		this.addToPanel(this.predefinedGrowthMethodComboBox, contentPanel, constrains, 4, 6, 4, 1);
 		
 		// line 7
-		this.addToPanel(new JLabel(Strings.NEW_GRAPH_DIALOG_NUMBER_OF_EDGES), contentPanel, constrains, 0, 7, 4, 1);
+		this.addToPanel(new JLabel(Strings.NEW_NETWORK_DIALOG_NUMBER_OF_EDGES), contentPanel, constrains, 0, 7, 4, 1);
 		this.addToPanel(this.numberOfEdgesTextField, contentPanel, constrains, 4, 7, 4, 1);
 		
 		// line 8
 		this.addToPanel(this.ownRadioButton, contentPanel, constrains, 0, 8, 8, 1);
 		
 		// line 9
-		this.addToPanel(new JLabel(Strings.NEW_GRAPH_DIALOG_FIRST_EDGE), contentPanel, constrains, 0, 9, 4, 1);
+		this.addToPanel(new JLabel(Strings.NEW_NETWORK_DIALOG_FIRST_EDGE), contentPanel, constrains, 0, 9, 4, 1);
 		this.addToPanel(this.firstEdgeConnectingMethodComboBox, contentPanel, constrains, 4, 9, 4, 1);
 		
 		// line 10
-		this.addToPanel(new JLabel(Strings.NEW_GRAPH_DIALOG_CONNECTING_WITH_SELECTING_NODE), contentPanel, constrains, 0, 10, 7, 1);
+		this.addToPanel(new JLabel(Strings.NEW_NETWORK_DIALOG_CONNECTING_WITH_SELECTING_NODE), contentPanel, constrains, 0, 10, 7, 1);
 		this.addToPanel(this.addOwnConnectionMethodButton, contentPanel, constrains, 7, 10, 1, 1);
 		
 		// line 11
@@ -207,46 +207,46 @@ public class NewGraphDialog extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				NetworkBuildConfiguration config = new NetworkBuildConfiguration();
 				StringBuffer sb = new StringBuffer();
-				String graphNameText = graphNameTextField.getText();
-				if (graphNameText.equals("")) {
-					sb.append(Strings.WRONG_VALUE).append(": ").append(Strings.NEW_GRAPH_DIALOG_NAME).append("\n");
-				} else if (ControllerService.getAppController().isNetworkWithName(graphNameText)) {
-					sb.append(Strings.WRONG_VALUE).append(": ").append(Strings.NEW_GRAPH_DIALOG_NAME).append("\n");
+				String networkNameText = networkNameTextField.getText();
+				if (networkNameText.equals("")) {
+					sb.append(Strings.WRONG_VALUE).append(": ").append(Strings.NEW_NETWORK_DIALOG_NAME).append("\n");
+				} else if (ControllerService.getAppController().isNetworkWithName(networkNameText)) {
+					sb.append(Strings.WRONG_VALUE).append(": ").append(Strings.NEW_NETWORK_DIALOG_NAME).append("\n");
 				}
 				String numberOfNodesText = numberOfNodesTextField.getText();
 				if (!CommonUtils.isPositiveNumber(numberOfNodesText)) {
-					sb.append(Strings.WRONG_VALUE).append(": ").append(Strings.NEW_GRAPH_DIALOG_NUMBER_OF_NODES).append("\n");
+					sb.append(Strings.WRONG_VALUE).append(": ").append(Strings.NEW_NETWORK_DIALOG_NUMBER_OF_NODES).append("\n");
 				}
 				
 				if (predefinedRadioButton.isSelected()) {
 					String predefinedGrowthMethodComboBoxValue = (String) predefinedGrowthMethodComboBox.getSelectedItem();
 					int growthManagement = -1;
-					if (predefinedGrowthMethodComboBoxValue.equals(Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_NODE_DEGREE)) {
+					if (predefinedGrowthMethodComboBoxValue.equals(Strings.NEW_NETWORK_DIALOG_GROWTH_MANAGEMENT_NODE_DEGREE)) {
 						growthManagement = EdgeConnectingMethodRowConfig.DEGREE_DRIVEN;
-					} else if (predefinedGrowthMethodComboBoxValue.equals(Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_NODE_CLASTER)) {
+					} else if (predefinedGrowthMethodComboBoxValue.equals(Strings.NEW_NETWORK_DIALOG_GROWTH_MANAGEMENT_NODE_CLASTER)) {
 						growthManagement = EdgeConnectingMethodRowConfig.CLUSTER_DRIVEN;
-					} else if (predefinedGrowthMethodComboBoxValue.equals(Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_RANDOM)) {
+					} else if (predefinedGrowthMethodComboBoxValue.equals(Strings.NEW_NETWORK_DIALOG_GROWTH_MANAGEMENT_RANDOM)) {
 						growthManagement = EdgeConnectingMethodRowConfig.RANDOM_DRIVEN;
 					}
 					
 					String numberOfEdgesText = numberOfEdgesTextField.getText();
 					if (!CommonUtils.isPositiveNumber(numberOfEdgesText)) {
-						sb.append(Strings.WRONG_VALUE).append(": ").append(Strings.NEW_GRAPH_DIALOG_NUMBER_OF_EDGES).append("\n");
+						sb.append(Strings.WRONG_VALUE).append(": ").append(Strings.NEW_NETWORK_DIALOG_NUMBER_OF_EDGES).append("\n");
 					}
 					if (sb.toString().equals("")) {
 						int numberOfNodes = Integer.parseInt(numberOfNodesText);
 						int numberOfEdges = Integer.parseInt(numberOfEdgesText);
-						config = NetworkBuildConfiguration.createDefaultConfig(growthManagement, graphNameText, numberOfNodes, numberOfEdges);
+						config = NetworkBuildConfiguration.createDefaultConfig(growthManagement, networkNameText, numberOfNodes, numberOfEdges);
 					}
 				} else { // own configuration
 					config.setNumberOfNodes(Integer.parseInt(numberOfNodesText));
 					String firstEdgeConnectingMethodComboBoxValue = (String) firstEdgeConnectingMethodComboBox.getSelectedItem();
 					int firstEdgeConnectingMethod = -1;
-					if (firstEdgeConnectingMethodComboBoxValue.equals(Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_NODE_DEGREE)) {
+					if (firstEdgeConnectingMethodComboBoxValue.equals(Strings.NEW_NETWORK_DIALOG_GROWTH_MANAGEMENT_NODE_DEGREE)) {
 						firstEdgeConnectingMethod = NetworkBuildConfiguration.DEGREE_DRIVEN;
-					} else if (firstEdgeConnectingMethodComboBoxValue.equals(Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_NODE_CLASTER)) {
+					} else if (firstEdgeConnectingMethodComboBoxValue.equals(Strings.NEW_NETWORK_DIALOG_GROWTH_MANAGEMENT_NODE_CLASTER)) {
 						firstEdgeConnectingMethod = NetworkBuildConfiguration.CLUSTER_DRIVEN;
-					} else if (firstEdgeConnectingMethodComboBoxValue.equals(Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_RANDOM)) {
+					} else if (firstEdgeConnectingMethodComboBoxValue.equals(Strings.NEW_NETWORK_DIALOG_GROWTH_MANAGEMENT_RANDOM)) {
 						firstEdgeConnectingMethod = NetworkBuildConfiguration.RANDOM_DRIVEN;
 					}
 					config.setFirstEdgeConnecting(firstEdgeConnectingMethod);
@@ -255,10 +255,10 @@ public class NewGraphDialog extends JDialog {
 						if (!rowConfigs.isEmpty()) {
 							config.setEdgeConnectingMethodRowConfigs(rowConfigs);
 						} else {
-							sb.append(Strings.WRONG_VALUE).append(": ").append(Strings.NEW_GRAPH_DIALOG_CONNECTING_WITH_SELECTING_NODE).append("\n");
+							sb.append(Strings.WRONG_VALUE).append(": ").append(Strings.NEW_NETWORK_DIALOG_CONNECTING_WITH_SELECTING_NODE).append("\n");
 						}
 					} catch (NumberFormatException nfe) {
-						sb.append(Strings.WRONG_VALUE).append(": ").append(Strings.NEW_GRAPH_DIALOG_CONNECTING_WITH_SELECTING_NODE).append("\n");
+						sb.append(Strings.WRONG_VALUE).append(": ").append(Strings.NEW_NETWORK_DIALOG_CONNECTING_WITH_SELECTING_NODE).append("\n");
 					}
 				}
 				

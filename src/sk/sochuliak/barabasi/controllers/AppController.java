@@ -15,13 +15,13 @@ import javax.swing.JOptionPane;
 
 import sk.sochuliak.barabasi.analysisframes.ClusterDistributionFrame;
 import sk.sochuliak.barabasi.analysisframes.DegreeDistributionFrame;
-import sk.sochuliak.barabasi.analysisframes.GraphConfiguration;
+import sk.sochuliak.barabasi.analysisframes.NetworkConfiguration;
 import sk.sochuliak.barabasi.gui.Strings;
 import sk.sochuliak.barabasi.gui.mainscreen.BMenuBar;
 import sk.sochuliak.barabasi.gui.mainscreen.BasicPropertiesTable;
 import sk.sochuliak.barabasi.gui.mainscreen.MainScreen;
-import sk.sochuliak.barabasi.gui.newgraphdialog.NewGraphDialog;
-import sk.sochuliak.barabasi.gui.newgraphdialog.NewGraphProgressBar;
+import sk.sochuliak.barabasi.gui.newnetworkdialog.NewNetworkDialog;
+import sk.sochuliak.barabasi.gui.newnetworkdialog.NewNetworkProgressBar;
 import sk.sochuliak.barabasi.network.NetworkBuildConfiguration;
 import sk.sochuliak.barabasi.networkselectdialog.NetworkSelectDialog;
 import sk.sochuliak.barabasi.utils.NetworkImportExport;
@@ -31,7 +31,7 @@ public class AppController {
 	
 	private MainScreen mainScreen;
 	
-	private NewGraphProgressBar newGraphProgressBarDialog = null;
+	private NewNetworkProgressBar newNetworkProgressBarDialog = null;
 	
 	public AppController(MainScreen mainScreen) {
 		this.mainScreen = mainScreen;
@@ -42,23 +42,23 @@ public class AppController {
 	}
 	
 	public void showNewNetworkDialog() {
-		NewGraphDialog dialog = new NewGraphDialog(this.mainScreen);
+		NewNetworkDialog dialog = new NewNetworkDialog(this.mainScreen);
 		dialog.setVisible(true);
 	}
 	
-	public void showNewGraphProgressBarAndBuildNetwork(
+	public void showNewNetworkProgressBarAndBuildNetwork(
 			NetworkBuildConfiguration config) {
-		this.newGraphProgressBarDialog = new NewGraphProgressBar(this.mainScreen, config);
-		this.newGraphProgressBarDialog.setVisible(true);
+		this.newNetworkProgressBarDialog = new NewNetworkProgressBar(this.mainScreen, config);
+		this.newNetworkProgressBarDialog.setVisible(true);
 	}
 	
-	public void dispozeNewGraphProgressBarDialog() {
-		if (this.newGraphProgressBarDialog != null) {
-			this.newGraphProgressBarDialog.dispose();
+	public void dispozeNewNetworkProgressBarDialog() {
+		if (this.newNetworkProgressBarDialog != null) {
+			this.newNetworkProgressBarDialog.dispose();
 		}
 	}
 	
-	public void showExportGraph() {
+	public void showExportNetwork() {
 		List<String> networkNames = ControllerService.getNetworkController().getNetworkNames();
 		final NetworkSelectDialog dialog = new NetworkSelectDialog(this.mainScreen, networkNames, true);
 		dialog.setOkButtonActionListener(new ActionListener() {
@@ -67,7 +67,7 @@ public class AppController {
 			public void actionPerformed(ActionEvent arg0) {
 				String selectedNetworkName = dialog.getSelectedNetworkName();
 				if (selectedNetworkName != null) {
-					exportGraph(selectedNetworkName);
+					exportNetwork(selectedNetworkName);
 					dialog.dispose();
 				} else {
 					JOptionPane.showMessageDialog(
@@ -82,7 +82,7 @@ public class AppController {
 		dialog.setVisible(true);
 	}
 	
-	public void exportGraph(String networkName) {
+	public void exportNetwork(String networkName) {
 		JFileChooser fc = new JFileChooser(NetworkImportExport.DEFAULT_DIRECTORY);
 		int returnValue = fc.showSaveDialog(this.mainScreen);
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
@@ -93,7 +93,7 @@ public class AppController {
 		}
 	}
 	
-	public void importGraph() {
+	public void importNetwork() {
 		JFileChooser fc = new JFileChooser(NetworkImportExport.DEFAULT_DIRECTORY);
 		int returnValue = fc.showOpenDialog(this.mainScreen);
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
@@ -129,7 +129,7 @@ public class AppController {
 		}
 	}
 	
-	public void addNetworkToGraphList(String networkName) {
+	public void addNetworkToNetworkList(String networkName) {
 		this.mainScreen.getNetworkList().addNetworkNameToList(networkName);
 	}
 	
@@ -204,18 +204,18 @@ public class AppController {
 			points.add(new double[]{x, y});
 		}
 		
-		String graphTitle = useLogScale ? Strings.DEGREE_DISTRIBUTION_LOG_GRAPH_TITLE
-				: Strings.DEGREE_DISTRIBUTION_GRAPH_TITLE;
+		String networkTitle = useLogScale ? Strings.DEGREE_DISTRIBUTION_LOG_TITLE
+				: Strings.DEGREE_DISTRIBUTION_TITLE;
 		Map<String, List<double[]>> data = new HashMap<String, List<double[]>>();
-		data.put(graphTitle, points);
+		data.put(networkTitle, points);
 		
-		GraphConfiguration config = GraphConfiguration.getInstance()
-				.setTitle(networkName + " - " + graphTitle)
-				.setxAxisLabel(Strings.DEGREE_DISTRIBUTION_GRAPH_X_AXIS_LABEL)
-				.setyAxisLabel(Strings.DEGREE_DISTRIBUTION_GRAPH_Y_AXIS_LABEL)
+		NetworkConfiguration config = NetworkConfiguration.getInstance()
+				.setTitle(networkName + " - " + networkTitle)
+				.setxAxisLabel(Strings.DEGREE_DISTRIBUTION_X_AXIS_LABEL)
+				.setyAxisLabel(Strings.DEGREE_DISTRIBUTION_Y_AXIS_LABEL)
 				.setData(data);
 		
-		DegreeDistributionFrame frame = new DegreeDistributionFrame(graphTitle, this.mainScreen, networkName, config, useLogScale);
+		DegreeDistributionFrame frame = new DegreeDistributionFrame(networkTitle, this.mainScreen, networkName, config, useLogScale);
 		if (useLogScale) {
 			ControllerService.registerDegreeDistributionLogController(networkName, new DistributionController(frame));
 		} else {
@@ -286,18 +286,18 @@ public class AppController {
 			points.add(new double[]{x, y});
 		}
 		
-		String graphTitle = useLogScale ? Strings.CLUSTER_DISTRIBUTION_LOG_GRAPH_TITLE
-				: Strings.CLUSTER_DISTRIBUTION_GRAPH_TITLE;
+		String networkTitle = useLogScale ? Strings.CLUSTER_DISTRIBUTION_LOG_TITLE
+				: Strings.CLUSTER_DISTRIBUTION_TITLE;
 		Map<String, List<double[]>> data = new HashMap<String, List<double[]>>();
-		data.put(graphTitle, points);
+		data.put(networkTitle, points);
 		
-		GraphConfiguration config = GraphConfiguration.getInstance()
-				.setTitle(networkName + " - " + graphTitle)
-				.setxAxisLabel(Strings.CLUSTER_DISTRIBUTION_GRAPH_X_AXIS_LABEL)
-				.setyAxisLabel(Strings.CLUSTER_DISTRIBUTION_GRAPH_Y_AXIS_LABEL)
+		NetworkConfiguration config = NetworkConfiguration.getInstance()
+				.setTitle(networkName + " - " + networkTitle)
+				.setxAxisLabel(Strings.CLUSTER_DISTRIBUTION_X_AXIS_LABEL)
+				.setyAxisLabel(Strings.CLUSTER_DISTRIBUTION_Y_AXIS_LABEL)
 				.setData(data);
 		
-		ClusterDistributionFrame frame = new ClusterDistributionFrame(graphTitle, this.mainScreen, networkName, config, useLogScale);
+		ClusterDistributionFrame frame = new ClusterDistributionFrame(networkTitle, this.mainScreen, networkName, config, useLogScale);
 		if (useLogScale) {
 			ControllerService.registerClusterDistributionLogController(networkName, new DistributionController(frame));
 		} else {

@@ -33,7 +33,7 @@ public class NetworkController {
 	}
 	
 	public void buildNetwork(NetworkBuildConfiguration config) {
-		ControllerService.getAppController().showNewGraphProgressBarAndBuildNetwork(config);
+		ControllerService.getAppController().showNewNetworkProgressBarAndBuildNetwork(config);
 	}
 	
 	public int getTotalNodesCount(String networkName) {
@@ -112,7 +112,7 @@ public class NetworkController {
 	
 	public void addNetwork(String networkName, Network network) {
 		this.networks.put(networkName, network);
-		ControllerService.getAppController().addNetworkToGraphList(networkName);
+		ControllerService.getAppController().addNetworkToNetworkList(networkName);
 		ControllerService.getAppController().enableAnalysisMenuItems(!this.networks.isEmpty());
 	}
 	

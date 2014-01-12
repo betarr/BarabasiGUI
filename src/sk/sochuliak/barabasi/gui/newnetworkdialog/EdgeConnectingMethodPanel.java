@@ -1,4 +1,4 @@
-package sk.sochuliak.barabasi.gui.newgraphdialog;
+package sk.sochuliak.barabasi.gui.newnetworkdialog;
 
 import java.util.ArrayList;
 import java.util.List;

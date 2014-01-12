@@ -1,4 +1,4 @@
-package sk.sochuliak.barabasi.gui.newgraphdialog;
+package sk.sochuliak.barabasi.gui.newnetworkdialog;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -22,16 +22,16 @@ public class EdgeConnectingMethodRow extends JPanel {
 	private EdgeConnectingMethodPanel parent;
 	
 	private String[] connectingMethod = new String[] {
-			Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_NODE_DEGREE,
-			Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_NODE_CLASTER,
-			Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_RANDOM	
+			Strings.NEW_NETWORK_DIALOG_GROWTH_MANAGEMENT_NODE_DEGREE,
+			Strings.NEW_NETWORK_DIALOG_GROWTH_MANAGEMENT_NODE_CLASTER,
+			Strings.NEW_NETWORK_DIALOG_GROWTH_MANAGEMENT_RANDOM	
 	};
 	
 	private JTextField numberOfEdgesTextField = new JTextField();
-	private JLabel edgesLabel = new JLabel(Strings.NEW_GRAPH_DIALOG_EDGES);
+	private JLabel edgesLabel = new JLabel(Strings.NEW_NETWORK_DIALOG_EDGES);
 	private JComboBox<String> connectingMethodComboBox = new JComboBox<String>(this.connectingMethod);
 	
-	private JButton removeButton = new JButton(Strings.NEW_GRAPH_DIALOG_REMOVE);
+	private JButton removeButton = new JButton(Strings.NEW_NETWORK_DIALOG_REMOVE);
 	
 	public EdgeConnectingMethodRow(EdgeConnectingMethodPanel parent) {
 		this.parent = parent;
@@ -71,11 +71,11 @@ public class EdgeConnectingMethodRow extends JPanel {
 		EdgeConnectingMethodRowConfig config = new EdgeConnectingMethodRowConfig();
 		config.setNumberOfEdges(Integer.parseInt(this.numberOfEdgesTextField.getText()));
 		String connectingMethodText = (String)this.connectingMethodComboBox.getSelectedItem();
-		if (connectingMethodText.equals(Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_NODE_DEGREE)) {
+		if (connectingMethodText.equals(Strings.NEW_NETWORK_DIALOG_GROWTH_MANAGEMENT_NODE_DEGREE)) {
 			config.setConnectingMethod(EdgeConnectingMethodRowConfig.DEGREE_DRIVEN);
-		} else if (connectingMethodText.equals(Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_NODE_CLASTER)) {
+		} else if (connectingMethodText.equals(Strings.NEW_NETWORK_DIALOG_GROWTH_MANAGEMENT_NODE_CLASTER)) {
 			config.setConnectingMethod(EdgeConnectingMethodRowConfig.CLUSTER_DRIVEN);
-		} else if (connectingMethodText.equals(Strings.NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_RANDOM)) {
+		} else if (connectingMethodText.equals(Strings.NEW_NETWORK_DIALOG_GROWTH_MANAGEMENT_RANDOM)) {
 			config.setConnectingMethod(EdgeConnectingMethodRowConfig.RANDOM_DRIVEN);
 		}
 		return config;

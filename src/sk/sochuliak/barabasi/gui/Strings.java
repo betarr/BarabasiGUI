@@ -42,43 +42,43 @@ public class Strings {
 	public static String BASIC_PROPERTIES_AVERAGE_NODE_DEGREE = "Priemern˝ stupeÚ uzla";
 	public static String BASIC_PROPERTIES_AVERAGE_NODE_CLUSTER = "Priemern˝ klasterizaËn˝ koeficient";
 	
-	// NEW GRAPH DIALOG
-	public static String NEW_GRAPH_DIALOG_TITLE = "Nov˝ graf";
-	public static String NEW_GRAPH_DIALOG_NAME = "N·zov grafu";
-	public static String NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT = "Rast riaden˝";
-	public static String NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_NODE_DEGREE = "StupÚom uzla";
-	public static String NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_NODE_CLASTER = "Klasteriz·ciou";
-	public static String NEW_GRAPH_DIALOG_GROWTH_MANAGEMENT_RANDOM = "N·hodne";
-	public static String NEW_GRAPH_DIALOG_NUMBER_OF_NODES = "PoËet uzlov";
-	public static String NEW_GRAPH_DIALOG_NUMBER_OF_EDGES = "PoËet susedov uzla";
+	// NEW NETWORK DIALOG
+	public static String NEW_NETWORK_DIALOG_TITLE = "Nov· sieù";
+	public static String NEW_NETWORK_DIALOG_NAME = "N·zov siete";
+	public static String NEW_NETWORK_DIALOG_GROWTH_MANAGEMENT = "Rast riaden˝";
+	public static String NEW_NETWORK_DIALOG_GROWTH_MANAGEMENT_NODE_DEGREE = "StupÚom uzla";
+	public static String NEW_NETWORK_DIALOG_GROWTH_MANAGEMENT_NODE_CLASTER = "Klasteriz·ciou";
+	public static String NEW_NETWORK_DIALOG_GROWTH_MANAGEMENT_RANDOM = "N·hodne";
+	public static String NEW_NETWORK_DIALOG_NUMBER_OF_NODES = "PoËet uzlov";
+	public static String NEW_NETWORK_DIALOG_NUMBER_OF_EDGES = "PoËet susedov uzla";
 	
-	public static String NEW_GRAPH_DIALOG_BASIC_INFO = "Z·kladnÈ inform·cie";
-	public static String NEW_GRAPH_DIALOG_ADVANCED_INFO = "PokroËilÈ inform·cie";
-	public static String NEW_GRAPH_DIALOG_PREDEFINED = "PreddefinovanÈ";
-	public static String NEW_GRAPH_DIALOG_OWN = "VlastnÈ";
-	public static String NEW_GRAPH_DIALOG_FIRST_EDGE = "Prv· hrana";
-	public static String NEW_GRAPH_DIALOG_CONNECTING_WITH_SELECTING_NODE = "Prip·janie k susedom vybranÈho uzla";
-	public static String NEW_GRAPH_DIALOG_EDGES = "Hr·n";
-	public static String NEW_GRAPH_DIALOG_ADD = "Pridaù";
-	public static String NEW_GRAPH_DIALOG_REMOVE = "Odobraù";
+	public static String NEW_NETWORK_DIALOG_BASIC_INFO = "Z·kladnÈ inform·cie";
+	public static String NEW_NETWORK_DIALOG_ADVANCED_INFO = "PokroËilÈ inform·cie";
+	public static String NEW_NETWORK_DIALOG_PREDEFINED = "PreddefinovanÈ";
+	public static String NEW_NETWORK_DIALOG_OWN = "VlastnÈ";
+	public static String NEW_NETWORK_DIALOG_FIRST_EDGE = "Prv· hrana";
+	public static String NEW_NETWORK_DIALOG_CONNECTING_WITH_SELECTING_NODE = "Prip·janie k susedom vybranÈho uzla";
+	public static String NEW_NETWORK_DIALOG_EDGES = "Hr·n";
+	public static String NEW_NETWORK_DIALOG_ADD = "Pridaù";
+	public static String NEW_NETWORK_DIALOG_REMOVE = "Odobraù";
 	
-	// NEW GRAPH PROGRESS BAR
-	public static String NEW_GRAPH_PROGRESS_BAR_TITLE = "Generujem graf";
-	public static String NEW_GRAPH_PROGRESS_BAR_LABEL = "Generujem graf";
+	// NEW NETWORK PROGRESS BAR
+	public static String NEW_NETWORK_PROGRESS_BAR_TITLE = "Generujem sieù";
+	public static String NEW_NETWORK_PROGRESS_BAR_LABEL = "Generujem sieù";
 	
-	// DEGREE DISTRIBUTION GRAPH
-	public static String DEGREE_DISTRIBUTION_GRAPH_TITLE = "Distrib˙cia stupÚa uzlov";
-	public static String DEGREE_DISTRIBUTION_GRAPH_X_AXIS_LABEL = "StupeÚ vrchola";
-	public static String DEGREE_DISTRIBUTION_GRAPH_Y_AXIS_LABEL = "Normovan˝ # uzlov stupÚa k";
+	// DEGREE DISTRIBUTION
+	public static String DEGREE_DISTRIBUTION_TITLE = "Distrib˙cia stupÚa uzlov";
+	public static String DEGREE_DISTRIBUTION_X_AXIS_LABEL = "StupeÚ vrchola";
+	public static String DEGREE_DISTRIBUTION_Y_AXIS_LABEL = "Normovan˝ # uzlov stupÚa k";
 	
-	public static String DEGREE_DISTRIBUTION_LOG_GRAPH_TITLE = "Distrib˙cia stupÚa uzlov - Log";
+	public static String DEGREE_DISTRIBUTION_LOG_TITLE = "Distrib˙cia stupÚa uzlov - Log";
 	
-	// CLUSTER DISTRIBUTION GRAPH
-	public static String CLUSTER_DISTRIBUTION_GRAPH_TITLE = "Distrib˙cia klasteriz·cie uzlov";
-	public static String CLUSTER_DISTRIBUTION_GRAPH_X_AXIS_LABEL = "StupeÚ vrchola";
-	public static String CLUSTER_DISTRIBUTION_GRAPH_Y_AXIS_LABEL = "Priemern· klasteriz·cia uzla stupÚa k";
+	// CLUSTER DISTRIBUTION
+	public static String CLUSTER_DISTRIBUTION_TITLE = "Distrib˙cia klasteriz·cie uzlov";
+	public static String CLUSTER_DISTRIBUTION_X_AXIS_LABEL = "StupeÚ vrchola";
+	public static String CLUSTER_DISTRIBUTION_Y_AXIS_LABEL = "Priemern· klasteriz·cia uzla stupÚa k";
 	
-	public static String CLUSTER_DISTRIBUTION_LOG_GRAPH_TITLE = "Distrib˙cia klasteriz·cie uzlov - Log";
+	public static String CLUSTER_DISTRIBUTION_LOG_TITLE = "Distrib˙cia klasteriz·cie uzlov - Log";
 	
 	// INFO
 	public static String INFO_PANEL_START_POINT = "ZaËiatoËn˝ bod";

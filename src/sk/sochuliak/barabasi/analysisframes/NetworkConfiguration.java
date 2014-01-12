@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GraphConfiguration {
+public class NetworkConfiguration {
 
-	private String title = "Graph title";
+	private String title = "Network title";
 	
 	private String xAxisLabel = "X axis label";
 	
@@ -14,16 +14,16 @@ public class GraphConfiguration {
 	
 	private Map<String, List<double[]>> data = new HashMap<String, List<double[]>>();
 	
-	public static GraphConfiguration getInstance() {
-		return new GraphConfiguration();
+	public static NetworkConfiguration getInstance() {
+		return new NetworkConfiguration();
 	}
 	
-	public static GraphConfiguration getInstance(
+	public static NetworkConfiguration getInstance(
 			String title,
 			String xAxisLabel,
 			String yAxisLabel,
 			Map<String, List<double[]>> data) {
-		return GraphConfiguration.getInstance()
+		return NetworkConfiguration.getInstance()
 				.setTitle(title)
 				.setxAxisLabel(xAxisLabel)
 				.setyAxisLabel(yAxisLabel)
@@ -34,7 +34,7 @@ public class GraphConfiguration {
 		return this.title;
 	}
 
-	public GraphConfiguration setTitle(String title) {
+	public NetworkConfiguration setTitle(String title) {
 		this.title = title;
 		return this;
 	}
@@ -43,7 +43,7 @@ public class GraphConfiguration {
 		return this.xAxisLabel;
 	}
 
-	public GraphConfiguration setxAxisLabel(String xAxisLabel) {
+	public NetworkConfiguration setxAxisLabel(String xAxisLabel) {
 		this.xAxisLabel = xAxisLabel;
 		return this;
 	}
@@ -52,7 +52,7 @@ public class GraphConfiguration {
 		return this.yAxisLabel;
 	}
 
-	public GraphConfiguration setyAxisLabel(String yAxisLabel) {
+	public NetworkConfiguration setyAxisLabel(String yAxisLabel) {
 		this.yAxisLabel = yAxisLabel;
 		return this;
 	}
@@ -61,7 +61,7 @@ public class GraphConfiguration {
 		return this.data;
 	}
 
-	public GraphConfiguration setData(Map<String, List<double[]>> data) {
+	public NetworkConfiguration setData(Map<String, List<double[]>> data) {
 		this.data = data;
 		return this;
 	}

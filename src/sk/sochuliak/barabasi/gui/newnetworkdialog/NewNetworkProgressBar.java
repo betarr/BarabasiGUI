@@ -1,4 +1,4 @@
-package sk.sochuliak.barabasi.gui.newgraphdialog;
+package sk.sochuliak.barabasi.gui.newnetworkdialog;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -16,16 +16,16 @@ import sk.sochuliak.barabasi.gui.Strings;
 import sk.sochuliak.barabasi.network.NetworkBuildConfiguration;
 import sk.sochuliak.barabasi.network.NetworkBuilder;
 
-public class NewGraphProgressBar extends JDialog implements PropertyChangeListener {
+public class NewNetworkProgressBar extends JDialog implements PropertyChangeListener {
 
 	private static final long serialVersionUID = 1L;
 	
 	JProgressBar progressBar = null;
 	NetworkBuilder networkBuilder = null;
 	
-	public NewGraphProgressBar(Component owner, NetworkBuildConfiguration config) {
-		this.setTitle(Strings.NEW_GRAPH_PROGRESS_BAR_TITLE);
-		this.setSize(MainGuiConfiguration.NEW_GRAPH_PROGRESS_BAR_DIALOG_SIZE);
+	public NewNetworkProgressBar(Component owner, NetworkBuildConfiguration config) {
+		this.setTitle(Strings.NEW_NETWORK_PROGRESS_BAR_TITLE);
+		this.setSize(MainGuiConfiguration.NEW_NETWORK_PROGRESS_BAR_DIALOG_SIZE);
 		this.setModalityType(ModalityType.APPLICATION_MODAL);
 		this.setLocationRelativeTo(owner);
 		
@@ -33,7 +33,7 @@ public class NewGraphProgressBar extends JDialog implements PropertyChangeListen
 		
 		JPanel labelPanel = new JPanel();
 		labelPanel.setLayout(new FlowLayout());
-		labelPanel.add(new JLabel(Strings.NEW_GRAPH_PROGRESS_BAR_LABEL));
+		labelPanel.add(new JLabel(Strings.NEW_NETWORK_PROGRESS_BAR_LABEL));
 		this.add(labelPanel, BorderLayout.NORTH);
 		
 		this.progressBar = new JProgressBar(0, 100);

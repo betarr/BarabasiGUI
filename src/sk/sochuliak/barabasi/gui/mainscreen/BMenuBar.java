@@ -20,7 +20,7 @@ public class BMenuBar extends JMenuBar {
 	
 	private static final long serialVersionUID = 1L;
 	
-	public static List<JMenuItem> menuItemsEnabledOnGraphBuilded = new ArrayList<JMenuItem>();
+	public static List<JMenuItem> menuItemsEnabledOnNetworkBuilded = new ArrayList<JMenuItem>();
 	
 	JMenuItem exportMenuItem = null;
 	JMenuItem showDegreeDistributionMenuItem = null;
@@ -54,7 +54,7 @@ public class BMenuBar extends JMenuBar {
 					
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
-						ControllerService.getAppController().importGraph();
+						ControllerService.getAppController().importNetwork();
 					}
 				}));
 		
@@ -64,7 +64,7 @@ public class BMenuBar extends JMenuBar {
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						ControllerService.getAppController().showExportGraph();
+						ControllerService.getAppController().showExportNetwork();
 					}
 				});
 		this.exportMenuItem.setEnabled(false);
@@ -146,17 +146,17 @@ public class BMenuBar extends JMenuBar {
 	}
 	
 	public static void registerMenuItemEnabledWhenNetworkExists(JMenuItem jMenuItem) {
-		BMenuBar.menuItemsEnabledOnGraphBuilded.add(jMenuItem);
+		BMenuBar.menuItemsEnabledOnNetworkBuilded.add(jMenuItem);
 	}
 	
 	public static void onNetworkExists() {
-		for (JMenuItem menuItem : BMenuBar.menuItemsEnabledOnGraphBuilded) {
+		for (JMenuItem menuItem : BMenuBar.menuItemsEnabledOnNetworkBuilded) {
 			menuItem.setEnabled(true);
 		}
 	}
 	
 	public static void onNetworkDoesNotExist() {
-		for (JMenuItem menuItem : BMenuBar.menuItemsEnabledOnGraphBuilded) {
+		for (JMenuItem menuItem : BMenuBar.menuItemsEnabledOnNetworkBuilded) {
 			menuItem.setEnabled(false);
 		}
 	}

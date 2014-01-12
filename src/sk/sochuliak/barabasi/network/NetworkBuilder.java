@@ -103,7 +103,7 @@ public class NetworkBuilder extends SwingWorker<Void, Void> {
 	@Override
 	protected void done() {
 		Toolkit.getDefaultToolkit().beep();
-		ControllerService.getAppController().dispozeNewGraphProgressBarDialog();
+		ControllerService.getAppController().dispozeNewNetworkProgressBarDialog();
 		ControllerService.getNetworkController().addNetwork(config.getName(), this.resultNetwork);
 		ControllerService.getAppController().updateDataInBasicPropertiesTable(config.getName());
 	}
