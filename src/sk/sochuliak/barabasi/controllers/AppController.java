@@ -13,6 +13,8 @@ import java.util.Set;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
+import org.apache.log4j.Logger;
+
 import sk.sochuliak.barabasi.analysisframes.ClusterDistributionFrame;
 import sk.sochuliak.barabasi.analysisframes.DegreeDistributionFrame;
 import sk.sochuliak.barabasi.analysisframes.NetworkConfiguration;
@@ -29,6 +31,8 @@ import sk.sochuliak.barabasi.utils.NetworkImportObject;
 
 public class AppController {
 	
+	private static final Logger logger = Logger.getLogger(AppController.class);
+	
 	private MainScreen mainScreen;
 	
 	private NewNetworkProgressBar newNetworkProgressBarDialog = null;
@@ -38,27 +42,32 @@ public class AppController {
 	}
 
 	public void closeApplication() {
+		logger.info("Closing application");
 		System.exit(0);
 	}
 	
 	public void showNewNetworkDialog() {
+		logger.info("Showing new network dialog");
 		NewNetworkDialog dialog = new NewNetworkDialog(this.mainScreen);
 		dialog.setVisible(true);
 	}
 	
 	public void showNewNetworkProgressBarAndBuildNetwork(
 			NetworkBuildConfiguration config) {
+		logger.info("Showing new network building progress bar");
 		this.newNetworkProgressBarDialog = new NewNetworkProgressBar(this.mainScreen, config);
 		this.newNetworkProgressBarDialog.setVisible(true);
 	}
 	
 	public void dispozeNewNetworkProgressBarDialog() {
+		logger.info("Dispozing progress bar dialog");
 		if (this.newNetworkProgressBarDialog != null) {
 			this.newNetworkProgressBarDialog.dispose();
 		}
 	}
 	
 	public void showExportNetwork() {
+		logger.info("Showing network export dialog");
 		List<String> networkNames = ControllerService.getNetworkController().getNetworkNames();
 		final NetworkSelectDialog dialog = new NetworkSelectDialog(this.mainScreen, networkNames, true);
 		dialog.setOkButtonActionListener(new ActionListener() {
@@ -67,9 +76,11 @@ public class AppController {
 			public void actionPerformed(ActionEvent arg0) {
 				String selectedNetworkName = dialog.getSelectedNetworkName();
 				if (selectedNetworkName != null) {
+					logger.info(String.format("Network %s will be exported", selectedNetworkName));
 					exportNetwork(selectedNetworkName);
 					dialog.dispose();
 				} else {
+					logger.info("No network were selected to export");
 					JOptionPane.showMessageDialog(
 							mainScreen,
 							Strings.NETWORK_SELECT_DIALOG_NO_SELECTION,
@@ -117,8 +128,10 @@ public class AppController {
 	
 	public void updateDataInBasicPropertiesTable(String networkName) {
 		if (networkName == null) {
+			logger.info("Clearing info in basic properties table");
 			this.mainScreen.getBasicPropertiesPanel().getBasicPropertiesTable().clearValues();
 		} else {
+			logger.info(String.format("Updating info in basic properties table to %s network info", networkName));
 			double totalNodesCount = ControllerService.getNetworkController().getTotalNodesCount(networkName);
 			double averageNodeDegree = ControllerService.getNetworkController().getAverageNodeDegree(networkName);
 			double averageClusterRatio = ControllerService.getNetworkController().getAverageClusterRatio(networkName);
@@ -130,19 +143,23 @@ public class AppController {
 	}
 	
 	public void addNetworkToNetworkList(String networkName) {
+		logger.info(String.format("Adding %s network to network list", networkName));
 		this.mainScreen.getNetworkList().addNetworkNameToList(networkName);
 	}
 	
 	public void removeNetwork(String networkName) {
+		logger.info(String.format("Removing %s network from appliacation", networkName));
 		this.mainScreen.getNetworkList().removeNetworkNameFromList(networkName);
 		ControllerService.getNetworkController().removeNetwork(networkName);
 	}
 	
 	public boolean isNetworkWithName(String networkName) {
+		logger.info(String.format("Checking if network %s is existing in application", networkName));
 		return this.mainScreen.getNetworkList().isNetworkWithName(networkName);
 	}
 	
 	public void showDegreeDistributionDialog(final boolean useLogScale) {
+		logger.info("Showing available networks for degree distribution");
 		List<String> networkNames = ControllerService.getNetworkController().getNetworkNames();
 		final NetworkSelectDialog dialog = new NetworkSelectDialog(this.mainScreen, networkNames, false);
 		dialog.setOkButtonActionListener(new ActionListener() {
@@ -188,6 +205,7 @@ public class AppController {
 	}
 	
 	public void showDegreeDistributionDialog(String networkName, boolean useLogScale) {
+		logger.info(String.format("Showing %s degree distribution for network %s", new Object[]{useLogScale ? "log" : "", networkName}));
 		Map<Integer, Double> degreeDistribution = ControllerService.getNetworkController().getNetworkDegreeDistribution(networkName);
 		Set<Integer> degrees = degreeDistribution.keySet();
 		List<Integer> degreesList = new ArrayList<Integer>(degrees);
@@ -225,6 +243,7 @@ public class AppController {
 	}
 	
 	public void showClusterDistributionDialog(final boolean useLogScale) {
+		logger.info("Showing available networks for cluster distribution");
 		List<String> networkNames = ControllerService.getNetworkController().getNetworkNames();
 		final NetworkSelectDialog dialog = new NetworkSelectDialog(this.mainScreen, networkNames, false);
 		dialog.setOkButtonActionListener(new ActionListener() {
@@ -270,6 +289,7 @@ public class AppController {
 	}
 	
 	public void showClusterDistributionDialog(String networkName, boolean useLogScale) {
+		logger.info(String.format("Showing %s cluster distribution for network %s", new Object[]{useLogScale ? "log" : "", networkName}));
 		Map<Integer, Double> clusterDistribution = ControllerService.getNetworkController().getNetworkClusterDistribution(networkName);
 		Set<Integer> degrees = clusterDistribution.keySet();
 		List<Integer> degreesList = new ArrayList<Integer>(degrees);
@@ -307,18 +327,22 @@ public class AppController {
 	}
 	
 	public boolean isDegreeDistributionShowed(String networkName) {
+		logger.info(String.format("Checking if degree distribution of network %s is shown", networkName));
 		return ControllerService.getDegreeDistributionController(networkName) != null;
 	}
 
 	public boolean isDegreeDistributionLogShowed(String networkName) {
+		logger.info(String.format("Checking if log degree distribution of network %s is shown", networkName));
 		return ControllerService.getDegreeDistributionLogController(networkName) != null;
 	}
 
 	public boolean isClusterDistributionShowed(String networkName) {
+		logger.info(String.format("Checking if cluster distribution of network %s is shown", networkName));
 		return ControllerService.getClusterDistributionController(networkName) != null;
 	}
 
 	public boolean isClusterDistributionLogShowed(String networkName) {
+		logger.info(String.format("Checking if log cluster distribution of network %s is shown", networkName));
 		return ControllerService.getClusterDistributionLogController(networkName) != null;
 	}
 }

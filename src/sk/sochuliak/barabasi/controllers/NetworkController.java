@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import sk.sochuliak.barabasi.network.MapNetwork;
 import sk.sochuliak.barabasi.network.Network;
 import sk.sochuliak.barabasi.network.NetworkAnalyse;
@@ -12,6 +14,8 @@ import sk.sochuliak.barabasi.network.NetworkBuildConfiguration;
 
 
 public class NetworkController {
+	
+	private static final Logger logger = Logger.getLogger(NetworkController.class);
 	
 	private Map<String, Network> networks = new HashMap<String, Network>();
 	
@@ -23,6 +27,7 @@ public class NetworkController {
 	private Map<String, List<int[]>> networksPairsOfNeighboringNodes = null;
 	
 	public void createNetwork(String networkName, List<int[]> neighboringPairs) {
+		logger.info(String.format("Creating network %s from neighboringPairs", networkName));
 		Network network = new MapNetwork();
 		for (int[] neighboringPair : neighboringPairs) {
 			network.addNode(neighboringPair[0]);
@@ -33,6 +38,7 @@ public class NetworkController {
 	}
 	
 	public void buildNetwork(NetworkBuildConfiguration config) {
+		logger.info(String.format("Building new network with config %s", config));
 		ControllerService.getAppController().showNewNetworkProgressBarAndBuildNetwork(config);
 	}
 	

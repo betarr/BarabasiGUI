@@ -7,7 +7,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
@@ -28,9 +27,7 @@ public class NetworkSelectDialog extends JDialog {
 	
 	private Component owner = null;
 	
-	String[] testNames = {"one", "two", "three"};
-	
-	private List<String> networkNames = new ArrayList<String>(Arrays.asList(testNames));
+	private List<String> networkNames = new ArrayList<String>();
 	
 	private boolean singleSelect = true;
 	

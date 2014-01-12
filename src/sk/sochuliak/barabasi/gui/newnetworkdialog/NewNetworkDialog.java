@@ -264,7 +264,6 @@ public class NewNetworkDialog extends JDialog {
 				
 				if (sb.toString().equals("")) {
 					dispose();
-					System.out.println(config);
 					ControllerService.getNetworkController().buildNetwork(config);
 				} else {
 					JOptionPane.showMessageDialog(
