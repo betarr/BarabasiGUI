@@ -12,7 +12,7 @@ public class MainScreen extends JFrame {
 	
 	private BMenuBar bMenuBar = null;
 	private BasicPropertiesPanel basicPropertiesPanel = null;
-	private GraphList graphList = null;
+	private NetworksList networkList = null;
 
 	public MainScreen(String title, Dimension size) {
 		this.setTitle(title);
@@ -22,7 +22,7 @@ public class MainScreen extends JFrame {
 		
 		this.addMenuBar();
 		this.addBasicPropertiesPanel(BorderLayout.CENTER);
-		this.addGraphList(BorderLayout.WEST);
+		this.addNetworkList(BorderLayout.WEST);
 		
 		this.pack();
 		this.setLocationRelativeTo(null);
@@ -39,13 +39,17 @@ public class MainScreen extends JFrame {
 		this.add(basicPropertiesPanel, position);
 	}
 	
-	private void addGraphList(String position) {
-		this.graphList = new GraphList();
-		this.add(this.graphList, position);
+	private void addNetworkList(String position) {
+		this.networkList = new NetworksList();
+		this.add(this.networkList, position);
 	}
 
 	public BasicPropertiesPanel getBasicPropertiesPanel() {
 		return basicPropertiesPanel;
+	}
+
+	public NetworksList getNetworkList() {
+		return networkList;
 	}
 
 	public BMenuBar getBMenuBar() {

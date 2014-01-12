@@ -13,11 +13,12 @@ public class NetworkImportExport {
 	
 	public static String DEFAULT_DIRECTORY = null;
 	
-	public static boolean export(File file, List<int[]> neighboringPairNodes) {
+	public static boolean export(File file, String networkName, List<int[]> neighboringPairNodes) {
 		boolean result = false;
 		PrintWriter pt = null;
 		try {
 			pt = new PrintWriter(file);
+			pt.println(networkName);
 			for (int[] neighboringPair : neighboringPairNodes) {
 				String row = neighboringPair[0] + "\t" + neighboringPair[1];
 				pt.println(row);
@@ -31,23 +32,31 @@ public class NetworkImportExport {
 		return result;
 	}
 	
-	public static List<int[]> importFromFile(File file) {
-		List<int[]> result = new ArrayList<int[]>();
+	public static NetworkImportObject importFromFile(File file) {
+		NetworkImportObject result = new NetworkImportObject();
+		List<int[]> nodePairs = new ArrayList<int[]>();
 		Scanner scanner = null;
+		boolean firstRow = true;
 		try {
 			scanner = new Scanner(new FileReader(file));
 			while (scanner.hasNextLine()) {
 				String row = scanner.nextLine();
+				if (firstRow) {
+					result.setName(row);
+					firstRow = false;
+					continue;
+				}
 				String[] splitted = row.split("\t");
 				int[] neighbooringPair = new int[]{Integer.valueOf(splitted[0]), Integer.valueOf(splitted[1])};
-				result.add(neighbooringPair);
+				nodePairs.add(neighbooringPair);
 			}
+			result.setNeighboringPairs(nodePairs);
 		} catch (FileNotFoundException e) {
 			System.err.println("File " + file.getName() + " not found!");
-			result = new ArrayList<int[]>(0);
+			result = null;
 		} catch (NumberFormatException nfe) {
 			System.err.println("File " + file.getName() + " is not in correct format!");
-			result = new ArrayList<int[]>(0);
+			result = null;
 		} finally {
 			scanner.close();
 		}

@@ -1,5 +1,7 @@
 package sk.sochuliak.barabasi.controllers;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,6 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import sk.sochuliak.barabasi.analysisframes.ClusterDistributionFrame;
 import sk.sochuliak.barabasi.analysisframes.DegreeDistributionFrame;
@@ -20,7 +23,9 @@ import sk.sochuliak.barabasi.gui.mainscreen.MainScreen;
 import sk.sochuliak.barabasi.gui.newgraphdialog.NewGraphDialog;
 import sk.sochuliak.barabasi.gui.newgraphdialog.NewGraphProgressBar;
 import sk.sochuliak.barabasi.network.NetworkBuildConfiguration;
+import sk.sochuliak.barabasi.networkselectdialog.NetworkSelectDialog;
 import sk.sochuliak.barabasi.utils.NetworkImportExport;
+import sk.sochuliak.barabasi.utils.NetworkImportObject;
 
 public class AppController {
 	
@@ -28,11 +33,6 @@ public class AppController {
 	
 	private NewGraphProgressBar newGraphProgressBarDialog = null;
 	
-	private boolean degreeDistributionShowed = false;
-	private boolean degreeDistributionLogShowed = false;
-	private boolean clusterDistributionShowed = false;
-	private boolean clusterDistributionLogShowed = false;
-
 	public AppController(MainScreen mainScreen) {
 		this.mainScreen = mainScreen;
 	}
@@ -41,7 +41,7 @@ public class AppController {
 		System.exit(0);
 	}
 	
-	public void showNewGraphDialog() {
+	public void showNewNetworkDialog() {
 		NewGraphDialog dialog = new NewGraphDialog(this.mainScreen);
 		dialog.setVisible(true);
 	}
@@ -58,14 +58,38 @@ public class AppController {
 		}
 	}
 	
-	public void exportGraph() {
+	public void showExportGraph() {
+		List<String> networkNames = ControllerService.getNetworkController().getNetworkNames();
+		final NetworkSelectDialog dialog = new NetworkSelectDialog(this.mainScreen, networkNames, true);
+		dialog.setOkButtonActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				String selectedNetworkName = dialog.getSelectedNetworkName();
+				if (selectedNetworkName != null) {
+					exportGraph(selectedNetworkName);
+					dialog.dispose();
+				} else {
+					JOptionPane.showMessageDialog(
+							mainScreen,
+							Strings.NETWORK_SELECT_DIALOG_NO_SELECTION,
+							Strings.ERROR,
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		
+		dialog.setVisible(true);
+	}
+	
+	public void exportGraph(String networkName) {
 		JFileChooser fc = new JFileChooser(NetworkImportExport.DEFAULT_DIRECTORY);
 		int returnValue = fc.showSaveDialog(this.mainScreen);
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
 			File file = fc.getSelectedFile();
 			NetworkImportExport.DEFAULT_DIRECTORY = file.getParent();
-			List<int[]> pairsOfNeighboringNodes = ControllerService.getNetworkController().getPairsOfNeighboringNodes();
-			NetworkImportExport.export(file, pairsOfNeighboringNodes);
+			List<int[]> pairsOfNeighboringNodes = ControllerService.getNetworkController().getPairsOfNeighboringNodes(networkName);
+			NetworkImportExport.export(file, networkName, pairsOfNeighboringNodes);
 		}
 	}
 	
@@ -75,31 +99,96 @@ public class AppController {
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
 			File file = fc.getSelectedFile();
 			NetworkImportExport.DEFAULT_DIRECTORY = file.getParent();
-			List<int[]> neighboringPairs = NetworkImportExport.importFromFile(file);
-			if (neighboringPairs.size() != 0) {
-				ControllerService.getNetworkController().createNetwork(neighboringPairs);
-				this.updateDataInBasicPropertiesTable();
-				this.enableAnalysisMenuItems(true);
+			NetworkImportObject importObject = NetworkImportExport.importFromFile(file);
+			if (NetworkImportObject.isInstanceValid(importObject)) {
+				ControllerService.getNetworkController().createNetwork(importObject.getName(), importObject.getNeighboringPairs());
+				this.updateDataInBasicPropertiesTable(importObject.getName());
 			}
 		}
 	}
 	
 	public void enableAnalysisMenuItems(boolean enable) {
-		BMenuBar.onGraphBuilded();
+		if (enable) {
+			BMenuBar.onNetworkExists();
+		} else {
+			BMenuBar.onNetworkDoesNotExist();
+		}
 	}
 	
-	public void updateDataInBasicPropertiesTable() {
-		double totalNodesCount = ControllerService.getNetworkController().getTotalNodesCount();
-		double averageNodeDegree = ControllerService.getNetworkController().getAverageNodeDegree();
-		double averageClusterRatio = ControllerService.getNetworkController().getAverageClusterRatio();
+	public void updateDataInBasicPropertiesTable(String networkName) {
+		if (networkName == null) {
+			this.mainScreen.getBasicPropertiesPanel().getBasicPropertiesTable().clearValues();
+		} else {
+			double totalNodesCount = ControllerService.getNetworkController().getTotalNodesCount(networkName);
+			double averageNodeDegree = ControllerService.getNetworkController().getAverageNodeDegree(networkName);
+			double averageClusterRatio = ControllerService.getNetworkController().getAverageClusterRatio(networkName);
 		
-		this.mainScreen.getBasicPropertiesPanel().getBasicPropertiesTable().setValue(BasicPropertiesTable.TOTAL_NODES_COUNT, totalNodesCount);
-		this.mainScreen.getBasicPropertiesPanel().getBasicPropertiesTable().setValue(BasicPropertiesTable.AVERAGE_NODE_DEGREE, averageNodeDegree);
-		this.mainScreen.getBasicPropertiesPanel().getBasicPropertiesTable().setValue(BasicPropertiesTable.AVERAGE_CLUSTER_RATIO, averageClusterRatio);
+			this.mainScreen.getBasicPropertiesPanel().getBasicPropertiesTable().setValue(BasicPropertiesTable.TOTAL_NODES_COUNT, totalNodesCount);
+			this.mainScreen.getBasicPropertiesPanel().getBasicPropertiesTable().setValue(BasicPropertiesTable.AVERAGE_NODE_DEGREE, averageNodeDegree);
+			this.mainScreen.getBasicPropertiesPanel().getBasicPropertiesTable().setValue(BasicPropertiesTable.AVERAGE_CLUSTER_RATIO, averageClusterRatio);
+		}
 	}
 	
-	public void showDegreeDistributionDialog(boolean useLogScale) {
-		Map<Integer, Double> degreeDistribution = ControllerService.getNetworkController().getNetworkDegreeDistribution();
+	public void addNetworkToGraphList(String networkName) {
+		this.mainScreen.getNetworkList().addNetworkNameToList(networkName);
+	}
+	
+	public void removeNetwork(String networkName) {
+		this.mainScreen.getNetworkList().removeNetworkNameFromList(networkName);
+		ControllerService.getNetworkController().removeNetwork(networkName);
+	}
+	
+	public boolean isNetworkWithName(String networkName) {
+		return this.mainScreen.getNetworkList().isNetworkWithName(networkName);
+	}
+	
+	public void showDegreeDistributionDialog(final boolean useLogScale) {
+		List<String> networkNames = ControllerService.getNetworkController().getNetworkNames();
+		final NetworkSelectDialog dialog = new NetworkSelectDialog(this.mainScreen, networkNames, false);
+		dialog.setOkButtonActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				List<String> selectedNetworks = dialog.getSelectedNetworkNames();
+				if (!selectedNetworks.isEmpty()) {
+					List<String> alreadyShownDistributions = new ArrayList<String>();
+					for (String networkName : selectedNetworks) {
+						if (useLogScale && isDegreeDistributionLogShowed(networkName)) {
+							alreadyShownDistributions.add(networkName);
+						} else if (!useLogScale && isDegreeDistributionShowed(networkName)) {
+							alreadyShownDistributions.add(networkName);
+						} else {
+							showDegreeDistributionDialog(networkName, useLogScale);
+						}
+					}
+					if (!alreadyShownDistributions.isEmpty()) {
+						StringBuffer messageSb = new StringBuffer();
+						messageSb.append(Strings.ALREADY_SHOWN_DISTRIBUTION).append(":\n");
+						for (String alreadyShownDistributionNetwork : alreadyShownDistributions) {
+							messageSb.append(alreadyShownDistributionNetwork).append("\n");
+						}
+						JOptionPane.showMessageDialog(
+								mainScreen,
+								messageSb.toString(),
+								Strings.WARNING,
+								JOptionPane.WARNING_MESSAGE);
+					}
+					dialog.dispose();
+				} else {
+					JOptionPane.showMessageDialog(
+							mainScreen,
+							Strings.NETWORK_SELECT_DIALOG_NO_SELECTION,
+							Strings.ERROR,
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		
+		dialog.setVisible(true);
+	}
+	
+	public void showDegreeDistributionDialog(String networkName, boolean useLogScale) {
+		Map<Integer, Double> degreeDistribution = ControllerService.getNetworkController().getNetworkDegreeDistribution(networkName);
 		Set<Integer> degrees = degreeDistribution.keySet();
 		List<Integer> degreesList = new ArrayList<Integer>(degrees);
 		Collections.sort(degreesList);
@@ -121,22 +210,67 @@ public class AppController {
 		data.put(graphTitle, points);
 		
 		GraphConfiguration config = GraphConfiguration.getInstance()
-				.setTitle(graphTitle)
+				.setTitle(networkName + " - " + graphTitle)
 				.setxAxisLabel(Strings.DEGREE_DISTRIBUTION_GRAPH_X_AXIS_LABEL)
 				.setyAxisLabel(Strings.DEGREE_DISTRIBUTION_GRAPH_Y_AXIS_LABEL)
 				.setData(data);
 		
-		DegreeDistributionFrame frame = new DegreeDistributionFrame(graphTitle, this.mainScreen, config, useLogScale);
+		DegreeDistributionFrame frame = new DegreeDistributionFrame(graphTitle, this.mainScreen, networkName, config, useLogScale);
 		if (useLogScale) {
-			ControllerService.registerDegreeDistributionLogController(new DistributionController(frame));
+			ControllerService.registerDegreeDistributionLogController(networkName, new DistributionController(frame));
 		} else {
-			ControllerService.registerDegreeDistributionController(new DistributionController(frame));
+			ControllerService.registerDegreeDistributionController(networkName, new DistributionController(frame));
 		}
 		frame.setVisible(true);
 	}
 	
-	public void showClusterDistributionDialog(boolean useLogScale) {
-		Map<Integer, Double> clusterDistribution = ControllerService.getNetworkController().getNetworkClusterDistribution();
+	public void showClusterDistributionDialog(final boolean useLogScale) {
+		List<String> networkNames = ControllerService.getNetworkController().getNetworkNames();
+		final NetworkSelectDialog dialog = new NetworkSelectDialog(this.mainScreen, networkNames, false);
+		dialog.setOkButtonActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				List<String> selectedNetworks = dialog.getSelectedNetworkNames();
+				if (!selectedNetworks.isEmpty()) {
+					List<String> alreadyShownDistributions = new ArrayList<String>();
+					for (String networkName : selectedNetworks) {
+						if (useLogScale && isClusterDistributionLogShowed(networkName)) {
+							alreadyShownDistributions.add(networkName);
+						} else if (!useLogScale && isClusterDistributionShowed(networkName)) {
+							alreadyShownDistributions.add(networkName);
+						} else {
+							showClusterDistributionDialog(networkName, useLogScale);
+						}
+					}
+					if (!alreadyShownDistributions.isEmpty()) {
+						StringBuffer messageSb = new StringBuffer();
+						messageSb.append(Strings.ALREADY_SHOWN_DISTRIBUTION).append(":\n");
+						for (String alreadyShownDistributionNetwork : alreadyShownDistributions) {
+							messageSb.append(alreadyShownDistributionNetwork).append("\n");
+						}
+						JOptionPane.showMessageDialog(
+								mainScreen,
+								messageSb.toString(),
+								Strings.WARNING,
+								JOptionPane.WARNING_MESSAGE);
+					}
+					dialog.dispose();
+				} else {
+					JOptionPane.showMessageDialog(
+							mainScreen,
+							Strings.NETWORK_SELECT_DIALOG_NO_SELECTION,
+							Strings.ERROR,
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		
+		dialog.setVisible(true);
+	}
+	
+	public void showClusterDistributionDialog(String networkName, boolean useLogScale) {
+		Map<Integer, Double> clusterDistribution = ControllerService.getNetworkController().getNetworkClusterDistribution(networkName);
 		Set<Integer> degrees = clusterDistribution.keySet();
 		List<Integer> degreesList = new ArrayList<Integer>(degrees);
 		Collections.sort(degreesList);
@@ -158,49 +292,33 @@ public class AppController {
 		data.put(graphTitle, points);
 		
 		GraphConfiguration config = GraphConfiguration.getInstance()
-				.setTitle(graphTitle)
+				.setTitle(networkName + " - " + graphTitle)
 				.setxAxisLabel(Strings.CLUSTER_DISTRIBUTION_GRAPH_X_AXIS_LABEL)
 				.setyAxisLabel(Strings.CLUSTER_DISTRIBUTION_GRAPH_Y_AXIS_LABEL)
 				.setData(data);
 		
-		ClusterDistributionFrame frame = new ClusterDistributionFrame(graphTitle, this.mainScreen, config, useLogScale);
+		ClusterDistributionFrame frame = new ClusterDistributionFrame(graphTitle, this.mainScreen, networkName, config, useLogScale);
 		if (useLogScale) {
-			ControllerService.registerClusterDistributionLogController(new DistributionController(frame));
+			ControllerService.registerClusterDistributionLogController(networkName, new DistributionController(frame));
 		} else {
-			ControllerService.registerClusterDistributionController(new DistributionController(frame));
+			ControllerService.registerClusterDistributionController(networkName, new DistributionController(frame));
 		}
 		frame.setVisible(true);
 	}
 	
-	public boolean isDegreeDistributionShowed() {
-		return degreeDistributionShowed;
+	public boolean isDegreeDistributionShowed(String networkName) {
+		return ControllerService.getDegreeDistributionController(networkName) != null;
 	}
 
-	public void setDegreeDistributionShowed(boolean degreeDistributionShowed) {
-		this.degreeDistributionShowed = degreeDistributionShowed;
+	public boolean isDegreeDistributionLogShowed(String networkName) {
+		return ControllerService.getDegreeDistributionLogController(networkName) != null;
 	}
 
-	public boolean isDegreeDistributionLogShowed() {
-		return degreeDistributionLogShowed;
+	public boolean isClusterDistributionShowed(String networkName) {
+		return ControllerService.getClusterDistributionController(networkName) != null;
 	}
 
-	public void setDegreeDistributionLogShowed(boolean degreeDistributionLogShowed) {
-		this.degreeDistributionLogShowed = degreeDistributionLogShowed;
-	}
-
-	public boolean isClusterDistributionShowed() {
-		return clusterDistributionShowed;
-	}
-
-	public void setClusterDistributionShowed(boolean clusterDistributionShowed) {
-		this.clusterDistributionShowed = clusterDistributionShowed;
-	}
-
-	public boolean isClusterDistributionLogShowed() {
-		return clusterDistributionLogShowed;
-	}
-
-	public void setClusterDistributionLogShowed(boolean clusterDistributionLogShowed) {
-		this.clusterDistributionLogShowed = clusterDistributionLogShowed;
+	public boolean isClusterDistributionLogShowed(String networkName) {
+		return ControllerService.getClusterDistributionLogController(networkName) != null;
 	}
 }

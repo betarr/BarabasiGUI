@@ -8,30 +8,30 @@ public class DegreeDistributionFrame extends DistributionFrame {
 
 	private static final long serialVersionUID = 1L;
 	
-	public DegreeDistributionFrame(String title, Component owner, GraphConfiguration config, boolean logScaleUsed) {
-		super(title, owner, config, logScaleUsed);
+	public DegreeDistributionFrame(String title, Component owner, String networkName, GraphConfiguration config, boolean logScaleUsed) {
+		super(title, owner, networkName, config, logScaleUsed);
 	}
 
 	@Override
-	public DistributionInfoPanel getInstanceOfDistributionInfoPanel(boolean logScaleUsed) {
-		return DegreeDistributionInfoPanel.getInstance(logScaleUsed);
+	public DistributionInfoPanel getInstanceOfDistributionInfoPanel(String networkName, boolean logScaleUsed) {
+		return DegreeDistributionInfoPanel.getInstance(networkName, logScaleUsed);
 	}
 
 	@Override
 	public void onMouseClickedOnItemEntity(double x, double y) {
 		if (this.isLogScaleUsed()) {
-			ControllerService.getDegreeDistributionLogController().setPointToInfoPanel(x, y);
+			ControllerService.getDegreeDistributionLogController(this.getNetworkName()).setPointToInfoPanel(x, y);
 		} else {
-			ControllerService.getDegreeDistributionController().setPointToInfoPanel(x, y);
+			ControllerService.getDegreeDistributionController(this.getNetworkName()).setPointToInfoPanel(x, y);
 		}
 	}
 
 	@Override
 	public void onFrameClosed() {
 		if (this.isLogScaleUsed()) {
-			ControllerService.getAppController().setDegreeDistributionLogShowed(false);
+			ControllerService.unregisterDegreeDistriubtionLogController(this.getNetworkName());
 		} else {
-			ControllerService.getAppController().setDegreeDistributionShowed(false);
+			ControllerService.unregisterDegreeDistributionController(this.getNetworkName());
 		}
 	}
 }

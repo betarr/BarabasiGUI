@@ -210,6 +210,8 @@ public class NewGraphDialog extends JDialog {
 				String graphNameText = graphNameTextField.getText();
 				if (graphNameText.equals("")) {
 					sb.append(Strings.WRONG_VALUE).append(": ").append(Strings.NEW_GRAPH_DIALOG_NAME).append("\n");
+				} else if (ControllerService.getAppController().isNetworkWithName(graphNameText)) {
+					sb.append(Strings.WRONG_VALUE).append(": ").append(Strings.NEW_GRAPH_DIALOG_NAME).append("\n");
 				}
 				String numberOfNodesText = numberOfNodesTextField.getText();
 				if (!CommonUtils.isPositiveNumber(numberOfNodesText)) {

@@ -8,30 +8,30 @@ public class ClusterDistributionFrame extends DistributionFrame {
 	
 	private static final long serialVersionUID = 1L;
 	
-	public ClusterDistributionFrame(String title, Component owner, GraphConfiguration config, boolean logScaleUsed) {
-		super(title, owner, config, logScaleUsed);
+	public ClusterDistributionFrame(String title, Component owner, String networkName, GraphConfiguration config, boolean logScaleUsed) {
+		super(title, owner, networkName, config, logScaleUsed);
 	}
 
 	@Override
-	public DistributionInfoPanel getInstanceOfDistributionInfoPanel(boolean logScaleUsed) {
-		return ClusterDistributionInfoPanel.getInstance(logScaleUsed);
+	public DistributionInfoPanel getInstanceOfDistributionInfoPanel(String networkName, boolean logScaleUsed) {
+		return ClusterDistributionInfoPanel.getInstance(networkName, logScaleUsed);
 	}
 
 	@Override
 	public void onMouseClickedOnItemEntity(double x, double y) {
 		if (this.isLogScaleUsed()) {
-			ControllerService.getClusterDistributionLogController().setPointToInfoPanel(x, y);
+			ControllerService.getClusterDistributionLogController(this.getNetworkName()).setPointToInfoPanel(x, y);
 		} else {
-			ControllerService.getClusterDistributionController().setPointToInfoPanel(x, y);
+			ControllerService.getClusterDistributionController(this.getNetworkName()).setPointToInfoPanel(x, y);
 		}
 	}
 
 	@Override
 	public void onFrameClosed() {
 		if (this.isLogScaleUsed()) {
-			ControllerService.getAppController().setClusterDistributionLogShowed(false);
+			ControllerService.unregisterClusterDistributionLogController(this.getNetworkName());
 		} else {
-			ControllerService.getAppController().setClusterDistributionShowed(false);
+			ControllerService.unregisterClusterDistributionController(this.getNetworkName());
 		}
 	}
 	

@@ -36,7 +36,9 @@ public abstract class DistributionFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	
-	private Component owner;
+	private Component owner = null;
+	
+	private String networkName = null;
 	
 	private DistributionInfoPanel infoPanel = null;
 	
@@ -44,11 +46,12 @@ public abstract class DistributionFrame extends JFrame {
 	
 	private boolean logScaleUsed = false;
 	
-	public DistributionFrame(String title, Component owner, GraphConfiguration config, boolean logScaleUsed) {
+	public DistributionFrame(String title, Component owner, String networkName, GraphConfiguration config, boolean logScaleUsed) {
 		this.owner = owner;
+		this.networkName = networkName;
 		this.logScaleUsed = logScaleUsed;
 		
-		this.setTitle(title);
+		this.setTitle(networkName + " - " + title);
 		this.setSize(MainGuiConfiguration.ANALYSIS_GRAPH_SIZE);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setLocationRelativeTo(this.owner);
@@ -56,7 +59,7 @@ public abstract class DistributionFrame extends JFrame {
 		
 		this.add(this.buildChartPanel(config), BorderLayout.CENTER);
 		
-		this.infoPanel = this.getInstanceOfDistributionInfoPanel(logScaleUsed);
+		this.infoPanel = this.getInstanceOfDistributionInfoPanel(networkName, logScaleUsed);
 		this.add(this.infoPanel, BorderLayout.EAST);
 	}
 	
@@ -209,6 +212,10 @@ public abstract class DistributionFrame extends JFrame {
 		return infoPanel;
 	}
 
+	public String getNetworkName() {
+		return networkName;
+	}
+
 	public XYSeriesCollection getXYSeriesCollection() {
 		Plot plot = this.chart.getPlot();
 		if (plot instanceof XYPlot) {
@@ -230,7 +237,7 @@ public abstract class DistributionFrame extends JFrame {
 		return logScaleUsed;
 	}
 
-	public abstract DistributionInfoPanel getInstanceOfDistributionInfoPanel(boolean logScaleUsed);
+	public abstract DistributionInfoPanel getInstanceOfDistributionInfoPanel(String networkName, boolean logScaleUsed);
 	
 	public abstract void onMouseClickedOnItemEntity(double x, double y);
 	

@@ -11,4 +11,6 @@ public class MainGuiConfiguration {
 	public static final Dimension NEW_GRAPH_PROGRESS_BAR_DIALOG_SIZE = new Dimension(200, 100);
 	
 	public static final Dimension ANALYSIS_GRAPH_SIZE = new Dimension(640, 480);
+	
+	public static final Dimension NETWORK_SELECT_DIALOG_SIZE = new Dimension(320, 240);
 }

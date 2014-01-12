@@ -9,8 +9,11 @@ public class Strings {
 	public static String CANCEL = "Zruöiù";
 	public static String WRONG_VALUE = "Nespr·vne vyplnenÈ pole";
 	public static String ERROR = "Chyba";
+	public static String WARNING = "Upozornenie";
 	
 	public static String LINEAR_REGRESION = "Line·rna regresia";
+	
+	public static String ALREADY_SHOWN_DISTRIBUTION = "Tieto siete uû maj˙ zobrazen˙ distrib˙ciu";
 	
 	// MENU
 	public static String MENU_PROGRAM = "Program";
@@ -24,11 +27,12 @@ public class Strings {
 	public static String MENU_ANALYSIS_SHOW_CLUSTER_DISTRIBUTION = "Distrib˙cia klasterizaËn˝ch koeficientov";
 	public static String MENU_ANALYSIS_SHOW_CLUSTER_DISTRIBUTION_LOG = "Distrib˙cia klasterizaËn˝ch koeficientov - Log";
 	
-	// GRAPHS LIST
-	public static String GRAPHS_LIST_GRAPHS_LIST = "Zoznam grafov";
-	public static String GRAPHS_LIST_ADD_GRAPH = "Pridaj";
-	public static String GRAPHS_LIST_SHOW_INFO_BUTTON = "Zobraz Info >";
-	public static String GRAPHS_LIST_REMOVE_GRAPH = "Odstr·Ú";
+	// NETWORKS LIST
+	public static String NETWORK_LIST_NETWORKS_LIST = "Zoznam sietÌ";
+	public static String NETWORK_LIST_ADD_NETWORK = "Pridaj";
+	public static String NETWORK_LIST_SHOW_INFO_BUTTON = "Zobraz Info >";
+	public static String NETWORK_LIST_REMOVE_NETWORK = "Odstr·Ú";
+	public static String NETWORK_LIST_REMOVE_NETWORK_QUESTION = "Odstr·niù sieù";
 	
 	// BASIC PROPERTIES
 	public static String BASIC_PROPERTIES_TITLE = "Z·kladnÈ vlastnosti siete";
@@ -81,4 +85,8 @@ public class Strings {
 	public static String INFO_PANEL_END_POINT = "Koncov˝ bod";
 	public static String INFO_PANEL_CALCULATE = "VypoËÌtaù";
 	public static String INFO_PANEL_RESULT = "äk·lovacÌ exponent";
+	
+	// NETWORK SELECT DIALOG
+	public static String NETWORK_SELECT_DIALOG_TITLE = "Vybraù sieù";
+	public static String NETWORK_SELECT_DIALOG_NO_SELECTION = "Nevybrali ste ûiadnu sieù!";
 }

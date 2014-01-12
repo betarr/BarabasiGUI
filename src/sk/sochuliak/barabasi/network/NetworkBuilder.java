@@ -104,9 +104,8 @@ public class NetworkBuilder extends SwingWorker<Void, Void> {
 	protected void done() {
 		Toolkit.getDefaultToolkit().beep();
 		ControllerService.getAppController().dispozeNewGraphProgressBarDialog();
-		ControllerService.getNetworkController().setNetwork(this.resultNetwork);
-		ControllerService.getAppController().updateDataInBasicPropertiesTable();
-		ControllerService.getAppController().enableAnalysisMenuItems(true);
+		ControllerService.getNetworkController().addNetwork(config.getName(), this.resultNetwork);
+		ControllerService.getAppController().updateDataInBasicPropertiesTable(config.getName());
 	}
 
 }

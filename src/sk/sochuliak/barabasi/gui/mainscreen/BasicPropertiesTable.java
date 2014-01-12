@@ -66,4 +66,11 @@ public class BasicPropertiesTable extends JTable {
 		this.repaint();
 	}
 
+	public void clearValues() {
+		this.getModel().setValueAt("", BasicPropertiesTable.TOTAL_NODES_COUNT, 1);
+		this.getModel().setValueAt("", BasicPropertiesTable.AVERAGE_NODE_DEGREE, 1);
+		this.getModel().setValueAt("", BasicPropertiesTable.AVERAGE_CLUSTER_RATIO, 1);
+		this.repaint();
+	}
+
 }

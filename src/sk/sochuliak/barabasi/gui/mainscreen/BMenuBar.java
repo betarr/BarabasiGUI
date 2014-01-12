@@ -42,7 +42,7 @@ public class BMenuBar extends JMenuBar {
 					
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
-						ControllerService.getAppController().showNewGraphDialog();
+						ControllerService.getAppController().showNewNetworkDialog();
 					}
 				}));
 		
@@ -64,11 +64,11 @@ public class BMenuBar extends JMenuBar {
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						ControllerService.getAppController().exportGraph();
+						ControllerService.getAppController().showExportGraph();
 					}
 				});
 		this.exportMenuItem.setEnabled(false);
-		BMenuBar.registerMenuItemEnabledOnGraphBuilded(this.exportMenuItem);
+		BMenuBar.registerMenuItemEnabledWhenNetworkExists(this.exportMenuItem);
 		programMenu.add(this.exportMenuItem);
 		
 		programMenu.addSeparator();
@@ -96,14 +96,11 @@ public class BMenuBar extends JMenuBar {
 					
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
-						if (!ControllerService.getAppController().isDegreeDistributionShowed()) { 
-							ControllerService.getAppController().showDegreeDistributionDialog(false);
-							ControllerService.getAppController().setDegreeDistributionShowed(true);
-						}
+						ControllerService.getAppController().showDegreeDistributionDialog(false);
 					}
 				});
 		this.showDegreeDistributionMenuItem.setEnabled(false);
-		BMenuBar.registerMenuItemEnabledOnGraphBuilded(this.showDegreeDistributionMenuItem);
+		BMenuBar.registerMenuItemEnabledWhenNetworkExists(this.showDegreeDistributionMenuItem);
 		analysisMenu.add(this.showDegreeDistributionMenuItem);
 		
 		this.showDegreeDistributionLogMenuItem = GuiUtils.buildJMenuItem(Strings.MENU_ANALYSIS_SHOW_DEGREE_DISTRIBUTION_LOG,
@@ -112,15 +109,12 @@ public class BMenuBar extends JMenuBar {
 
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
-						if (!ControllerService.getAppController().isDegreeDistributionLogShowed()) { 
-							ControllerService.getAppController().showDegreeDistributionDialog(true);
-							ControllerService.getAppController().setDegreeDistributionLogShowed(true);
-						}
+						ControllerService.getAppController().showDegreeDistributionDialog(true);
 					}
 			
 				});
 		this.showDegreeDistributionLogMenuItem.setEnabled(false);
-		BMenuBar.registerMenuItemEnabledOnGraphBuilded(this.showDegreeDistributionLogMenuItem);
+		BMenuBar.registerMenuItemEnabledWhenNetworkExists(this.showDegreeDistributionLogMenuItem);
 		analysisMenu.add(this.showDegreeDistributionLogMenuItem);
 		
 		this.showClusterDistributionMenuItem = GuiUtils.buildJMenuItem(Strings.MENU_ANALYSIS_SHOW_CLUSTER_DISTRIBUTION,
@@ -129,14 +123,11 @@ public class BMenuBar extends JMenuBar {
 					
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
-						if (!ControllerService.getAppController().isClusterDistributionShowed()) {
-							ControllerService.getAppController().showClusterDistributionDialog(false);
-							ControllerService.getAppController().setClusterDistributionShowed(true);
-						}
+						ControllerService.getAppController().showClusterDistributionDialog(false);
 					}
 				});
 		this.showClusterDistributionMenuItem.setEnabled(false);
-		BMenuBar.registerMenuItemEnabledOnGraphBuilded(this.showClusterDistributionMenuItem);
+		BMenuBar.registerMenuItemEnabledWhenNetworkExists(this.showClusterDistributionMenuItem);
 		analysisMenu.add(this.showClusterDistributionMenuItem);
 		
 		this.showClusterDistributionLogMenuItem = GuiUtils.buildJMenuItem(Strings.MENU_ANALYSIS_SHOW_CLUSTER_DISTRIBUTION_LOG,
@@ -145,25 +136,28 @@ public class BMenuBar extends JMenuBar {
 			
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
-						if (!ControllerService.getAppController().isClusterDistributionLogShowed()) {
-							ControllerService.getAppController().showClusterDistributionDialog(true);
-							ControllerService.getAppController().setClusterDistributionLogShowed(true);
-						}
+						ControllerService.getAppController().showClusterDistributionDialog(true);
 					}
 				});
 		this.showClusterDistributionLogMenuItem.setEnabled(false);
-		BMenuBar.registerMenuItemEnabledOnGraphBuilded(this.showClusterDistributionLogMenuItem);
+		BMenuBar.registerMenuItemEnabledWhenNetworkExists(this.showClusterDistributionLogMenuItem);
 		analysisMenu.add(this.showClusterDistributionLogMenuItem);
 		return analysisMenu;
 	}
 	
-	public static void registerMenuItemEnabledOnGraphBuilded(JMenuItem jMenuItem) {
+	public static void registerMenuItemEnabledWhenNetworkExists(JMenuItem jMenuItem) {
 		BMenuBar.menuItemsEnabledOnGraphBuilded.add(jMenuItem);
 	}
 	
-	public static void onGraphBuilded() {
+	public static void onNetworkExists() {
 		for (JMenuItem menuItem : BMenuBar.menuItemsEnabledOnGraphBuilded) {
 			menuItem.setEnabled(true);
+		}
+	}
+	
+	public static void onNetworkDoesNotExist() {
+		for (JMenuItem menuItem : BMenuBar.menuItemsEnabledOnGraphBuilded) {
+			menuItem.setEnabled(false);
 		}
 	}
 }
