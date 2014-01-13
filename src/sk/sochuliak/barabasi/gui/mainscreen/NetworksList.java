@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -59,7 +60,7 @@ public class NetworksList extends JPanel {
 		panel.setLayout(new GridLayout(1, 1));
 		this.list = new JList<String>(this.listModel);
 		this.list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		panel.add(this.list);
+		panel.add(new JScrollPane(this.list));
 		return panel;
 	}
 

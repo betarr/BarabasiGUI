@@ -52,6 +52,8 @@ public class NetworkSelectDialog extends JDialog {
 		JPanel contentPanel = new JPanel();
 		contentPanel.setLayout(new BorderLayout());
 		
+		JPanel centerFlowPanel = new JPanel();
+		centerFlowPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		JPanel centerPanel = new JPanel();
 		centerPanel.setLayout(new GridLayout(this.networkNames.size(), 1));
 		if (this.singleSelect) {
@@ -65,8 +67,9 @@ public class NetworkSelectDialog extends JDialog {
 			centerPanel.add(button);
 			this.buttons.add(button);
 		}
-		JScrollPane scrollPaneCenter = new JScrollPane(centerPanel);
-		contentPanel.add(scrollPaneCenter, BorderLayout.CENTER);
+		
+		centerFlowPanel.add(centerPanel);
+		contentPanel.add(new JScrollPane(centerFlowPanel), BorderLayout.CENTER);
 	
 		contentPanel.add(this.buildControlPanel(), BorderLayout.SOUTH);
 		
