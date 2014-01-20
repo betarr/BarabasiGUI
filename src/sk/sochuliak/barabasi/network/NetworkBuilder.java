@@ -6,10 +6,14 @@ import java.util.List;
 
 import javax.swing.SwingWorker;
 
+import org.apache.log4j.Logger;
+
 import sk.sochuliak.barabasi.controllers.ControllerService;
 import sk.sochuliak.barabasi.utils.CommonUtils;
 
 public class NetworkBuilder extends SwingWorker<Void, Void> {
+	
+	private static Logger logger = Logger.getLogger(NetworkBuilder.class);
 	
 	private NetworkBuildConfiguration config = null;
 	private Network resultNetwork = null;
@@ -30,14 +34,14 @@ public class NetworkBuilder extends SwingWorker<Void, Void> {
 			int actualNodeId = i;
 			int adjacentNodeId = -1;
 			int firstNodeConnectingMethod = config.getFirstEdgeConnecting();
-			if (firstNodeConnectingMethod == EdgeConnectingMethodRowConfig.DEGREE_DRIVEN) {
+			if (firstNodeConnectingMethod == EdgeConnectingMethodRowConfig.DRIVEN_DEGREE) {
 				adjacentNodeId = network.getNodeToConnectDegreeDriven();
-			} else if (firstNodeConnectingMethod == EdgeConnectingMethodRowConfig.CLUSTER_DRIVEN) {
+			} else if (firstNodeConnectingMethod == EdgeConnectingMethodRowConfig.DRIVEN_CLUSTER) {
 				adjacentNodeId = network.getNodeToConnectClusterDriven();
-			} else if (firstNodeConnectingMethod == EdgeConnectingMethodRowConfig.RANDOM_DRIVEN) {
+			} else if (firstNodeConnectingMethod == EdgeConnectingMethodRowConfig.DRIVEN_RANDOM) {
 				adjacentNodeId = network.getNodeToConnectRandomDriven();
 			} else {
-				System.err.println("Method driven '" + firstNodeConnectingMethod + "' is not valid!");
+				logger.error(String.format("Method driven %s is no valid!", String.valueOf(firstNodeConnectingMethod)));
 				this.resultNetwork = null;
 				this.updateProgress(nDouble, nDouble);
 				return null;
@@ -48,33 +52,47 @@ public class NetworkBuilder extends SwingWorker<Void, Void> {
 				continue;
 			} else {
 				List<Integer> nodesToConnect = new ArrayList<Integer>();
-				int[] adjacentNodes = network.getAdjacentNodesIds(adjacentNodeId);
-				List<Integer> adjacentNodesList = CommonUtils.convertIntArrayToList(adjacentNodes);
 				List<EdgeConnectingMethodRowConfig> rowConfigs = config.getEdgeConnectingMethodRowConfigs();
 				for (EdgeConnectingMethodRowConfig rowConfig : rowConfigs) {
+					List<Integer> nodesToChooseFromList = null;
+					if (rowConfig.getRange() == EdgeConnectingMethodRowConfig.RANGE_NEIGHBOR) {
+						nodesToChooseFromList = CommonUtils.convertIntArrayToList(network.getAdjacentNodesIds(adjacentNodeId));
+					} else if (rowConfig.getRange() == EdgeConnectingMethodRowConfig.RANGE_ALL) {
+						nodesToChooseFromList = CommonUtils.convertIntArrayToList(network.getNodesIds());
+						for (Integer nodeExcept : nodesToConnect) {
+							nodesToChooseFromList.remove(new Integer(nodeExcept));
+						}
+						nodesToChooseFromList.remove(new Integer(adjacentNodeId));
+					} else {
+						logger.error(String.format("Unexpected EdgeConnectingMethodRowConfig range: %s!", String.valueOf(rowConfig.getRange())));
+						this.resultNetwork = null;
+						this.updateProgress(nDouble, nDouble);
+						return null;
+					}
 					for (int j = 0; j < rowConfig.getNumberOfEdges(); j++) {
-						if (!adjacentNodesList.isEmpty()) {
-							int[] adjacentNodesArray = CommonUtils.converIntListToArray(adjacentNodesList);
+						if (!nodesToChooseFromList.isEmpty()) {
+							int[] nodesToChooseFrom = CommonUtils.converIntListToArray(nodesToChooseFromList);
 							int otherNodeConnectingMethod = rowConfig.getConnectingMethod();
 							int otherAdjacentNodeId = -1;
-							if (otherNodeConnectingMethod == EdgeConnectingMethodRowConfig.DEGREE_DRIVEN) {
-								otherAdjacentNodeId = network.getNodeToConnectDegreeDriven(adjacentNodesArray);
-							} else if (otherNodeConnectingMethod == EdgeConnectingMethodRowConfig.CLUSTER_DRIVEN) {
-								otherAdjacentNodeId = network.getNodeToConnectClusterDriven(adjacentNodesArray);
-							} else if (otherNodeConnectingMethod == EdgeConnectingMethodRowConfig.RANDOM_DRIVEN) {
-								otherAdjacentNodeId = network.getNodeToConnectRandomDriven(adjacentNodesArray);
+							if (otherNodeConnectingMethod == EdgeConnectingMethodRowConfig.DRIVEN_DEGREE) {
+								otherAdjacentNodeId = network.getNodeToConnectDegreeDriven(nodesToChooseFrom);
+							} else if (otherNodeConnectingMethod == EdgeConnectingMethodRowConfig.DRIVEN_CLUSTER) {
+								otherAdjacentNodeId = network.getNodeToConnectClusterDriven(nodesToChooseFrom);
+							} else if (otherNodeConnectingMethod == EdgeConnectingMethodRowConfig.DRIVEN_RANDOM) {
+								otherAdjacentNodeId = network.getNodeToConnectRandomDriven(nodesToChooseFrom);
 							} else {
-								System.err.println("Method driven '" + firstNodeConnectingMethod + "' is not valid!");
+								logger.error(String.format("Method driven %s is not valid!", String.valueOf(otherNodeConnectingMethod)));
 								this.resultNetwork = null;
 								this.updateProgress(nDouble, nDouble);
 								return null;
 							}
 							
 							if (otherAdjacentNodeId == -1) {
+								logger.warn("Adjacent node should not by -1!");
 								continue;
 							} else {
 								nodesToConnect.add(otherAdjacentNodeId);
-								adjacentNodesList.remove(new Integer(otherAdjacentNodeId));
+								nodesToChooseFromList.remove(new Integer(otherAdjacentNodeId));
 							}
 						}
 					}

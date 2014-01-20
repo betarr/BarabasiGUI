@@ -2,12 +2,16 @@ package sk.sochuliak.barabasi.network;
 
 public class EdgeConnectingMethodRowConfig {
 	
-	public static final int DEGREE_DRIVEN = 0;
-	public static final int CLUSTER_DRIVEN = 1;
-	public static final int RANDOM_DRIVEN = 2;
+	public static final int DRIVEN_DEGREE = 0;
+	public static final int DRIVEN_CLUSTER = 1;
+	public static final int DRIVEN_RANDOM = 2;
+	
+	public static final int RANGE_NEIGHBOR = 0;
+	public static final int RANGE_ALL = 1;
 
 	private int numberOfEdges = 0;
 	private int connectingMethod = 0;
+	private int range = 0;
 	
 	public EdgeConnectingMethodRowConfig() {
 	}
@@ -35,10 +39,20 @@ public class EdgeConnectingMethodRowConfig {
 		return this;
 	}
 	
+	public int getRange() {
+		return range;
+	}
+
+	public EdgeConnectingMethodRowConfig setRange(int range) {
+		this.range = range;
+		return this;
+	}
+
 	public String toString() {
 		StringBuffer sb = new StringBuffer().append("[");
-		sb.append("Number of edges: ").append(this.numberOfEdges).append(" ");
-		sb.append("Connecting method: ").append(this.connectingMethod);
+		sb.append("Number of edges: ").append(this.numberOfEdges).append(", ");
+		sb.append("Connecting method: ").append(this.connectingMethod).append(", ");
+		sb.append("Range: ").append(this.range);
 		sb.append("]");
 		return sb.toString();
 	}

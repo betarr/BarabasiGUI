@@ -136,7 +136,7 @@ public class NewNetworkDialog extends JDialog {
 		this.addToPanel(this.addOwnConnectionMethodButton, contentPanel, constrains, 7, 10, 1, 1);
 		
 		// line 11
-		this.addToPanel(this.edgeConnectingMethodPanel, contentPanel, constrains, 0, 11, 8, 5);
+		this.addToPanel(this.edgeConnectingMethodPanel, contentPanel, constrains, 0, 11, 8, 1);
 		
 		this.enableOwnConnectingMethod(false);
 		this.createEventsOnContentPanel();
@@ -222,11 +222,11 @@ public class NewNetworkDialog extends JDialog {
 					String predefinedGrowthMethodComboBoxValue = (String) predefinedGrowthMethodComboBox.getSelectedItem();
 					int growthManagement = -1;
 					if (predefinedGrowthMethodComboBoxValue.equals(Strings.NEW_NETWORK_DIALOG_GROWTH_MANAGEMENT_NODE_DEGREE)) {
-						growthManagement = EdgeConnectingMethodRowConfig.DEGREE_DRIVEN;
+						growthManagement = EdgeConnectingMethodRowConfig.DRIVEN_DEGREE;
 					} else if (predefinedGrowthMethodComboBoxValue.equals(Strings.NEW_NETWORK_DIALOG_GROWTH_MANAGEMENT_NODE_CLASTER)) {
-						growthManagement = EdgeConnectingMethodRowConfig.CLUSTER_DRIVEN;
+						growthManagement = EdgeConnectingMethodRowConfig.DRIVEN_CLUSTER;
 					} else if (predefinedGrowthMethodComboBoxValue.equals(Strings.NEW_NETWORK_DIALOG_GROWTH_MANAGEMENT_RANDOM)) {
-						growthManagement = EdgeConnectingMethodRowConfig.RANDOM_DRIVEN;
+						growthManagement = EdgeConnectingMethodRowConfig.DRIVEN_RANDOM;
 					}
 					
 					String numberOfEdgesText = numberOfEdgesTextField.getText();
@@ -239,7 +239,6 @@ public class NewNetworkDialog extends JDialog {
 						config = NetworkBuildConfiguration.createDefaultConfig(growthManagement, networkNameText, numberOfNodes, numberOfEdges);
 					}
 				} else { // own configuration
-					config.setNumberOfNodes(Integer.parseInt(numberOfNodesText));
 					String firstEdgeConnectingMethodComboBoxValue = (String) firstEdgeConnectingMethodComboBox.getSelectedItem();
 					int firstEdgeConnectingMethod = -1;
 					if (firstEdgeConnectingMethodComboBoxValue.equals(Strings.NEW_NETWORK_DIALOG_GROWTH_MANAGEMENT_NODE_DEGREE)) {
@@ -249,7 +248,6 @@ public class NewNetworkDialog extends JDialog {
 					} else if (firstEdgeConnectingMethodComboBoxValue.equals(Strings.NEW_NETWORK_DIALOG_GROWTH_MANAGEMENT_RANDOM)) {
 						firstEdgeConnectingMethod = NetworkBuildConfiguration.RANDOM_DRIVEN;
 					}
-					config.setFirstEdgeConnecting(firstEdgeConnectingMethod);
 					try {
 						List<EdgeConnectingMethodRowConfig> rowConfigs = edgeConnectingMethodPanel.getConfig();
 						if (!rowConfigs.isEmpty()) {
@@ -259,6 +257,11 @@ public class NewNetworkDialog extends JDialog {
 						}
 					} catch (NumberFormatException nfe) {
 						sb.append(Strings.WRONG_VALUE).append(": ").append(Strings.NEW_NETWORK_DIALOG_CONNECTING_WITH_SELECTING_NODE).append("\n");
+					}
+					if (sb.toString().equals("")) {
+						config.setName(networkNameText);
+						config.setNumberOfNodes(Integer.parseInt(numberOfNodesText));
+						config.setFirstEdgeConnecting(firstEdgeConnectingMethod);
 					}
 				}
 				

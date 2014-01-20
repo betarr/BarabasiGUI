@@ -10,6 +10,7 @@ public class Strings {
 	public static String WRONG_VALUE = "Nespr·vne vyplnenÈ pole";
 	public static String ERROR = "Chyba";
 	public static String WARNING = "Upozornenie";
+	public static String TO = "k";
 	
 	public static String LINEAR_REGRESION = "Line·rna regresia";
 	
@@ -59,6 +60,8 @@ public class Strings {
 	public static String NEW_NETWORK_DIALOG_FIRST_EDGE = "Prv· hrana";
 	public static String NEW_NETWORK_DIALOG_CONNECTING_WITH_SELECTING_NODE = "Prip·janie k susedom vybranÈho uzla";
 	public static String NEW_NETWORK_DIALOG_EDGES = "Hr·n";
+	public static String NEW_NETWORK_DIALOG_RANGE_NEIGHBOR = "Susedom";
+	public static String NEW_NETWORK_DIALOG_RANGE_ALL = "Celej sieti";
 	public static String NEW_NETWORK_DIALOG_ADD = "Pridaù";
 	public static String NEW_NETWORK_DIALOG_REMOVE = "Odobraù";
 	
