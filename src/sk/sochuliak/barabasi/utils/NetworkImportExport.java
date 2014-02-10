@@ -41,13 +41,19 @@ public class NetworkImportExport {
 			scanner = new Scanner(new FileReader(file));
 			while (scanner.hasNextLine()) {
 				String row = scanner.nextLine();
+				row = row.trim();
 				if (firstRow) {
 					result.setName(row);
 					firstRow = false;
 					continue;
 				}
 				String[] splitted = row.split("\t");
-				int[] neighbooringPair = new int[]{Integer.valueOf(splitted[0]), Integer.valueOf(splitted[1])};
+				if (splitted.length == 1) {
+					splitted = row.split(" ");
+				}
+				String xValue = splitted[0].trim();
+				String yValue = splitted[1].trim();
+				int[] neighbooringPair = new int[]{Integer.valueOf(xValue), Integer.valueOf(yValue)};
 				nodePairs.add(neighbooringPair);
 			}
 			result.setNeighboringPairs(nodePairs);
