@@ -51,4 +51,20 @@ public class NetworkUtils {
 		}
 		return result;
 	}
+	
+	/**
+	 * Creates complete graph.
+	 * @param network network
+	 * @param numberOfNodes number of nodes
+	 * @return complete graph
+	 */
+	public static Network getCompleteGraph(Network network, int numberOfNodes) {
+		for (int i = 0; i < numberOfNodes; i++) {
+			network.addNode(i);
+			for (int j = 0; j < i; j++) {
+				network.addEdge(i, j);
+			}
+		}
+		return network;
+	}
 }

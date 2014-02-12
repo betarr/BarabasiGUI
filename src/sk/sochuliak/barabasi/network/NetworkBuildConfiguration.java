@@ -30,9 +30,15 @@ public class NetworkBuildConfiguration {
 		config.setFirstEdgeConnecting(method);
 		
 		EdgeConnectingMethodRowConfig rowConfig = new EdgeConnectingMethodRowConfig();
-		rowConfig.setConnectingMethod(EdgeConnectingMethodRowConfig.DRIVEN_RANDOM);
-		rowConfig.setRange(EdgeConnectingMethodRowConfig.RANGE_NEIGHBOR);
-		rowConfig.setNumberOfEdges(numberOfEdges-1);
+		if (method == EdgeConnectingMethodRowConfig.DRIVEN_DEGREE) {
+			rowConfig.setConnectingMethod(EdgeConnectingMethodRowConfig.DRIVEN_DEGREE);
+			rowConfig.setRange(EdgeConnectingMethodRowConfig.RANGE_ALL);
+			rowConfig.setNumberOfEdges(numberOfEdges-1);
+		} else {
+			rowConfig.setConnectingMethod(EdgeConnectingMethodRowConfig.DRIVEN_RANDOM);
+			rowConfig.setRange(EdgeConnectingMethodRowConfig.RANGE_NEIGHBOR);
+			rowConfig.setNumberOfEdges(numberOfEdges-1);
+		}
 		
 		List<EdgeConnectingMethodRowConfig> rowsConfig = new ArrayList<EdgeConnectingMethodRowConfig>();
 		rowsConfig.add(rowConfig);

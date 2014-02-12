@@ -9,6 +9,8 @@ public abstract class NetworkBase {
 
 	protected NetworkBuildStatistics buildStatistics;
 	
+	private Random random = new Random();
+	
 	protected int calculateNumberOfAllPossibleEdgesBetweenNodes(int numberOfNodes) {
 		int count = ((numberOfNodes-1)*numberOfNodes) / 2;
 		return count;
@@ -42,6 +44,21 @@ public abstract class NetworkBase {
 			areaCounter += adjacentNodesCount;
 		}
 		return -1;
+	}
+	
+	public int getNodeToConnectDegreeDrivenNewWay(int[] availableNodes, Network network) {
+		int result = -1;
+		double allNodesDegree = (double) (network.getNumberOfEdges() * 2);
+		while (result == -1) {
+			int randomNodeIdIndex = random.nextInt(availableNodes.length);
+			int randomNodeId = availableNodes[randomNodeIdIndex];
+			double nodeDegree = (double) network.getAdjacentNodesCount(randomNodeId);
+			double probability = ((double) nodeDegree + 1) / allNodesDegree;
+			if (probability > random.nextDouble()) {
+				result = randomNodeId;
+			}
+		}
+		return result;
 	}
 	
 	public int getNodeToConnectClusterDriven(Network network) {

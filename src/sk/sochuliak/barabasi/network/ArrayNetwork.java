@@ -81,6 +81,11 @@ public class ArrayNetwork extends NetworkBase implements Network {
 	public int getNodeToConnectDegreeDriven(int[] nodesIds) {
 		return this.getNodeToConnectDegreeDriven(nodesIds);
 	}
+	
+	@Override
+	public int getNodeToConnectDegreeDrivenNewWay(int[] availableNodes) {
+		return this.getNodeToConnectDegreeDrivenNewWay(availableNodes);
+	}
 
 	@Override
 	public int getNodeToConnectClusterDriven() {
@@ -91,7 +96,7 @@ public class ArrayNetwork extends NetworkBase implements Network {
 	public int getNodeToConnectClusterDriven(int[] nodesIds) {
 		return this.getNodeToConnectClusterDriven(nodesIds);
 	}
-
+	
 	@Override
 	public int getNodeToConnectRandomDriven() {
 		return this.getNodeToConnectRandomDriven();

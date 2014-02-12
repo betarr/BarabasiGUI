@@ -10,6 +10,8 @@ import org.apache.log4j.Logger;
 
 import sk.sochuliak.barabasi.controllers.ControllerService;
 import sk.sochuliak.barabasi.utils.CommonUtils;
+import sk.sochuliak.barabasi.utils.NetworkUtils;
+import sk.sochuliak.barabasi.utils.TaskTimeCounter;
 
 public class NetworkBuilder extends SwingWorker<Void, Void> {
 	
@@ -21,21 +23,34 @@ public class NetworkBuilder extends SwingWorker<Void, Void> {
 	public NetworkBuilder(NetworkBuildConfiguration config) {
 		this.config = config;
 	}
-
+	
 	@Override
 	protected Void doInBackground() throws Exception {
+		TaskTimeCounter.getInstance().startTask("Generate network");
 		int progress = 0;
 		this.setProgress(progress);
 		
 		Network network = this.config.getNetwork();
 		double nDouble = (double)config.getNumberOfNodes();
 		
-		for (int i = 0; i < config.getNumberOfNodes(); i++) {
+		int numberOfEdges = 1;
+		for (EdgeConnectingMethodRowConfig rowConfig : config.getEdgeConnectingMethodRowConfigs()) {
+			numberOfEdges += rowConfig.getNumberOfEdges();
+		}
+		network = NetworkUtils.getCompleteGraph(network, numberOfEdges);
+		
+		long start = System.currentTimeMillis();
+		for (int i = numberOfEdges; i < config.getNumberOfNodes(); i++) {
+			if (i % 500 == 0) {
+				long end = System.currentTimeMillis();
+				logger.info(String.format("Barabasi %s iteration took %s ms", new Object[]{String.valueOf(i), String.valueOf(end-start)}));
+				start = end;
+			}
 			int actualNodeId = i;
 			int adjacentNodeId = -1;
 			int firstNodeConnectingMethod = config.getFirstEdgeConnecting();
 			if (firstNodeConnectingMethod == EdgeConnectingMethodRowConfig.DRIVEN_DEGREE) {
-				adjacentNodeId = network.getNodeToConnectDegreeDriven();
+				adjacentNodeId = network.getNodeToConnectDegreeDrivenNewWay(network.getNodesIds());
 			} else if (firstNodeConnectingMethod == EdgeConnectingMethodRowConfig.DRIVEN_CLUSTER) {
 				adjacentNodeId = network.getNodeToConnectClusterDriven();
 			} else if (firstNodeConnectingMethod == EdgeConnectingMethodRowConfig.DRIVEN_RANDOM) {
@@ -69,49 +84,46 @@ public class NetworkBuilder extends SwingWorker<Void, Void> {
 						this.updateProgress(nDouble, nDouble);
 						return null;
 					}
+					
 					for (int j = 0; j < rowConfig.getNumberOfEdges(); j++) {
-						if (!nodesToChooseFromList.isEmpty()) {
-							int[] nodesToChooseFrom = CommonUtils.converIntListToArray(nodesToChooseFromList);
-							int otherNodeConnectingMethod = rowConfig.getConnectingMethod();
-							int otherAdjacentNodeId = -1;
-							if (otherNodeConnectingMethod == EdgeConnectingMethodRowConfig.DRIVEN_DEGREE) {
-								otherAdjacentNodeId = network.getNodeToConnectDegreeDriven(nodesToChooseFrom);
-							} else if (otherNodeConnectingMethod == EdgeConnectingMethodRowConfig.DRIVEN_CLUSTER) {
-								otherAdjacentNodeId = network.getNodeToConnectClusterDriven(nodesToChooseFrom);
-							} else if (otherNodeConnectingMethod == EdgeConnectingMethodRowConfig.DRIVEN_RANDOM) {
-								otherAdjacentNodeId = network.getNodeToConnectRandomDriven(nodesToChooseFrom);
-							} else {
-								logger.error(String.format("Method driven %s is not valid!", String.valueOf(otherNodeConnectingMethod)));
-								this.resultNetwork = null;
-								this.updateProgress(nDouble, nDouble);
-								return null;
-							}
-							
-							if (otherAdjacentNodeId == -1) {
-								logger.warn("Adjacent node should not by -1!");
-								continue;
-							} else {
-								nodesToConnect.add(otherAdjacentNodeId);
-								nodesToChooseFromList.remove(new Integer(otherAdjacentNodeId));
-							}
+						int[] nodesToChooseFrom = CommonUtils.converIntListToArray(nodesToChooseFromList);
+						int otherNodeConnectingMethod = rowConfig.getConnectingMethod();
+						int otherAdjacentNodeId = -1;
+						if (otherNodeConnectingMethod == EdgeConnectingMethodRowConfig.DRIVEN_DEGREE) {
+							otherAdjacentNodeId = network.getNodeToConnectDegreeDrivenNewWay(nodesToChooseFrom);
+						} else if (otherNodeConnectingMethod == EdgeConnectingMethodRowConfig.DRIVEN_CLUSTER) {
+							otherAdjacentNodeId = network.getNodeToConnectClusterDriven(nodesToChooseFrom);
+						} else if (otherNodeConnectingMethod == EdgeConnectingMethodRowConfig.DRIVEN_RANDOM) {
+							otherAdjacentNodeId = network.getNodeToConnectRandomDriven(nodesToChooseFrom);
+						} else {
+							logger.error(String.format("Method driven %s is not valid!", String.valueOf(otherNodeConnectingMethod)));
+							this.resultNetwork = null;
+							this.updateProgress(nDouble, nDouble);
+							return null;
+						}
+						
+						if (otherAdjacentNodeId == -1) {
+							logger.warn("Adjacent node should not by -1!");
+							continue;
+						} else {
+							nodesToConnect.add(otherAdjacentNodeId);
+							nodesToChooseFromList.remove(new Integer(otherAdjacentNodeId));
 						}
 					}
 				}
-				
 				network.addNode(actualNodeId);
 				network.addEdge(actualNodeId, adjacentNodeId);
 				for (Integer nodeToConnect : nodesToConnect) {
 					network.addEdge(actualNodeId, nodeToConnect);
 				}
 			}
-			
 			this.updateProgress((double)i+1, nDouble);
 		}
-		
 		this.resultNetwork = network;
+		TaskTimeCounter.getInstance().endTask("Generate network");
 		return null;
 	}
-	
+
 	private void updateProgress(double iDouble, double nDouble) {
 		double progressDouble = iDouble / nDouble;
 		progressDouble = progressDouble * (double) 100;

@@ -35,6 +35,13 @@ public interface Network {
 	public int getNodeToConnectDegreeDriven(int[] nodesIds);
 	
 	/**
+	 * Returns id of node by degree driven method - new way.
+	 * @param availableNodes ids from which result will be given
+	 * @return
+	 */
+	public int getNodeToConnectDegreeDrivenNewWay(int[] availableNodes);
+	
+	/**
 	 * Returns id of node by cluster driven method.
 	 * @return ID of node
 	 */

@@ -45,6 +45,11 @@ public class MapNetwork extends NetworkBase implements Network {
 	public int getNodeToConnectDegreeDriven(int[] nodesIds) {
 		return this.getNodeToConnectDegreeDriven(nodesIds, this);
 	}
+	
+	@Override
+	public int getNodeToConnectDegreeDrivenNewWay(int[] availableNodes) {
+		return this.getNodeToConnectDegreeDrivenNewWay(availableNodes, this);
+	}
 
 	@Override
 	public int getNodeToConnectClusterDriven() {

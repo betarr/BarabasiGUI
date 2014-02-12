@@ -219,7 +219,6 @@ public class AppController {
 				x = (x == 0) ? 0 : Math.log(x);
 				y = (y == 0) ? 0 : Math.log(y);
 			}
-			System.out.println(x + "\t" + y);
 			points.add(new double[]{x, y});
 		}
 		

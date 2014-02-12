@@ -48,6 +48,11 @@ public class ObjectedNetwork extends NetworkBase implements Network {
 	public int getNodeToConnectDegreeDriven(int[] nodesIds) {
 		return this.getNodeToConnectDegreeDriven(nodesIds);
 	}
+	
+	@Override
+	public int getNodeToConnectDegreeDrivenNewWay(int[] availableNodes) {
+		return this.getNodeToConnectDegreeDrivenNewWay(availableNodes);
+	}
 
 	@Override
 	public int getNodeToConnectClusterDriven() {
