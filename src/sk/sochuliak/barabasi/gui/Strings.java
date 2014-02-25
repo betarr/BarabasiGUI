@@ -2,7 +2,7 @@ package sk.sochuliak.barabasi.gui;
 
 public class Strings {
 
-	public static String APPLICATION_NAME = "Barabasi";
+	public static String APPLICATION_NAME = "Diplomova praca - Martin Sochuliak";
 	
 	// COMMON
 	public static String OK = "OK";
@@ -27,6 +27,9 @@ public class Strings {
 	public static String MENU_ANALYSIS_SHOW_DEGREE_DISTRIBUTION_LOG = "Distribúcia stupòa uzlov - Log";
 	public static String MENU_ANALYSIS_SHOW_CLUSTER_DISTRIBUTION = "Distribúcia klasterizaèných koeficientov";
 	public static String MENU_ANALYSIS_SHOW_CLUSTER_DISTRIBUTION_LOG = "Distribúcia klasterizaèných koeficientov - Log";
+	public static String MENU_INFO = "Info";
+	public static String MENU_INFO_ABOUT_SOFTWARE = "O programe";
+	public static String MENU_INFO_ABOUT_AUTHOR = "O autorovi";
 	
 	// NETWORKS LIST
 	public static String NETWORK_LIST_NETWORKS_LIST = "Zoznam sietí";

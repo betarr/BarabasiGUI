@@ -31,6 +31,7 @@ public class BMenuBar extends JMenuBar {
 	public BMenuBar() {
 		this.add(this.buildProgramMenu());
 		this.add(this.buildAnalysisMenu());
+		this.add(this.buildAboutMenu());
 	}
 
 	private JMenu buildProgramMenu() {
@@ -143,6 +144,15 @@ public class BMenuBar extends JMenuBar {
 		BMenuBar.registerMenuItemEnabledWhenNetworkExists(this.showClusterDistributionLogMenuItem);
 		analysisMenu.add(this.showClusterDistributionLogMenuItem);
 		return analysisMenu;
+	}
+	
+	public JMenu buildAboutMenu() {
+		JMenu aboutMenu = new JMenu(Strings.MENU_INFO);
+		
+		aboutMenu.add(GuiUtils.buildJMenuItem(Strings.MENU_INFO_ABOUT_SOFTWARE, null, null));
+		aboutMenu.add(GuiUtils.buildJMenuItem(Strings.MENU_INFO_ABOUT_AUTHOR, null, null));
+		
+		return aboutMenu;
 	}
 	
 	public static void registerMenuItemEnabledWhenNetworkExists(JMenuItem jMenuItem) {
