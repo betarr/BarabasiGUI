@@ -28,6 +28,7 @@ import sk.sochuliak.barabasi.network.NetworkBuildConfiguration;
 import sk.sochuliak.barabasi.networkselectdialog.NetworkSelectDialog;
 import sk.sochuliak.barabasi.utils.NetworkImportExport;
 import sk.sochuliak.barabasi.utils.NetworkImportObject;
+import sk.sochuliak.barabasi.utils.TaskTimeCounter;
 
 public class AppController {
 	
@@ -98,9 +99,11 @@ public class AppController {
 		int returnValue = fc.showSaveDialog(this.mainScreen);
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
 			File file = fc.getSelectedFile();
+			TaskTimeCounter.getInstance().startTask("Exporting network " + networkName);
 			NetworkImportExport.DEFAULT_DIRECTORY = file.getParent();
 			List<int[]> pairsOfNeighboringNodes = ControllerService.getNetworkController().getPairsOfNeighboringNodes(networkName);
 			NetworkImportExport.export(file, networkName, pairsOfNeighboringNodes);
+			TaskTimeCounter.getInstance().endTask("Exporting network " + networkName);
 		}
 	}
 	
@@ -110,11 +113,13 @@ public class AppController {
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
 			File file = fc.getSelectedFile();
 			NetworkImportExport.DEFAULT_DIRECTORY = file.getParent();
+			TaskTimeCounter.getInstance().startTask("Importing from file " + file.getName());
 			NetworkImportObject importObject = NetworkImportExport.importFromFile(file);
 			if (NetworkImportObject.isInstanceValid(importObject)) {
 				ControllerService.getNetworkController().createNetwork(importObject.getName(), importObject.getNeighboringPairs());
 				this.updateDataInBasicPropertiesTable(importObject.getName());
 			}
+			TaskTimeCounter.getInstance().endTask("Importing from file " + file.getName());
 		}
 	}
 	

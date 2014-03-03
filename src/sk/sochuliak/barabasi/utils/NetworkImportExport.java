@@ -42,6 +42,9 @@ public class NetworkImportExport {
 			while (scanner.hasNextLine()) {
 				String row = scanner.nextLine();
 				row = row.trim();
+				if (NetworkImportExport.ignoreRow(row)) {
+					continue;
+				}
 				if (firstRow) {
 					result.setName(row);
 					firstRow = false;
@@ -67,6 +70,10 @@ public class NetworkImportExport {
 			scanner.close();
 		}
 		return result;
+	}
+	
+	public static boolean ignoreRow(String row) {
+		return row == null || row.equals("") || row.startsWith("#");
 	}
 
 }
