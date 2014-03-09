@@ -13,4 +13,6 @@ public class MainGuiConfiguration {
 	public static final Dimension ANALYSIS_DISTRIBUTION_SIZE = new Dimension(640, 480);
 	
 	public static final Dimension NETWORK_SELECT_DIALOG_SIZE = new Dimension(320, 240);
+	
+	public static final Dimension INFO_DIALOG_SIZE = new Dimension(320, 240);
 }

@@ -149,8 +149,22 @@ public class BMenuBar extends JMenuBar {
 	public JMenu buildAboutMenu() {
 		JMenu aboutMenu = new JMenu(Strings.MENU_INFO);
 		
-		aboutMenu.add(GuiUtils.buildJMenuItem(Strings.MENU_INFO_ABOUT_SOFTWARE, null, null));
-		aboutMenu.add(GuiUtils.buildJMenuItem(Strings.MENU_INFO_ABOUT_AUTHOR, null, null));
+		aboutMenu.add(GuiUtils.buildJMenuItem(Strings.MENU_INFO_ABOUT_SOFTWARE, null, new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ControllerService.getAppController().showAboutProjectDialog();
+			}
+			
+		}));
+		aboutMenu.add(GuiUtils.buildJMenuItem(Strings.MENU_INFO_ABOUT_AUTHOR, null, new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ControllerService.getAppController().showAboutAuthorDialog();
+			}
+			
+		}));
 		
 		return aboutMenu;
 	}

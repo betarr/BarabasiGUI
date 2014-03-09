@@ -89,7 +89,7 @@ public class NetworksList extends JPanel {
 				String selectedNetworkName = list.getSelectedValue();
 				if (selectedNetworkName != null) {
 					int dialogResult = JOptionPane.showConfirmDialog(
-							null,
+							ControllerService.getAppController().getMainScreen(),
 							Strings.NETWORK_LIST_REMOVE_NETWORK_QUESTION + " " + selectedNetworkName + "?",
 							Strings.NETWORK_LIST_REMOVE_NETWORK,
 							JOptionPane.YES_NO_OPTION);

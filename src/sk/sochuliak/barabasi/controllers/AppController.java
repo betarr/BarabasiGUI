@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 import sk.sochuliak.barabasi.analysisframes.ClusterDistributionFrame;
 import sk.sochuliak.barabasi.analysisframes.DegreeDistributionFrame;
 import sk.sochuliak.barabasi.analysisframes.NetworkConfiguration;
+import sk.sochuliak.barabasi.dialogs.AboutDialog;
 import sk.sochuliak.barabasi.gui.Strings;
 import sk.sochuliak.barabasi.gui.mainscreen.BMenuBar;
 import sk.sochuliak.barabasi.gui.mainscreen.BasicPropertiesTable;
@@ -331,6 +332,14 @@ public class AppController {
 		frame.setVisible(true);
 	}
 	
+	public void showAboutProjectDialog() {
+		AboutDialog.showDialog(this.mainScreen, Strings.MENU_INFO_ABOUT_SOFTWARE, Strings.MENU_INFO_ABOUT_SOFTWARE_TEXT);
+	}
+	
+	public void showAboutAuthorDialog() {
+		AboutDialog.showDialog(this.mainScreen, Strings.MENU_INFO_ABOUT_AUTHOR, Strings.MENU_INFO_ABOUT_AUTHOR_TEXT);
+	}
+	
 	public boolean isDegreeDistributionShowed(String networkName) {
 		logger.info(String.format("Checking if degree distribution of network %s is shown", networkName));
 		return ControllerService.getDegreeDistributionController(networkName) != null;
@@ -349,5 +358,9 @@ public class AppController {
 	public boolean isClusterDistributionLogShowed(String networkName) {
 		logger.info(String.format("Checking if log cluster distribution of network %s is shown", networkName));
 		return ControllerService.getClusterDistributionLogController(networkName) != null;
+	}
+	
+	public MainScreen getMainScreen() {
+		return this.mainScreen;
 	}
 }

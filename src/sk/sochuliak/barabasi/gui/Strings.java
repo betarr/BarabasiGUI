@@ -29,7 +29,9 @@ public class Strings {
 	public static String MENU_ANALYSIS_SHOW_CLUSTER_DISTRIBUTION_LOG = "Distribúcia klasterizaèných koeficientov - Log";
 	public static String MENU_INFO = "Info";
 	public static String MENU_INFO_ABOUT_SOFTWARE = "O programe";
+	public static String MENU_INFO_ABOUT_SOFTWARE_TEXT = "Program vznikol za úèelom generovania a analýzy sietí vrámci diplomovej práce Rast siete riadený klasterizáciou.";
 	public static String MENU_INFO_ABOUT_AUTHOR = "O autorovi";
+	public static String MENU_INFO_ABOUT_AUTHOR_TEXT = "Martin Sochuliak";
 	
 	// NETWORKS LIST
 	public static String NETWORK_LIST_NETWORKS_LIST = "Zoznam sietí";
