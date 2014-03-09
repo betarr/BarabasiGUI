@@ -15,11 +15,11 @@ import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
 
-import sk.sochuliak.barabasi.analysisframes.ClusterDistributionFrame;
-import sk.sochuliak.barabasi.analysisframes.DegreeDistributionFrame;
-import sk.sochuliak.barabasi.analysisframes.NetworkConfiguration;
-import sk.sochuliak.barabasi.dialogs.AboutDialog;
 import sk.sochuliak.barabasi.gui.Strings;
+import sk.sochuliak.barabasi.gui.analysisframes.ClusterDistributionFrame;
+import sk.sochuliak.barabasi.gui.analysisframes.DegreeDistributionFrame;
+import sk.sochuliak.barabasi.gui.analysisframes.NetworkConfiguration;
+import sk.sochuliak.barabasi.gui.infodialog.AboutDialog;
 import sk.sochuliak.barabasi.gui.mainscreen.BMenuBar;
 import sk.sochuliak.barabasi.gui.mainscreen.BasicPropertiesTable;
 import sk.sochuliak.barabasi.gui.mainscreen.MainScreen;

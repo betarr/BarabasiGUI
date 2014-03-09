@@ -1,4 +1,4 @@
-package sk.sochuliak.barabasi.dialogs;
+package sk.sochuliak.barabasi.gui.infodialog;
 
 import java.awt.Component;
 import java.awt.Font;

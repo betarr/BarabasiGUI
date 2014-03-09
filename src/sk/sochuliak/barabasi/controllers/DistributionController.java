@@ -9,8 +9,8 @@ import org.jfree.data.xy.XYDataItem;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-import sk.sochuliak.barabasi.analysisframes.DistributionFrame;
 import sk.sochuliak.barabasi.gui.Strings;
+import sk.sochuliak.barabasi.gui.analysisframes.DistributionFrame;
 
 public class DistributionController {
 

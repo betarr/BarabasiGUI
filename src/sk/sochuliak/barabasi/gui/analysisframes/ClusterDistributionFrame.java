@@ -1,4 +1,4 @@
-package sk.sochuliak.barabasi.analysisframes;
+package sk.sochuliak.barabasi.gui.analysisframes;
 
 import java.awt.Component;
 
