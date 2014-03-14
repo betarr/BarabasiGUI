@@ -298,6 +298,7 @@ public class AppController {
 	
 	public void showClusterDistributionDialog(String networkName, boolean useLogScale) {
 		logger.info(String.format("Showing %s cluster distribution for network %s", new Object[]{useLogScale ? "log" : "", networkName}));
+		TaskTimeCounter.getInstance().startTask(String.format("Showing %s cluster distribution for network %s", new Object[]{useLogScale ? "log" : "", networkName}));
 		Map<Integer, Double> clusterDistribution = ControllerService.getNetworkController().getNetworkClusterDistribution(networkName);
 		Set<Integer> degrees = clusterDistribution.keySet();
 		List<Integer> degreesList = new ArrayList<Integer>(degrees);
@@ -332,6 +333,7 @@ public class AppController {
 			ControllerService.registerClusterDistributionController(networkName, new DistributionController(frame));
 		}
 		frame.setVisible(true);
+		TaskTimeCounter.getInstance().endTask(String.format("Showing %s cluster distribution for network %s", new Object[]{useLogScale ? "log" : "", networkName}));
 	}
 	
 	public void showAboutProjectDialog() {
