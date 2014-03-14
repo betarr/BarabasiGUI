@@ -110,17 +110,20 @@ public class AppController {
 	
 	public void importNetwork() {
 		JFileChooser fc = new JFileChooser(NetworkImportExport.DEFAULT_DIRECTORY);
+		fc.setMultiSelectionEnabled(true);
 		int returnValue = fc.showOpenDialog(this.mainScreen);
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
-			File file = fc.getSelectedFile();
-			NetworkImportExport.DEFAULT_DIRECTORY = file.getParent();
-			TaskTimeCounter.getInstance().startTask("Importing from file " + file.getName());
-			NetworkImportObject importObject = NetworkImportExport.importFromFile(file);
-			if (NetworkImportObject.isInstanceValid(importObject)) {
-				ControllerService.getNetworkController().createNetwork(importObject.getName(), importObject.getNeighboringPairs());
-				this.updateDataInBasicPropertiesTable(importObject.getName());
+			File[] files = fc.getSelectedFiles();
+			NetworkImportExport.DEFAULT_DIRECTORY = files[0].getParent();
+			for (File file : files) {
+				TaskTimeCounter.getInstance().startTask("Importing from file " + file.getName());
+				NetworkImportObject importObject = NetworkImportExport.importFromFile(file);
+				if (NetworkImportObject.isInstanceValid(importObject)) {
+					ControllerService.getNetworkController().createNetwork(importObject.getName(), importObject.getNeighboringPairs());
+					this.updateDataInBasicPropertiesTable(importObject.getName());
+				}
+				TaskTimeCounter.getInstance().endTask("Importing from file " + file.getName());
 			}
-			TaskTimeCounter.getInstance().endTask("Importing from file " + file.getName());
 		}
 	}
 	
@@ -137,7 +140,6 @@ public class AppController {
 			logger.info("Clearing info in basic properties table");
 			this.mainScreen.getBasicPropertiesPanel().getBasicPropertiesTable().clearValues();
 		} else {
-			logger.info(String.format("Updating info in basic properties table to %s network info", networkName));
 			double totalNodesCount = ControllerService.getNetworkController().getTotalNodesCount(networkName);
 			double averageNodeDegree = ControllerService.getNetworkController().getAverageNodeDegree(networkName);
 			double averageClusterRatio = ControllerService.getNetworkController().getAverageClusterRatio(networkName);
