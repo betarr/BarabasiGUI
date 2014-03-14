@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -29,7 +30,7 @@ public class NetworksList extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	private JList<String> list = null;
-	private DefaultListModel<String> listModel = new DefaultListModel<>();
+	private DefaultListModel<String> listModel = new DefaultListModel<String>();
 	private JButton addNetworkButton = new JButton(Strings.NETWORK_LIST_ADD_NETWORK);
 	private JButton removeNetworkButton = new JButton(Strings.NETWORK_LIST_REMOVE_NETWORK);
 	
@@ -113,6 +114,14 @@ public class NetworksList extends JPanel {
 
 	public void addNetworkNameToList(String networkName) {
 		this.listModel.addElement(networkName);
+		
+		String[] content = new String[this.listModel.size()];
+		this.listModel.copyInto(content);
+		this.listModel.clear();
+		Arrays.sort(content);
+		for (String networkName1 : content) {
+			this.listModel.addElement(networkName1);
+		}
 		this.list.setSelectedValue(networkName, false);
 	}
 	
