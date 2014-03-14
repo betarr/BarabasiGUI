@@ -45,7 +45,7 @@ public class CommonUtils {
 	}
 
 	public static List<Integer> convertIntArrayToList(int[] arr) {
-		List<Integer> result = new ArrayList<Integer>();
+		List<Integer> result = new ArrayList<Integer>(arr.length);
 		for (int value : arr) {
 			result.add(value);
 		}
@@ -55,7 +55,7 @@ public class CommonUtils {
 	public static int[] converIntListToArray(List<Integer> list) {
 		int[] result = new int[list.size()];
 		for (int i = 0; i < list.size(); i++) {
-			result[i] = list.get(i);
+			result[i] = list.get(i).intValue();
 		}
 		return result;
 	}

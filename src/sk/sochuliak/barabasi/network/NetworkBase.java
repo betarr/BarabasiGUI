@@ -74,10 +74,9 @@ public abstract class NetworkBase {
 			return nodesIds[0];
 		}
 		
-		if (allNodesCount == 2) {
-			Random r = new Random();
-			return nodesIds[r.nextInt(allNodesCount)];
-		}
+//		if (allNodesCount == 2) {
+//			return nodesIds[this.random.nextInt(allNodesCount)];
+//		}
 		
 		double[] clusterRatios = NetworkUtils.calculateClusterRatios(nodesIds, network);
 		double sumOfClusterRatios = CommonUtils.sumOfDoubleArray(clusterRatios);
@@ -106,8 +105,7 @@ public abstract class NetworkBase {
 		if (nodesIds.length == 0) {
 			return -1;
 		}
-		Random r = new Random();
-		return nodesIds[r.nextInt(nodesIds.length)];
+		return nodesIds[this.random.nextInt(nodesIds.length)];
 	}
 
 	protected NetworkBuildStatistics getBuildStatistics() {
