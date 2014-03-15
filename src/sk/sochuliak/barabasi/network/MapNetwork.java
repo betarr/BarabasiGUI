@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import sk.sochuliak.barabasi.utils.CommonUtils;
+
 public class MapNetwork extends NetworkBase implements Network {
 
 	private Map<Integer, List<Integer>> nodes;
@@ -90,15 +92,16 @@ public class MapNetwork extends NetworkBase implements Network {
 
 	@Override
 	public int[] getAdjacentNodesIds(int nodeId) {
-		int[] result = new int[this.getAdjacentNodesCount(nodeId)];
-		if (result.length > 0) {
-			int pointer = 0;
-			for (Integer adjacentNode : this.nodes.get(nodeId)) {
-				result[pointer] = adjacentNode;
-				pointer++;
-			}
-		}
-		return result;
+//		int[] result = new int[this.getAdjacentNodesCount(nodeId)];
+//		if (result.length > 0) {
+//			int pointer = 0;
+//			for (Integer adjacentNode : this.nodes.get(nodeId)) {
+//				result[pointer] = adjacentNode;
+//				pointer++;
+//			}
+//		}
+//		return result;
+		return CommonUtils.converIntListToArray(this.nodes.get(nodeId));
 	}
 
 	@Override
