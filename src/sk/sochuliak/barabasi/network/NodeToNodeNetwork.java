@@ -59,37 +59,37 @@ public class NodeToNodeNetwork extends NetworkBase implements Network {
 
 	@Override
 	public int getNodeToConnectDegreeDriven() {
-		return this.getNodeToConnectDegreeDriven();
+		return this.getNodeToConnectDegreeDriven(this);
 	}
 
 	@Override
 	public int getNodeToConnectDegreeDriven(int[] nodesIds) {
-		return this.getNodeToConnectDegreeDriven(nodesIds);
+		return this.getNodeToConnectDegreeDriven(nodesIds, this);
 	}
 	
 	@Override
 	public int getNodeToConnectDegreeDrivenNewWay(int[] availableNodes) {
-		return this.getNodeToConnectDegreeDrivenNewWay(availableNodes);
+		return this.getNodeToConnectDegreeDrivenNewWay(availableNodes, this);
 	}
 
 	@Override
 	public int getNodeToConnectClusterDriven() {
-		return this.getNodeToConnectClusterDriven();
+		return this.getNodeToConnectClusterDriven(this);
 	}
 
 	@Override
 	public int getNodeToConnectClusterDriven(int[] nodesIds) {
-		return this.getNodeToConnectClusterDriven(nodesIds);
+		return this.getNodeToConnectClusterDriven(nodesIds, this);
 	}
 
 	@Override
 	public int getNodeToConnectRandomDriven() {
-		return this.getNodeToConnectRandomDriven();
+		return this.getNodeToConnectRandomDriven(this);
 	}
 
 	@Override
 	public int getNodeToConnectRandomDriven(int[] nodesIds) {
-		return this.getNodeToConnectRandomDriven(nodesIds);
+		return this.getNodeToConnectRandomDriven(nodesIds, this);
 	}
 
 	@Override
@@ -185,8 +185,19 @@ public class NodeToNodeNetwork extends NetworkBase implements Network {
 	
 	@Override
 	public int getNumberOfEdges(int[] nodesIds) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = 0;
+		for (int[] edge : this.edges) {
+			for (int nodeId1 : nodesIds) {
+				for (int nodeId2 : nodesIds) {
+					if (nodeId1 == edge[0] && nodeId2 == edge[1]) {
+						result++;
+					} else if (nodeId2 == edge[0] && nodeId1 == edge[1]) {
+						result++;
+					}
+				}
+			}
+		}
+		return result / 2;
 	}
 
 	@Override
@@ -223,8 +234,7 @@ public class NodeToNodeNetwork extends NetworkBase implements Network {
 	
 	@Override
 	public List<int[]> getPairsOfNeighboringNodes() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.edges;
 	}
 
 	/**

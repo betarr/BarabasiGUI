@@ -1,5 +1,6 @@
 package sk.sochuliak.barabasi.network;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -74,37 +75,37 @@ public class ArrayNetwork extends NetworkBase implements Network {
 
 	@Override
 	public int getNodeToConnectDegreeDriven() {
-		return this.getNodeToConnectDegreeDriven();
+		return this.getNodeToConnectDegreeDriven(this);
 	}
 
 	@Override
 	public int getNodeToConnectDegreeDriven(int[] nodesIds) {
-		return this.getNodeToConnectDegreeDriven(nodesIds);
+		return this.getNodeToConnectDegreeDriven(nodesIds, this);
 	}
 	
 	@Override
 	public int getNodeToConnectDegreeDrivenNewWay(int[] availableNodes) {
-		return this.getNodeToConnectDegreeDrivenNewWay(availableNodes);
+		return this.getNodeToConnectDegreeDrivenNewWay(availableNodes, this);
 	}
 
 	@Override
 	public int getNodeToConnectClusterDriven() {
-		return this.getNodeToConnectClusterDriven();
+		return this.getNodeToConnectClusterDriven(this);
 	}
 
 	@Override
 	public int getNodeToConnectClusterDriven(int[] nodesIds) {
-		return this.getNodeToConnectClusterDriven(nodesIds);
+		return this.getNodeToConnectClusterDriven(nodesIds, this);
 	}
 	
 	@Override
 	public int getNodeToConnectRandomDriven() {
-		return this.getNodeToConnectRandomDriven();
+		return this.getNodeToConnectRandomDriven(this);
 	}
 
 	@Override
 	public int getNodeToConnectRandomDriven(int[] nodesIds) {
-		return this.getNodeToConnectRandomDriven(nodesIds);
+		return this.getNodeToConnectRandomDriven(nodesIds, this);
 	}
 
 	@Override
@@ -209,8 +210,15 @@ public class ArrayNetwork extends NetworkBase implements Network {
 	
 	@Override
 	public int getNumberOfEdges(int[] nodesIds) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = 0;
+		for (int i : nodesIds) {
+			for (int j : nodesIds) {
+				if (this.incidenceMatrix[i][j] == 1) {
+					result ++;
+				}
+			}
+		}
+		return result / 2;
 	}
 
 	@Override
@@ -311,7 +319,17 @@ public class ArrayNetwork extends NetworkBase implements Network {
 
 	@Override
 	public List<int[]> getPairsOfNeighboringNodes() {
-		// TODO Auto-generated method stub
-		return null;
+		List<int[]> result = new ArrayList<int[]>();
+		List<Integer> alreadyAddedNodesIds = new ArrayList<Integer>();
+		int[] nodeIds = this.getNodesIds();
+		for (int nodeId1 : nodeIds) {
+			for (int nodeId2 : nodeIds) {
+				if (this.isEdgeBetweenNodes(nodeId1, nodeId2) && !alreadyAddedNodesIds.contains(nodeId2)) {
+					result.add(new int[]{nodeId1, nodeId2});
+				}
+			}
+			alreadyAddedNodesIds.add(nodeId1);
+		}
+		return result;
 	}
 }

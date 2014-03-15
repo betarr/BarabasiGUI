@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -13,6 +15,9 @@ import org.junit.Test;
 public class MapNetworkTest {
 
 	private Network network;
+	
+	private int[] edgesFrom = new int[]{0, 6,  12, 7, 2, 1, 12, 18, 5,  12, 16, 6,  10, 0,  14, 14, 22, 19, 23, 12, 17, 3, 4,  8, 8,  12, 2,  5,  7,  7,  2};
+	private int[] edgesTo = new int[]{  6, 12, 7,  3, 6, 5, 18, 22, 22, 16, 20, 16, 16, 15, 18, 24, 24, 23, 24, 17, 21, 4, 14, 9, 13, 13, 22, 11, 13, 18, 12};
 	
 	@Before
 	public void setUp() {
@@ -28,8 +33,7 @@ public class MapNetworkTest {
 		for (int i = 0; i <= 24; i++) {
 			network.addNode(i);
 		}
-		int[] edgesFrom = new int[]{0, 6,  12, 7, 2, 1, 12, 18, 5,  12, 16, 6,  10, 0,  14, 14, 22, 19, 23, 12, 17, 3, 4,  8, 8,  12, 2,  5,  7,  7,  2};
-		int[] edgesTo = new int[]{  6, 12, 7,  3, 6, 5, 18, 22, 22, 16, 20, 16, 16, 15, 18, 24, 24, 23, 24, 17, 21, 4, 14, 9, 13, 13, 22, 11, 13, 18, 12};
+		
 		for (int i = 0; i < edgesFrom.length; i++) {
 			network.addEdge(edgesFrom[i], edgesTo[i]);
 		}
@@ -169,6 +173,15 @@ public class MapNetworkTest {
 	}
 	
 	@Test
+	public void testGetNumberOfEdgesWithParameter() {
+		this.network = this.buildNetwork();
+		
+		int expectedNumberOfEdges = 31;
+		int actualNumberOfEdges = this.network.getNumberOfEdges(this.network.getNodesIds());
+		assertEquals(expectedNumberOfEdges, actualNumberOfEdges);
+	}
+	
+	@Test
 	public void testGetClusterRatio() {
 		this.network = this.buildNetwork();
 		
@@ -211,11 +224,45 @@ public class MapNetworkTest {
 		assertEquals(expectedAverageClusterCoefficient, actualAverageClusterCoefficient);
 	}
 	
+	@Test
+	public void testGetPairsOfNeighboringNodes() {
+		this.network = this.buildNetwork();
+		
+		List<int[]> expectedPairs = new ArrayList<int[]>();
+		for (int i = 0; i < this.edgesFrom.length; i++) {
+			expectedPairs.add(new int[]{this.edgesFrom[i], this.edgesTo[i]});
+		}
+		
+		List<int[]> actualPairs = this.network.getPairsOfNeighboringNodes();
+		assertTrue(this.arePairsOfNeighboringNodesEquals(expectedPairs, actualPairs));
+		
+	}
+	
 	private SortedSet<Integer> getArrayAsSet(int[] nodesIds) {
 		SortedSet<Integer> result = new TreeSet<Integer>();
 		for (int nodeId : nodesIds) {
 			result.add(nodeId);
 		}
 		return result;
+	}
+	
+	private boolean arePairsOfNeighboringNodesEquals(List<int[]> expectedPairs, List<int[]> actualPairs) {
+		if (expectedPairs.size() != actualPairs.size()) {
+			return false;
+		}
+		for (int[] expectedPair : expectedPairs) {
+			boolean pairFound = false;
+			for (int[] actualPair : actualPairs) {
+				if (expectedPair[0] == actualPair[0] && expectedPair[1] == actualPair[1]) {
+					pairFound = true;
+				} else if (expectedPair[0] == actualPair[1] && expectedPair[1] == actualPair[0]) {
+					pairFound = true;
+				}
+			}
+			if (!pairFound) {
+				return false;
+			}
+		}
+		return true;
 	}
 }

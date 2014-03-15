@@ -38,46 +38,46 @@ public class TaskTimeCounter {
 			return;
 		}
 		long estimatedTime = endTime.getTime() - startTime.getTime();
-		this.logMiliseconds(taskName, (double)estimatedTime);
+		this.logMiliseconds(taskName, (double)estimatedTime, estimatedTime);
 	}
 	
-	private void logMiliseconds(String taskName, double estimatedTime) {
+	private void logMiliseconds(String taskName, double estimatedTime, long estimatedTimeInMs) {
 		if (estimatedTime < 1000) {
-			this.logEstimatedTime(taskName, estimatedTime, "miliseconds");
+			this.logEstimatedTime(taskName, estimatedTime, "miliseconds", estimatedTimeInMs);
 			return;
 		}
-		this.logSeconds(taskName, estimatedTime / 1000d);
+		this.logSeconds(taskName, estimatedTime / 1000d, estimatedTimeInMs);
 	}
 	
-	private void logSeconds(String taskName, double estimatedTime) {
+	private void logSeconds(String taskName, double estimatedTime, long estimatedTimeInMs) {
 		if (estimatedTime <= 60) {
-			this.logEstimatedTime(taskName, estimatedTime, "seconds");
+			this.logEstimatedTime(taskName, estimatedTime, "seconds", estimatedTimeInMs);
 			return;
 		}
-		this.logMinutes(taskName, estimatedTime / 60d);
+		this.logMinutes(taskName, estimatedTime / 60d, estimatedTimeInMs);
 	}
 	
-	private void logMinutes(String taskName, double estimatedTime) {
+	private void logMinutes(String taskName, double estimatedTime, long estimatedTimeInMs) {
 		if (estimatedTime <= 60) {
-			this.logEstimatedTime(taskName, estimatedTime, "minutes");
+			this.logEstimatedTime(taskName, estimatedTime, "minutes", estimatedTimeInMs);
 			return;
 		}
-		this.logHours(taskName, estimatedTime / 60d);
+		this.logHours(taskName, estimatedTime / 60d, estimatedTimeInMs);
 	}
 	
-	private void logHours(String taskName, double estimatedTime) {
+	private void logHours(String taskName, double estimatedTime, long estimatedTimeInMs) {
 		if (estimatedTime <= 24) {
-			this.logEstimatedTime(taskName, estimatedTime, "hours");
+			this.logEstimatedTime(taskName, estimatedTime, "hours", estimatedTimeInMs);
 			return;
 		}
-		this.logDays(taskName, estimatedTime / 24d);
+		this.logDays(taskName, estimatedTime / 24d, estimatedTimeInMs);
 	}
 	
-	private void logDays(String taskName, double estimatedTime) {
-		this.logEstimatedTime(taskName, estimatedTime, "days");
+	private void logDays(String taskName, double estimatedTime, long estimatedTimeInMs) {
+		this.logEstimatedTime(taskName, estimatedTime, "days", estimatedTimeInMs);
 	}
 	
-	private void logEstimatedTime(String taskName, double estimatedTime, String timeUnit) {
-		LOGGER.info(String.format("Task %s took %.2f %s.", taskName, estimatedTime, timeUnit));
+	private void logEstimatedTime(String taskName, double estimatedTime, String timeUnit, long estimatedTimeInMs) {
+		LOGGER.info(String.format("Task %s took %.2f %s (%d miliseconds).", taskName, estimatedTime, timeUnit, estimatedTimeInMs));
 	}
 }

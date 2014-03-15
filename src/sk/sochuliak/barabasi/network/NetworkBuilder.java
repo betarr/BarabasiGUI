@@ -26,7 +26,7 @@ public class NetworkBuilder extends SwingWorker<Void, Void> {
 	
 	@Override
 	protected Void doInBackground() throws Exception {
-		TaskTimeCounter.getInstance().startTask("Generate network");
+		TaskTimeCounter.getInstance().startTask(String.format("Generate network with network instance %s", this.config.getNetwork().getClass().getName()));
 		int progress = 0;
 		this.setProgress(progress);
 		
@@ -43,7 +43,7 @@ public class NetworkBuilder extends SwingWorker<Void, Void> {
 		for (int i = numberOfEdges; i < config.getNumberOfNodes(); i++) {
 			if (i % 500 == 0) {
 				long end = System.currentTimeMillis();
-				logger.info(String.format("Barabasi %s iteration took %s ms", new Object[]{String.valueOf(i), String.valueOf(end-start)}));
+				logger.info(String.format("Network generation %s iteration took %s ms", new Object[]{String.valueOf(i), String.valueOf(end-start)}));
 				start = end;
 			}
 			int actualNodeId = i;
@@ -121,6 +121,7 @@ public class NetworkBuilder extends SwingWorker<Void, Void> {
 		}
 		this.resultNetwork = network;
 		TaskTimeCounter.getInstance().endTask("Generate network");
+		TaskTimeCounter.getInstance().endTask(String.format("Generate network with network instance %s", this.config.getNetwork().getClass().getName()));
 		return null;
 	}
 
