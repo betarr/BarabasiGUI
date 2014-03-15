@@ -9,7 +9,7 @@ public class NetworkBuildConfiguration {
 	public static final int CLUSTER_DRIVEN = 1;
 	public static final int RANDOM_DRIVEN = 2;
 	
-	private Network network = new ObjectedNetwork();
+	private Network network = new MapNetwork();
 	
 	private String name = "";
 	
