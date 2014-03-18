@@ -92,15 +92,6 @@ public class MapNetwork extends NetworkBase implements Network {
 
 	@Override
 	public int[] getAdjacentNodesIds(int nodeId) {
-//		int[] result = new int[this.getAdjacentNodesCount(nodeId)];
-//		if (result.length > 0) {
-//			int pointer = 0;
-//			for (Integer adjacentNode : this.nodes.get(nodeId)) {
-//				result[pointer] = adjacentNode;
-//				pointer++;
-//			}
-//		}
-//		return result;
 		return CommonUtils.converIntListToArray(this.nodes.get(nodeId));
 	}
 
