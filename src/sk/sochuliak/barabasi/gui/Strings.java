@@ -15,6 +15,8 @@ public class Strings {
 	public static String LINEAR_REGRESION = "Lineárna regresia";
 	
 	public static String ALREADY_SHOWN_DISTRIBUTION = "Tieto siete u majú zobrazenú distribúciu";
+	public static String ALREADY_EXISTS_NETWORK = "Nasledujúca sie nebude importovaná, pretoe sa v aplikácii nachádza sie s totonym názvom:";
+	public static String INVALID_NETWORK_IMPORTING = "Nasledujúca sie nebude importovaná, pretoe je nevalidná:";
 	
 	// MENU
 	public static String MENU_PROGRAM = "Program";

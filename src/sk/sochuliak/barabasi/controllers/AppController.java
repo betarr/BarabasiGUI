@@ -26,6 +26,7 @@ import sk.sochuliak.barabasi.gui.mainscreen.MainScreen;
 import sk.sochuliak.barabasi.gui.networkselectdialog.NetworkSelectDialog;
 import sk.sochuliak.barabasi.gui.newnetworkdialog.NewNetworkDialog;
 import sk.sochuliak.barabasi.gui.newnetworkdialog.NewNetworkProgressBar;
+import sk.sochuliak.barabasi.main.Configuration;
 import sk.sochuliak.barabasi.network.NetworkBuildConfiguration;
 import sk.sochuliak.barabasi.utils.NetworkImportExport;
 import sk.sochuliak.barabasi.utils.NetworkImportObject;
@@ -100,6 +101,9 @@ public class AppController {
 		int returnValue = fc.showSaveDialog(this.mainScreen);
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
 			File file = fc.getSelectedFile();
+			if (!file.getName().endsWith(Configuration.FILE_EXTENSION)) {
+				file = new File(fc.getSelectedFile()+Configuration.FILE_EXTENSION);
+			}
 			TaskTimeCounter.getInstance().startTask("Exporting network " + networkName);
 			NetworkImportExport.DEFAULT_DIRECTORY = file.getParent();
 			List<int[]> pairsOfNeighboringNodes = ControllerService.getNetworkController().getPairsOfNeighboringNodes(networkName);
@@ -118,7 +122,13 @@ public class AppController {
 			for (File file : files) {
 				TaskTimeCounter.getInstance().startTask("Importing from file " + file.getName());
 				NetworkImportObject importObject = NetworkImportExport.importFromFile(file);
-				if (NetworkImportObject.isInstanceValid(importObject)) {
+				if (isNetworkWithName(importObject.getName())) {
+					logger.warn(String.format("Network %s will not be import because there exists another network in app with given name.", importObject.getName()));
+					showWarningMessage(Strings.ALREADY_EXISTS_NETWORK + " " + importObject.getName());
+				} else if (!NetworkImportObject.isInstanceValid(importObject)) {
+					logger.warn(String.format("Network %s will not be import it is not valid.", importObject.getName()));
+					showWarningMessage(Strings.INVALID_NETWORK_IMPORTING + " " + importObject.getName());
+				} else {
 					ControllerService.getNetworkController().createNetwork(importObject.getName(), importObject.getNeighboringPairs());
 					this.updateDataInBasicPropertiesTable(importObject.getName());
 				}
@@ -366,5 +376,13 @@ public class AppController {
 	
 	public MainScreen getMainScreen() {
 		return this.mainScreen;
+	}
+	
+	public void showWarningMessage(String message) {
+		JOptionPane.showMessageDialog(
+				this.getMainScreen(),
+				message,
+				Strings.WARNING,
+				JOptionPane.WARNING_MESSAGE);
 	}
 }
