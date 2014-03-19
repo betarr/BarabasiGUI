@@ -120,7 +120,6 @@ public class NetworkBuilder extends SwingWorker<Void, Void> {
 			this.updateProgress((double)i+1, nDouble);
 		}
 		this.resultNetwork = network;
-		TaskTimeCounter.getInstance().endTask("Generate network");
 		TaskTimeCounter.getInstance().endTask(String.format("Generate network with network instance %s", this.config.getNetwork().getClass().getName()));
 		return null;
 	}
