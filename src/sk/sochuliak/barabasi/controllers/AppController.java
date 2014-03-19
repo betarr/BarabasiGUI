@@ -157,10 +157,10 @@ public class AppController {
 				networkProperties.put(BasicPropertiesTable.TOTAL_NODES_COUNT, String.valueOf(ControllerService.getNetworkController().getTotalNodesCount(networkName)));
 			}
 			if (networkProperties.get(BasicPropertiesTable.AVERAGE_NODE_DEGREE) == null) {
-				networkProperties.put(BasicPropertiesTable.AVERAGE_NODE_DEGREE, String.valueOf(ControllerService.getNetworkController().getAverageNodeDegree(networkName)));
+				networkProperties.put(BasicPropertiesTable.AVERAGE_NODE_DEGREE, String.format("%1$.5f", ControllerService.getNetworkController().getAverageNodeDegree(networkName)));
 			}
 			if (networkProperties.get(BasicPropertiesTable.AVERAGE_CLUSTER_RATIO) == null) {
-				networkProperties.put(BasicPropertiesTable.AVERAGE_CLUSTER_RATIO, String.valueOf(ControllerService.getNetworkController().getAverageClusterRatio(networkName)));
+				networkProperties.put(BasicPropertiesTable.AVERAGE_CLUSTER_RATIO, String.format("%1$.5f", ControllerService.getNetworkController().getAverageClusterRatio(networkName)));
 			}
 			if (networkProperties.get(BasicPropertiesTable.AVERAGE_DISTANCE) == null) {
 				networkProperties.put(BasicPropertiesTable.AVERAGE_DISTANCE, String.valueOf(ControllerService.getNetworkController().getAverateDistance(networkName)));
