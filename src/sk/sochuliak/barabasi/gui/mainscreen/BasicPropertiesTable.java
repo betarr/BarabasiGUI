@@ -12,6 +12,8 @@ public class BasicPropertiesTable extends JTable {
 	public static final int TOTAL_NODES_COUNT = 0;
 	public static final int AVERAGE_NODE_DEGREE = 1;
 	public static final int AVERAGE_CLUSTER_RATIO = 2;
+	public static final int AVERAGE_DISTANCE = 3;
+	public static final int NUMBER_OF_NEIGHBORING_NODES = 4;
 	
 	
 	public BasicPropertiesTable() {
@@ -26,7 +28,9 @@ public class BasicPropertiesTable extends JTable {
 		private Object[][] data = new Object[][]{
 				{Strings.BASIC_PROPERTIES_TOTAL_NODES_COUNT, ""},
 				{Strings.BASIC_PROPERTIES_AVERAGE_NODE_DEGREE, ""}, 
-				{Strings.BASIC_PROPERTIES_AVERAGE_NODE_CLUSTER, ""}
+				{Strings.BASIC_PROPERTIES_AVERAGE_NODE_CLUSTER, ""},
+				{Strings.BASIC_PROPERTIES_AVERAGE_DISTANCE, ""},
+				{Strings.BASIC_PROPERTIES_NUMBER_OF_NEIGHBORING_NODES, ""}
 		};
 		
 		
@@ -70,6 +74,8 @@ public class BasicPropertiesTable extends JTable {
 		this.getModel().setValueAt("", BasicPropertiesTable.TOTAL_NODES_COUNT, 1);
 		this.getModel().setValueAt("", BasicPropertiesTable.AVERAGE_NODE_DEGREE, 1);
 		this.getModel().setValueAt("", BasicPropertiesTable.AVERAGE_CLUSTER_RATIO, 1);
+		this.getModel().setValueAt("", BasicPropertiesTable.AVERAGE_DISTANCE, 1);
+		this.getModel().setValueAt("", BasicPropertiesTable.NUMBER_OF_NEIGHBORING_NODES, 1);
 		this.repaint();
 	}
 

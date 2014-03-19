@@ -105,9 +105,11 @@ public class NetworksList extends JPanel {
 			
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				String selectedNetworkName = list.getSelectedValue();
-				ControllerService.getAppController().updateDataInBasicPropertiesTable(selectedNetworkName);
-				removeNetworkButton.setEnabled(selectedNetworkName != null);
+				if (!e.getValueIsAdjusting()) {
+					String selectedNetworkName = list.getSelectedValue();
+					ControllerService.getAppController().updateDataInBasicPropertiesTable(selectedNetworkName);
+					removeNetworkButton.setEnabled(selectedNetworkName != null);
+				}
 			}
 		});
 	}

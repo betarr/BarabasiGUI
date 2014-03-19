@@ -222,17 +222,6 @@ public class NodeToNodeNetwork extends NetworkBase implements Network {
 	}
 	
 	@Override
-	public void setNetworkBuildStatistics(
-			NetworkBuildStatistics networkBuildStatistics) {
-		this.setBuildStatistics(networkBuildStatistics);
-	}
-
-	@Override
-	public NetworkBuildStatistics getNetworkBuildStatistics() {
-		return this.getBuildStatistics();
-	}
-	
-	@Override
 	public List<int[]> getPairsOfNeighboringNodes() {
 		return this.edges;
 	}
@@ -248,5 +237,10 @@ public class NodeToNodeNetwork extends NetworkBase implements Network {
 			newNodesIds[i] = (i < oldSize) ? this.nodesIds[i] : -1;
 		}
 		this.nodesIds = newNodesIds;
+	}
+
+	@Override
+	public double getAverageDistance() {
+		return this.getAverageDistance(this);
 	}
 }

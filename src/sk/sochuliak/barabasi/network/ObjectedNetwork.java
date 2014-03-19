@@ -188,17 +188,6 @@ public class ObjectedNetwork extends NetworkBase implements Network {
 	}
 	
 	@Override
-	public void setNetworkBuildStatistics(
-			NetworkBuildStatistics networkBuildStatistics) {
-		this.setBuildStatistics(networkBuildStatistics);
-	}
-
-	@Override
-	public NetworkBuildStatistics getNetworkBuildStatistics() {
-		return this.getBuildStatistics();
-	}
-	
-	@Override
 	public List<int[]> getPairsOfNeighboringNodes() {
 		List<int[]> result = new ArrayList<int[]>();
 		List<Integer> alreadyAddedNodeIds = new ArrayList<Integer>();
@@ -240,5 +229,10 @@ public class ObjectedNetwork extends NetworkBase implements Network {
 			result[i] = this.getNodeById(nodesIds[i]);
 		}
 		return result;
+	}
+
+	@Override
+	public double getAverageDistance() {
+		return this.getAverageDistance(this);
 	}
 }

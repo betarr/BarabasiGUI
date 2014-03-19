@@ -167,17 +167,6 @@ public class MapNetwork extends NetworkBase implements Network {
 	}
 
 	@Override
-	public void setNetworkBuildStatistics(
-			NetworkBuildStatistics networkBuildStatistics) {
-		this.setBuildStatistics(networkBuildStatistics);
-	}
-
-	@Override
-	public NetworkBuildStatistics getNetworkBuildStatistics() {
-		return this.getBuildStatistics();
-	}
-	
-	@Override
 	public List<int[]> getPairsOfNeighboringNodes() {
 		List<int[]> result = new ArrayList<int[]>();
 		Set<Integer> nodesIds = this.nodes.keySet();
@@ -205,5 +194,10 @@ public class MapNetwork extends NetworkBase implements Network {
 			sb.append("\n");
 		}
 		return sb.toString();
+	}
+
+	@Override
+	public double getAverageDistance() {
+		return this.getAverageDistance(this);
 	}
 }

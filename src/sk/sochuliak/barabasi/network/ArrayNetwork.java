@@ -242,17 +242,6 @@ public class ArrayNetwork extends NetworkBase implements Network {
 		return NetworkAnalyse.calculateAverageClusteRatios(this);
 	}
 	
-	@Override
-	public void setNetworkBuildStatistics(
-			NetworkBuildStatistics networkBuildStatistics) {
-		this.setBuildStatistics(networkBuildStatistics);
-	}
-
-	@Override
-	public NetworkBuildStatistics getNetworkBuildStatistics() {
-		return this.getBuildStatistics();
-	}
-	
 	/**
 	 * Makes nodesIndexes array and incidenceMatrix two times larger.
 	 */
@@ -331,5 +320,10 @@ public class ArrayNetwork extends NetworkBase implements Network {
 			alreadyAddedNodesIds.add(nodeId1);
 		}
 		return result;
+	}
+
+	@Override
+	public double getAverageDistance() {
+		return this.getAverageDistance(this);
 	}
 }

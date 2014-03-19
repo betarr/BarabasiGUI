@@ -66,6 +66,14 @@ public class NetworkController {
 		return this.networksAverageClusterRatio.get(networkName);
 	}
 	
+	public double getNumberOfNeighboringNodes(String networkName) {
+		return this.getNetwork(networkName).getPairsOfNeighboringNodes().size();
+	}
+
+	public double getAverateDistance(String networkName) {
+		return this.getNetwork(networkName).getAverageDistance();
+	}
+	
 	public Map<Integer, Double> getNetworkDegreeDistribution(String networkName) {
 		if (this.networksDegreeDistribution == null) {
 			this.networksDegreeDistribution = new HashMap<String, Map<Integer, Double>>();

@@ -163,22 +163,14 @@ public interface Network {
 	public double getAverageClusterRatio();
 
 	/**
-	 * Setter for build statistics.
-	 * 
-	 * @param networkBuildStatistics buildStatistics
-	 */
-	public void setNetworkBuildStatistics(NetworkBuildStatistics networkBuildStatistics);
-	
-	/**
-	 * Getter for build statistics.
-	 * 
-	 * @return Build statistics
-	 */
-	public NetworkBuildStatistics getNetworkBuildStatistics();
-
-	/**
 	 * Returns pairs of neighboring nodes in network.
 	 * @return list of neighboring nodes pairs
 	 */
 	public List<int[]> getPairsOfNeighboringNodes();
+	
+	/**
+	 * Returns average distance between nodes.
+	 * @return average distance between nodes
+	 */
+	public double getAverageDistance();
 }
