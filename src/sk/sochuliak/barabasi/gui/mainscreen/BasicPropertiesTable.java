@@ -2,6 +2,7 @@ package sk.sochuliak.barabasi.gui.mainscreen;
 
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 
 import sk.sochuliak.barabasi.gui.Strings;
 
@@ -14,6 +15,7 @@ public class BasicPropertiesTable extends JTable {
 	public static final int AVERAGE_CLUSTER_RATIO = 2;
 	public static final int AVERAGE_DISTANCE = 3;
 	public static final int NUMBER_OF_NEIGHBORING_NODES = 4;
+	public static final int MAX_NODE_DEGREE = 5;
 	
 	
 	public BasicPropertiesTable() {
@@ -30,7 +32,8 @@ public class BasicPropertiesTable extends JTable {
 				{Strings.BASIC_PROPERTIES_AVERAGE_NODE_DEGREE, ""}, 
 				{Strings.BASIC_PROPERTIES_AVERAGE_NODE_CLUSTER, ""},
 				{Strings.BASIC_PROPERTIES_AVERAGE_DISTANCE, ""},
-				{Strings.BASIC_PROPERTIES_NUMBER_OF_NEIGHBORING_NODES, ""}
+				{Strings.BASIC_PROPERTIES_NUMBER_OF_NEIGHBORING_NODES, ""},
+				{Strings.BASIC_PROPERTIES_MAX_NODE_DEGREE, ""}
 		};
 		
 		
@@ -71,11 +74,13 @@ public class BasicPropertiesTable extends JTable {
 	}
 
 	public void clearValues() {
-		this.getModel().setValueAt("", BasicPropertiesTable.TOTAL_NODES_COUNT, 1);
-		this.getModel().setValueAt("", BasicPropertiesTable.AVERAGE_NODE_DEGREE, 1);
-		this.getModel().setValueAt("", BasicPropertiesTable.AVERAGE_CLUSTER_RATIO, 1);
-		this.getModel().setValueAt("", BasicPropertiesTable.AVERAGE_DISTANCE, 1);
-		this.getModel().setValueAt("", BasicPropertiesTable.NUMBER_OF_NEIGHBORING_NODES, 1);
+		TableModel model = this.getModel();
+		model.setValueAt("", BasicPropertiesTable.TOTAL_NODES_COUNT, 1);
+		model.setValueAt("", BasicPropertiesTable.AVERAGE_NODE_DEGREE, 1);
+		model.setValueAt("", BasicPropertiesTable.AVERAGE_CLUSTER_RATIO, 1);
+		model.setValueAt("", BasicPropertiesTable.AVERAGE_DISTANCE, 1);
+		model.setValueAt("", BasicPropertiesTable.NUMBER_OF_NEIGHBORING_NODES, 1);
+		model.setValueAt("", BasicPropertiesTable.MAX_NODE_DEGREE, 1);
 		this.repaint();
 	}
 

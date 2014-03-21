@@ -26,7 +26,8 @@ public class NodeToNodeNetwork extends NetworkBase implements Network {
 	 */
 	private int numberOfNodes = 0;
 	
-	public NodeToNodeNetwork() {
+	public NodeToNodeNetwork(String networkName) {
+		super(networkName);
 		this.nodesIds = new int[NodeToNodeNetwork.INITIAL_SIZE];
 		Arrays.fill(this.nodesIds, -1);
 		this.edges = new ArrayList<int[]>();
@@ -212,16 +213,6 @@ public class NodeToNodeNetwork extends NetworkBase implements Network {
 	}
 	
 	@Override
-	public double getAverageNodeDegree() {
-		return NetworkAnalyse.calculateAverageNodeDegree(this);
-	}
-
-	@Override
-	public double getAverageClusterRatio() {
-		return NetworkAnalyse.calculateAverageClusteRatios(this);
-	}
-	
-	@Override
 	public List<int[]> getPairsOfNeighboringNodes() {
 		return this.edges;
 	}
@@ -237,10 +228,5 @@ public class NodeToNodeNetwork extends NetworkBase implements Network {
 			newNodesIds[i] = (i < oldSize) ? this.nodesIds[i] : -1;
 		}
 		this.nodesIds = newNodesIds;
-	}
-
-	@Override
-	public double getAverageDistance() {
-		return this.getAverageDistance(this);
 	}
 }

@@ -7,7 +7,8 @@ public class ObjectedNetwork extends NetworkBase implements Network {
 
 	private List<ObjectedNode> nodes;
 	
-	public ObjectedNetwork() {
+	public ObjectedNetwork(String networkName) {
+		super(networkName);
 		this.nodes = new ArrayList<ObjectedNode>();
 	}
 	
@@ -178,16 +179,6 @@ public class ObjectedNetwork extends NetworkBase implements Network {
 	}
 	
 	@Override
-	public double getAverageNodeDegree() {
-		return NetworkAnalyse.calculateAverageNodeDegree(this);
-	}
-
-	@Override
-	public double getAverageClusterRatio() {
-		return NetworkAnalyse.calculateAverageClusteRatios(this);
-	}
-	
-	@Override
 	public List<int[]> getPairsOfNeighboringNodes() {
 		List<int[]> result = new ArrayList<int[]>();
 		List<Integer> alreadyAddedNodeIds = new ArrayList<Integer>();
@@ -229,10 +220,5 @@ public class ObjectedNetwork extends NetworkBase implements Network {
 			result[i] = this.getNodeById(nodesIds[i]);
 		}
 		return result;
-	}
-
-	@Override
-	public double getAverageDistance() {
-		return this.getAverageDistance(this);
 	}
 }

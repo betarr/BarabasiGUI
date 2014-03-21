@@ -149,18 +149,6 @@ public interface Network {
 	 * @return Cluster ratio of node
 	 */
 	public double getClusterRatio(int nodeId);
-	
-	/**
-	 * Returns average node degree value.
-	 * @return
-	 */
-	public double getAverageNodeDegree();
-	
-	/**
-	 * Returns average cluster coefficient value.
-	 * @return
-	 */
-	public double getAverageClusterRatio();
 
 	/**
 	 * Returns pairs of neighboring nodes in network.
@@ -169,8 +157,8 @@ public interface Network {
 	public List<int[]> getPairsOfNeighboringNodes();
 	
 	/**
-	 * Returns average distance between nodes.
-	 * @return average distance between nodes
+	 * Returns name of network.
+	 * @return
 	 */
-	public double getAverageDistance();
+	public String getName();
 }

@@ -9,7 +9,7 @@ public class NetworkBuildConfiguration {
 	public static final int CLUSTER_DRIVEN = 1;
 	public static final int RANDOM_DRIVEN = 2;
 	
-	private Network network = new MapNetwork();
+	private Network network = null;
 	
 	private String name = "";
 	
@@ -26,6 +26,7 @@ public class NetworkBuildConfiguration {
 	public static NetworkBuildConfiguration createDefaultConfig(int method, String name, int numberOfNodes, int numberOfEdges) {
 		NetworkBuildConfiguration config = new NetworkBuildConfiguration();
 		config.setName(name);
+		config.setNetwork(new MapNetwork(name));
 		config.setNumberOfNodes(numberOfNodes);
 		config.setFirstEdgeConnecting(method);
 		

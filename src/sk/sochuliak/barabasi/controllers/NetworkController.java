@@ -9,8 +9,8 @@ import org.apache.log4j.Logger;
 
 import sk.sochuliak.barabasi.network.MapNetwork;
 import sk.sochuliak.barabasi.network.Network;
-import sk.sochuliak.barabasi.network.NetworkAnalyse;
 import sk.sochuliak.barabasi.network.NetworkBuildConfiguration;
+import sk.sochuliak.barabasi.network.NetworkStatistics;
 
 
 public class NetworkController {
@@ -28,7 +28,7 @@ public class NetworkController {
 	
 	public void createNetwork(String networkName, List<int[]> neighboringPairs) {
 		logger.info(String.format("Creating network %s from neighboringPairs", networkName));
-		Network network = new MapNetwork();
+		Network network = new MapNetwork(networkName);
 		for (int[] neighboringPair : neighboringPairs) {
 			network.addNode(neighboringPair[0]);
 			network.addNode(neighboringPair[1]);
@@ -52,7 +52,7 @@ public class NetworkController {
 	
 	public double getAverageNodeDegree(String networkName) {
 		if (this.networksAverageNodeDegree.get(networkName) == null) {
-			double averageNodeDegree = this.getNetwork(networkName).getAverageNodeDegree();
+			double averageNodeDegree = NetworkStatistics.getAverageNodeDegree(this.getNetwork(networkName));
 			this.networksAverageNodeDegree.put(networkName, averageNodeDegree);
 		}
 		return this.networksAverageNodeDegree.get(networkName);
@@ -60,7 +60,7 @@ public class NetworkController {
 	
 	public double getAverageClusterRatio(String networkName) {
 		if (this.networksAverageClusterRatio.get(networkName) == null) {
-			double averageClusterRatio = this.getNetwork(networkName).getAverageClusterRatio();
+			double averageClusterRatio = NetworkStatistics.getAverageClusteRatios(this.getNetwork(networkName));
 			this.networksAverageClusterRatio.put(networkName, averageClusterRatio);
 		}
 		return this.networksAverageClusterRatio.get(networkName);
@@ -71,7 +71,11 @@ public class NetworkController {
 	}
 
 	public double getAverateDistance(String networkName) {
-		return this.getNetwork(networkName).getAverageDistance();
+		return NetworkStatistics.getAverageDistanceBetweenNodes(this.getNetwork(networkName), false);
+	}
+	
+	public int getMaxNodeDegree(String networkName) {
+		return NetworkStatistics.getMaxNodeDegree(this.getNetwork(networkName));
 	}
 	
 	public Map<Integer, Double> getNetworkDegreeDistribution(String networkName) {
@@ -79,7 +83,7 @@ public class NetworkController {
 			this.networksDegreeDistribution = new HashMap<String, Map<Integer, Double>>();
 		}
 		if (this.networksDegreeDistribution.get(networkName) == null) {
-			Map<Integer, Double> degreeDistribution = NetworkAnalyse.getStandardizedDegreeDistribution(this.getNetwork(networkName));
+			Map<Integer, Double> degreeDistribution = NetworkStatistics.getStandardizedDegreeDistribution(this.getNetwork(networkName));
 			this.networksDegreeDistribution.put(networkName, degreeDistribution);
 		}
 		return this.networksDegreeDistribution.get(networkName);
@@ -90,7 +94,7 @@ public class NetworkController {
 			this.networksClusterDistribution = new HashMap<String, Map<Integer, Double>>();
 		}
 		if (this.networksClusterDistribution.get(networkName) == null) {
-			Map<Integer, Double> clusterDistribution = NetworkAnalyse.getClusterDistribution(this.getNetwork(networkName));
+			Map<Integer, Double> clusterDistribution = NetworkStatistics.getClusterDistribution(this.getNetwork(networkName));
 			this.networksClusterDistribution.put(networkName, clusterDistribution);
 		}
 		return this.networksClusterDistribution.get(networkName);

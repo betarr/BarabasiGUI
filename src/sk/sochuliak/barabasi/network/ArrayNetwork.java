@@ -28,7 +28,8 @@ public class ArrayNetwork extends NetworkBase implements Network {
 	 */
 	private int numberOfNodes = 0;
 	
-	public ArrayNetwork() {
+	public ArrayNetwork(String networkName) {
+		super(networkName);
 		this.nodesIndexes = new int[ArrayNetwork.INITIAL_SIZE];
 		
 		this.incidenceMatrix = new int[ArrayNetwork.INITIAL_SIZE][ArrayNetwork.INITIAL_SIZE];
@@ -232,16 +233,6 @@ public class ArrayNetwork extends NetworkBase implements Network {
 		return (double)existingEdges / (double)allPossibleEdges;
 	}
 	
-	@Override
-	public double getAverageNodeDegree() {
-		return NetworkAnalyse.calculateAverageNodeDegree(this);
-	}
-
-	@Override
-	public double getAverageClusterRatio() {
-		return NetworkAnalyse.calculateAverageClusteRatios(this);
-	}
-	
 	/**
 	 * Makes nodesIndexes array and incidenceMatrix two times larger.
 	 */
@@ -320,10 +311,5 @@ public class ArrayNetwork extends NetworkBase implements Network {
 			alreadyAddedNodesIds.add(nodeId1);
 		}
 		return result;
-	}
-
-	@Override
-	public double getAverageDistance() {
-		return this.getAverageDistance(this);
 	}
 }

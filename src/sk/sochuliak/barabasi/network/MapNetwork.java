@@ -12,7 +12,8 @@ public class MapNetwork extends NetworkBase implements Network {
 
 	private Map<Integer, List<Integer>> nodes;
 	
-	public MapNetwork() {
+	public MapNetwork(String networkName) {
+		super(networkName);
 		this.nodes = new HashMap<Integer, List<Integer>>();
 	}
 	
@@ -157,16 +158,6 @@ public class MapNetwork extends NetworkBase implements Network {
 	}
 
 	@Override
-	public double getAverageNodeDegree() {
-		return NetworkAnalyse.calculateAverageNodeDegree(this);
-	}
-
-	@Override
-	public double getAverageClusterRatio() {
-		return NetworkAnalyse.calculateAverageClusteRatios(this);
-	}
-
-	@Override
 	public List<int[]> getPairsOfNeighboringNodes() {
 		List<int[]> result = new ArrayList<int[]>();
 		Set<Integer> nodesIds = this.nodes.keySet();
@@ -194,10 +185,5 @@ public class MapNetwork extends NetworkBase implements Network {
 			sb.append("\n");
 		}
 		return sb.toString();
-	}
-
-	@Override
-	public double getAverageDistance() {
-		return this.getAverageDistance(this);
 	}
 }

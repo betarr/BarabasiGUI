@@ -4,11 +4,16 @@ import java.util.Random;
 
 import sk.sochuliak.barabasi.utils.CommonUtils;
 import sk.sochuliak.barabasi.utils.NetworkUtils;
-import sk.sochuliak.barabasi.utils.TaskTimeCounter;
 
 public abstract class NetworkBase {
+	
+	private String name;
 
 	private Random random = new Random();
+	
+	public NetworkBase(String networkName) {
+		this.name = networkName;
+	}
 	
 	protected int calculateNumberOfAllPossibleEdgesBetweenNodes(int numberOfNodes) {
 		int count = ((numberOfNodes-1)*numberOfNodes) / 2;
@@ -106,33 +111,12 @@ public abstract class NetworkBase {
 		}
 		return nodesIds[this.random.nextInt(nodesIds.length)];
 	}
-	
-	public double getAverageDistance(Network network) {
-		TaskTimeCounter.getInstance().startTask("Calculating average distance for network");
-		int numberOfDistances = 10;
-		int[] distances = new int[numberOfDistances];
-		
-		int[] nodesIds = network.getNodesIds();
-		if (nodesIds.length == 0 || nodesIds.length == 1) {
-			return -1;
-		}
-		if (nodesIds.length == 1) {
-			return 0;
-		}
-		
-		
-		for (int i = 0; i < numberOfDistances; i++) {
-			int startNodeId = nodesIds[this.random.nextInt(nodesIds.length)];
-			int endNodeId = nodesIds[this.random.nextInt(nodesIds.length)];
-			
-			distances[i] = NetworkStatistics.distanceBetweenNodes(network, startNodeId, endNodeId, true);	
-		}
-		
-		int distancesSum = 0;
-		for (int distance : distances) {
-			distancesSum += distance;
-		}
-		TaskTimeCounter.getInstance().endTask("Calculating average distance for network");
-		return (double) distancesSum / (double) numberOfDistances;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

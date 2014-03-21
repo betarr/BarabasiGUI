@@ -169,12 +169,17 @@ public class AppController {
 				networkProperties.put(BasicPropertiesTable.NUMBER_OF_NEIGHBORING_NODES, String.valueOf(ControllerService.getNetworkController().getNumberOfNeighboringNodes(networkName)));
 			}
 			
+			if (networkProperties.get(BasicPropertiesTable.MAX_NODE_DEGREE) == null) {
+				networkProperties.put(BasicPropertiesTable.MAX_NODE_DEGREE, String.valueOf(ControllerService.getNetworkController().getMaxNodeDegree(networkName)));
+			}
+			
 			BasicPropertiesTable propertiesTable = this.mainScreen.getBasicPropertiesPanel().getBasicPropertiesTable();
 			propertiesTable.setValue(BasicPropertiesTable.TOTAL_NODES_COUNT, networkProperties.get(BasicPropertiesTable.TOTAL_NODES_COUNT));
 			propertiesTable.setValue(BasicPropertiesTable.AVERAGE_NODE_DEGREE, networkProperties.get(BasicPropertiesTable.AVERAGE_NODE_DEGREE));
 			propertiesTable.setValue(BasicPropertiesTable.AVERAGE_CLUSTER_RATIO, networkProperties.get(BasicPropertiesTable.AVERAGE_CLUSTER_RATIO));
 			propertiesTable.setValue(BasicPropertiesTable.AVERAGE_DISTANCE, networkProperties.get(BasicPropertiesTable.AVERAGE_DISTANCE));
 			propertiesTable.setValue(BasicPropertiesTable.NUMBER_OF_NEIGHBORING_NODES, networkProperties.get(BasicPropertiesTable.NUMBER_OF_NEIGHBORING_NODES));
+			propertiesTable.setValue(BasicPropertiesTable.MAX_NODE_DEGREE, networkProperties.get(BasicPropertiesTable.MAX_NODE_DEGREE));
 		}
 	}
 	

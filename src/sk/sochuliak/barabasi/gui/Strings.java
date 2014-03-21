@@ -51,6 +51,7 @@ public class Strings {
 	public static String BASIC_PROPERTIES_AVERAGE_NODE_CLUSTER = "Priemern˝ klasterizaËn˝ koeficient";
 	public static String BASIC_PROPERTIES_NUMBER_OF_NEIGHBORING_NODES = "PoËet dvojÌc susedov";
 	public static String BASIC_PROPERTIES_AVERAGE_DISTANCE = "Priemern· vzdialenosù uzlov";
+	public static String BASIC_PROPERTIES_MAX_NODE_DEGREE = "NajvyööÌ stupeÚ uzla";
 	
 	// NEW NETWORK DIALOG
 	public static String NEW_NETWORK_DIALOG_TITLE = "Nov· sieù";
