@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import sk.sochuliak.barabasi.gui.mainscreen.BasicPropertiesTable;
 import sk.sochuliak.barabasi.network.MapNetwork;
 import sk.sochuliak.barabasi.network.Network;
 import sk.sochuliak.barabasi.network.NetworkBuildConfiguration;
@@ -19,12 +20,10 @@ public class NetworkController {
 	
 	private Map<String, Network> networks = new HashMap<String, Network>();
 	
-	private Map<String, Integer> networksTotalNodesCount = new HashMap<String, Integer>();
-	private Map<String, Double> networksAverageNodeDegree = new HashMap<String, Double>();
-	private Map<String, Double> networksAverageClusterRatio = new HashMap<String, Double>();
 	private Map<String, Map<Integer, Double>> networksDegreeDistribution = null;
 	private Map<String, Map<Integer, Double>> networksClusterDistribution = null;
-	private Map<String, List<int[]>> networksPairsOfNeighboringNodes = null;
+	
+	private Map<String, Map<Integer, Object>> networksProperties = new HashMap<String, Map<Integer, Object>>();
 	
 	public void createNetwork(String networkName, List<int[]> neighboringPairs) {
 		logger.info(String.format("Creating network %s from neighboringPairs", networkName));
@@ -43,39 +42,51 @@ public class NetworkController {
 	}
 	
 	public int getTotalNodesCount(String networkName) {
-		if (this.networksTotalNodesCount.get(networkName) == null) {
-			int totalNodesCount = this.getNetwork(networkName).getNumberOfNodes();
-			this.networksTotalNodesCount.put(networkName, totalNodesCount);
+		Map<Integer, Object> networkProperties = this.getNetworkProperties(networkName);
+		if (networkProperties.get(BasicPropertiesTable.TOTAL_NODES_COUNT) == null) {
+			networkProperties.put(BasicPropertiesTable.TOTAL_NODES_COUNT, this.getNetwork(networkName).getNumberOfNodes());
 		}
-		return this.networksTotalNodesCount.get(networkName);
+		return (int) networkProperties.get(BasicPropertiesTable.TOTAL_NODES_COUNT);
 	}
 	
 	public double getAverageNodeDegree(String networkName) {
-		if (this.networksAverageNodeDegree.get(networkName) == null) {
-			double averageNodeDegree = NetworkStatistics.getAverageNodeDegree(this.getNetwork(networkName));
-			this.networksAverageNodeDegree.put(networkName, averageNodeDegree);
+		Map<Integer, Object> networkProperties = this.getNetworkProperties(networkName);
+		if (networkProperties.get(BasicPropertiesTable.AVERAGE_NODE_DEGREE) == null) {
+			networkProperties.put(BasicPropertiesTable.AVERAGE_NODE_DEGREE, NetworkStatistics.getAverageNodeDegree(this.getNetwork(networkName)));
 		}
-		return this.networksAverageNodeDegree.get(networkName);
+		return (double) networkProperties.get(BasicPropertiesTable.AVERAGE_NODE_DEGREE);
 	}
 	
 	public double getAverageClusterRatio(String networkName) {
-		if (this.networksAverageClusterRatio.get(networkName) == null) {
-			double averageClusterRatio = NetworkStatistics.getAverageClusteRatios(this.getNetwork(networkName));
-			this.networksAverageClusterRatio.put(networkName, averageClusterRatio);
+		Map<Integer, Object> networkProperties = this.getNetworkProperties(networkName);
+		if (networkProperties.get(BasicPropertiesTable.AVERAGE_CLUSTER_RATIO) == null) {
+			networkProperties.put(BasicPropertiesTable.AVERAGE_CLUSTER_RATIO, NetworkStatistics.getAverageClusteRatios(this.getNetwork(networkName)));
 		}
-		return this.networksAverageClusterRatio.get(networkName);
+		return (double) networkProperties.get(BasicPropertiesTable.AVERAGE_CLUSTER_RATIO);
 	}
 	
-	public double getNumberOfNeighboringNodes(String networkName) {
-		return this.getNetwork(networkName).getPairsOfNeighboringNodes().size();
+	public int getNumberOfNeighboringNodes(String networkName) {
+		Map<Integer, Object> networkProperties = this.getNetworkProperties(networkName);
+		if (networkProperties.get(BasicPropertiesTable.NUMBER_OF_NEIGHBORING_NODES) == null) {
+			networkProperties.put(BasicPropertiesTable.NUMBER_OF_NEIGHBORING_NODES, this.getNetwork(networkName).getPairsOfNeighboringNodes().size());
+		}
+		return (int) networkProperties.get(BasicPropertiesTable.NUMBER_OF_NEIGHBORING_NODES);
 	}
 
 	public double getAverateDistance(String networkName) {
-		return NetworkStatistics.getAverageDistanceBetweenNodes(this.getNetwork(networkName), false);
+		Map<Integer, Object> networkProperties = this.getNetworkProperties(networkName);
+		if (networkProperties.get(BasicPropertiesTable.AVERAGE_DISTANCE) == null) {
+			networkProperties.put(BasicPropertiesTable.AVERAGE_DISTANCE, NetworkStatistics.getAverageDistanceBetweenNodes(this.getNetwork(networkName), false));
+		}
+		return (double) networkProperties.get(BasicPropertiesTable.AVERAGE_DISTANCE);
 	}
 	
 	public int getMaxNodeDegree(String networkName) {
-		return NetworkStatistics.getMaxNodeDegree(this.getNetwork(networkName));
+		Map<Integer, Object> networkProperties = this.getNetworkProperties(networkName);
+		if (networkProperties.get(BasicPropertiesTable.MAX_NODE_DEGREE) == null) {
+			networkProperties.put(BasicPropertiesTable.MAX_NODE_DEGREE, NetworkStatistics.getMaxNodeDegree(this.getNetwork(networkName)));
+		}
+		return (int) networkProperties.get(BasicPropertiesTable.MAX_NODE_DEGREE);
 	}
 	
 	public Map<Integer, Double> getNetworkDegreeDistribution(String networkName) {
@@ -101,29 +112,17 @@ public class NetworkController {
 	}
 
 	public List<int[]> getPairsOfNeighboringNodes(String networkName) {
-		if (this.networksPairsOfNeighboringNodes == null) {
-			this.networksPairsOfNeighboringNodes = new HashMap<String, List<int[]>>();
-		}
-		if (this.networksPairsOfNeighboringNodes.get(networkName) == null) {
-			List<int[]> pairsOfNeighboringNodes = this.getNetwork(networkName) != null ? this.getNetwork(networkName).getPairsOfNeighboringNodes() : new ArrayList<int[]>(0);
-			this.networksPairsOfNeighboringNodes.put(networkName, pairsOfNeighboringNodes);
-		}
-		return this.networksPairsOfNeighboringNodes.get(networkName);
+		return this.getNetwork(networkName).getPairsOfNeighboringNodes();
 	}
 	
 	public void removeNetwork(String networkName) {
 		this.networks.remove(networkName);
-		this.networksTotalNodesCount.remove(networkName);
-		this.networksAverageNodeDegree.remove(networkName);
-		this.networksAverageClusterRatio.remove(networkName);
+		this.networksProperties.remove(networkName);
 		if (this.networksDegreeDistribution != null) {
 			this.networksDegreeDistribution.remove(networkName);
 		}
 		if (this.networksClusterDistribution != null) {
 			this.networksClusterDistribution.remove(networkName);
-		}
-		if (this.networksPairsOfNeighboringNodes != null) {
-			this.networksPairsOfNeighboringNodes.remove(networkName);
 		}
 		ControllerService.getAppController().enableAnalysisMenuItems(!this.networks.isEmpty());
 	}
@@ -140,5 +139,12 @@ public class NetworkController {
 	
 	public List<String> getNetworkNames() {
 		return new ArrayList<String>(this.networks.keySet());
+	}
+	
+	private Map<Integer, Object> getNetworkProperties(String networkName) {
+		if (this.networksProperties.get(networkName) == null) {
+			this.networksProperties.put(networkName, new HashMap<Integer, Object>());
+		}
+		return this.networksProperties.get(networkName);
 	}
 }

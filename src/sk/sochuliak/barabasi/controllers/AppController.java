@@ -40,11 +40,8 @@ public class AppController {
 	
 	private NewNetworkProgressBar newNetworkProgressBarDialog = null;
 	
-	private Map<String, Map<Integer, String>> networksProperties = null;
-	
 	public AppController(MainScreen mainScreen) {
 		this.mainScreen = mainScreen;
-		this.networksProperties = new HashMap<String, Map<Integer, String>>();
 	}
 
 	public void closeApplication() {
@@ -152,34 +149,13 @@ public class AppController {
 		if (networkName == null) {
 			this.mainScreen.getBasicPropertiesPanel().getBasicPropertiesTable().clearValues();
 		} else {
-			Map<Integer, String> networkProperties = this.getNetworkProperties(networkName);
-			if (networkProperties.get(BasicPropertiesTable.TOTAL_NODES_COUNT) == null) {
-				networkProperties.put(BasicPropertiesTable.TOTAL_NODES_COUNT, String.valueOf(ControllerService.getNetworkController().getTotalNodesCount(networkName)));
-			}
-			if (networkProperties.get(BasicPropertiesTable.AVERAGE_NODE_DEGREE) == null) {
-				networkProperties.put(BasicPropertiesTable.AVERAGE_NODE_DEGREE, String.format("%1$.5f", ControllerService.getNetworkController().getAverageNodeDegree(networkName)));
-			}
-			if (networkProperties.get(BasicPropertiesTable.AVERAGE_CLUSTER_RATIO) == null) {
-				networkProperties.put(BasicPropertiesTable.AVERAGE_CLUSTER_RATIO, String.format("%1$.5f", ControllerService.getNetworkController().getAverageClusterRatio(networkName)));
-			}
-			if (networkProperties.get(BasicPropertiesTable.AVERAGE_DISTANCE) == null) {
-				networkProperties.put(BasicPropertiesTable.AVERAGE_DISTANCE, String.valueOf(ControllerService.getNetworkController().getAverateDistance(networkName)));
-			}
-			if (networkProperties.get(BasicPropertiesTable.NUMBER_OF_NEIGHBORING_NODES) == null) {
-				networkProperties.put(BasicPropertiesTable.NUMBER_OF_NEIGHBORING_NODES, String.valueOf(ControllerService.getNetworkController().getNumberOfNeighboringNodes(networkName)));
-			}
-			
-			if (networkProperties.get(BasicPropertiesTable.MAX_NODE_DEGREE) == null) {
-				networkProperties.put(BasicPropertiesTable.MAX_NODE_DEGREE, String.valueOf(ControllerService.getNetworkController().getMaxNodeDegree(networkName)));
-			}
-			
 			BasicPropertiesTable propertiesTable = this.mainScreen.getBasicPropertiesPanel().getBasicPropertiesTable();
-			propertiesTable.setValue(BasicPropertiesTable.TOTAL_NODES_COUNT, networkProperties.get(BasicPropertiesTable.TOTAL_NODES_COUNT));
-			propertiesTable.setValue(BasicPropertiesTable.AVERAGE_NODE_DEGREE, networkProperties.get(BasicPropertiesTable.AVERAGE_NODE_DEGREE));
-			propertiesTable.setValue(BasicPropertiesTable.AVERAGE_CLUSTER_RATIO, networkProperties.get(BasicPropertiesTable.AVERAGE_CLUSTER_RATIO));
-			propertiesTable.setValue(BasicPropertiesTable.AVERAGE_DISTANCE, networkProperties.get(BasicPropertiesTable.AVERAGE_DISTANCE));
-			propertiesTable.setValue(BasicPropertiesTable.NUMBER_OF_NEIGHBORING_NODES, networkProperties.get(BasicPropertiesTable.NUMBER_OF_NEIGHBORING_NODES));
-			propertiesTable.setValue(BasicPropertiesTable.MAX_NODE_DEGREE, networkProperties.get(BasicPropertiesTable.MAX_NODE_DEGREE));
+			propertiesTable.setValue(BasicPropertiesTable.TOTAL_NODES_COUNT, String.valueOf(ControllerService.getNetworkController().getTotalNodesCount(networkName)));
+			propertiesTable.setValue(BasicPropertiesTable.AVERAGE_NODE_DEGREE, String.format("%1$.5f", ControllerService.getNetworkController().getAverageNodeDegree(networkName)));
+			propertiesTable.setValue(BasicPropertiesTable.AVERAGE_CLUSTER_RATIO, String.format("%1$.5f", ControllerService.getNetworkController().getAverageClusterRatio(networkName)));
+			propertiesTable.setValue(BasicPropertiesTable.AVERAGE_DISTANCE, String.valueOf(ControllerService.getNetworkController().getAverateDistance(networkName)));
+			propertiesTable.setValue(BasicPropertiesTable.NUMBER_OF_NEIGHBORING_NODES, String.valueOf(ControllerService.getNetworkController().getNumberOfNeighboringNodes(networkName)));
+			propertiesTable.setValue(BasicPropertiesTable.MAX_NODE_DEGREE, String.valueOf(ControllerService.getNetworkController().getMaxNodeDegree(networkName)));
 		}
 	}
 	
@@ -191,7 +167,6 @@ public class AppController {
 	public void removeNetwork(String networkName) {
 		logger.info(String.format("Removing %s network from appliacation", networkName));
 		this.mainScreen.getNetworkList().removeNetworkNameFromList(networkName);
-		this.networksProperties.remove(networkName);
 		ControllerService.getNetworkController().removeNetwork(networkName);
 	}
 	
@@ -408,12 +383,5 @@ public class AppController {
 				message,
 				Strings.WARNING,
 				JOptionPane.WARNING_MESSAGE);
-	}
-	
-	private Map<Integer, String> getNetworkProperties(String networkName) {
-		if (this.networksProperties.get(networkName) == null) {
-			this.networksProperties.put(networkName, new HashMap<Integer, String>());
-		}
-		return this.networksProperties.get(networkName);
 	}
 }
