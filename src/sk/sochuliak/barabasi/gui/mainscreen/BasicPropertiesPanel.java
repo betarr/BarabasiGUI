@@ -13,13 +13,13 @@ public class BasicPropertiesPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	
-	private BasicPropertiesTable basicPropertiesTable = null;
+	private BasicPropertiesTablePanel basicPropertiesTablePanel = null;
 
 	public BasicPropertiesPanel() {
 		this.setLayout(new BorderLayout());
 		
 		this.add(this.buildLabel(), BorderLayout.NORTH);
-		this.add(this.buildPropertiesTable(), BorderLayout.CENTER);
+		this.add(this.buildPropertiesTablePanel(), BorderLayout.CENTER);
 	}
 	
 	public JPanel buildLabel() {
@@ -29,13 +29,13 @@ public class BasicPropertiesPanel extends JPanel {
 		return titlePanel;
 	}
 	
-	public JScrollPane buildPropertiesTable() {
-		this.basicPropertiesTable = new BasicPropertiesTable();
-		JScrollPane propertiesPanel = new JScrollPane(this.basicPropertiesTable);
+	public JScrollPane buildPropertiesTablePanel() {
+		this.basicPropertiesTablePanel = new BasicPropertiesTablePanel();
+		JScrollPane propertiesPanel = new JScrollPane(this.basicPropertiesTablePanel);
 		return propertiesPanel;
 	}
 
 	public BasicPropertiesTable getBasicPropertiesTable() {
-		return basicPropertiesTable;
+		return this.basicPropertiesTablePanel.getBasicPropertiesTable();
 	}
 }

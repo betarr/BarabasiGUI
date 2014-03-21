@@ -20,6 +20,7 @@ public class BasicPropertiesTable extends JTable {
 	
 	public BasicPropertiesTable() {
 		this.setModel(new BasicPropertiesTableModel());
+		this.setRowHeight(23);
 	}
 	
 	class BasicPropertiesTableModel extends AbstractTableModel {
@@ -69,7 +70,15 @@ public class BasicPropertiesTable extends JTable {
 	}
 	
 	public void setValue(int property, Object value) {
-		this.getModel().setValueAt(value, property, 1);
+		String stringValue;
+		if (value == null) {
+			stringValue = "";
+		} else if (value instanceof Double) {
+			stringValue = String.format("%1$.5f", value);
+		} else {
+			stringValue = value.toString();
+		}
+		this.getModel().setValueAt(stringValue, property, 1);
 		this.repaint();
 	}
 

@@ -13,15 +13,14 @@ import sk.sochuliak.barabasi.utils.TaskTimeCounter;
 
 public class BarabasiGui {
 	
+	@SuppressWarnings("unused")
 	private static final Logger logger = Logger.getLogger(BarabasiGui.class);
 
 	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
-		logger.info("Starting application");
 		TaskTimeCounter.getInstance().startTask("Starting application");
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		MainScreen mainScreen = new MainScreen(Strings.APPLICATION_NAME, MainGuiConfiguration.APPLICATION_SIZE);
 		ControllerService.init(mainScreen);
-		logger.info("Application started");
 		TaskTimeCounter.getInstance().endTask("Starting application");
 	}
 }

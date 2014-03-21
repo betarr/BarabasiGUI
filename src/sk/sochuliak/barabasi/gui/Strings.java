@@ -12,6 +12,8 @@ public class Strings {
 	public static String WARNING = "Upozornenie";
 	public static String TO = "k";
 	
+	public static String CALCULATE = "Prepoèíta";
+	
 	public static String LINEAR_REGRESION = "Lineárna regresia";
 	
 	public static String ALREADY_SHOWN_DISTRIBUTION = "Tieto siete u majú zobrazenú distribúciu";

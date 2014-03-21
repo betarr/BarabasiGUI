@@ -52,6 +52,7 @@ public class NetworkStatistics {
 	 * @return distance between source node and target node
 	 */
 	public static int getDistanceBetweenNodes(Network network, int source, int target) {
+		TaskTimeCounter.getInstance().startTask(String.format("Calculating distance from node %d to node %d in network %s", source, target, network.getName()));
 		Map<Integer, Integer> distances = new HashMap<Integer, Integer>();
 		for (int nodeId : network.getNodesIds()) {
 			distances.put(nodeId, Integer.MAX_VALUE);
@@ -65,6 +66,7 @@ public class NetworkStatistics {
 			
 			int smallestDistanceNode = getNodeWithsmallestDistance(queue, distances);
 			if (smallestDistanceNode == target) {
+				TaskTimeCounter.getInstance().endTask(String.format("Calculating distance from node %d to node %d in network %s", source, target, network.getName()));
 				return distances.get(smallestDistanceNode);
 			}
 			
@@ -80,6 +82,7 @@ public class NetworkStatistics {
 			
 		}
 		
+		TaskTimeCounter.getInstance().endTask(String.format("Calculating distance from node %d to node %d in network %s", source, target, network.getName()));
 		return distances.get(target);
 	}
 

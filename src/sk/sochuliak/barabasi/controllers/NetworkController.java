@@ -44,7 +44,7 @@ public class NetworkController {
 	public int getTotalNodesCount(String networkName) {
 		Map<Integer, Object> networkProperties = this.getNetworkProperties(networkName);
 		if (networkProperties.get(BasicPropertiesTable.TOTAL_NODES_COUNT) == null) {
-			networkProperties.put(BasicPropertiesTable.TOTAL_NODES_COUNT, this.getNetwork(networkName).getNumberOfNodes());
+			return -1;
 		}
 		return (int) networkProperties.get(BasicPropertiesTable.TOTAL_NODES_COUNT);
 	}
@@ -52,7 +52,7 @@ public class NetworkController {
 	public double getAverageNodeDegree(String networkName) {
 		Map<Integer, Object> networkProperties = this.getNetworkProperties(networkName);
 		if (networkProperties.get(BasicPropertiesTable.AVERAGE_NODE_DEGREE) == null) {
-			networkProperties.put(BasicPropertiesTable.AVERAGE_NODE_DEGREE, NetworkStatistics.getAverageNodeDegree(this.getNetwork(networkName)));
+			return -1d;
 		}
 		return (double) networkProperties.get(BasicPropertiesTable.AVERAGE_NODE_DEGREE);
 	}
@@ -60,7 +60,7 @@ public class NetworkController {
 	public double getAverageClusterRatio(String networkName) {
 		Map<Integer, Object> networkProperties = this.getNetworkProperties(networkName);
 		if (networkProperties.get(BasicPropertiesTable.AVERAGE_CLUSTER_RATIO) == null) {
-			networkProperties.put(BasicPropertiesTable.AVERAGE_CLUSTER_RATIO, NetworkStatistics.getAverageClusteRatios(this.getNetwork(networkName)));
+			return -1d;
 		}
 		return (double) networkProperties.get(BasicPropertiesTable.AVERAGE_CLUSTER_RATIO);
 	}
@@ -68,7 +68,7 @@ public class NetworkController {
 	public int getNumberOfNeighboringNodes(String networkName) {
 		Map<Integer, Object> networkProperties = this.getNetworkProperties(networkName);
 		if (networkProperties.get(BasicPropertiesTable.NUMBER_OF_NEIGHBORING_NODES) == null) {
-			networkProperties.put(BasicPropertiesTable.NUMBER_OF_NEIGHBORING_NODES, this.getNetwork(networkName).getPairsOfNeighboringNodes().size());
+			return -1;
 		}
 		return (int) networkProperties.get(BasicPropertiesTable.NUMBER_OF_NEIGHBORING_NODES);
 	}
@@ -76,7 +76,7 @@ public class NetworkController {
 	public double getAverateDistance(String networkName) {
 		Map<Integer, Object> networkProperties = this.getNetworkProperties(networkName);
 		if (networkProperties.get(BasicPropertiesTable.AVERAGE_DISTANCE) == null) {
-			networkProperties.put(BasicPropertiesTable.AVERAGE_DISTANCE, NetworkStatistics.getAverageDistanceBetweenNodes(this.getNetwork(networkName), false));
+			return -1d;
 		}
 		return (double) networkProperties.get(BasicPropertiesTable.AVERAGE_DISTANCE);
 	}
@@ -84,7 +84,7 @@ public class NetworkController {
 	public int getMaxNodeDegree(String networkName) {
 		Map<Integer, Object> networkProperties = this.getNetworkProperties(networkName);
 		if (networkProperties.get(BasicPropertiesTable.MAX_NODE_DEGREE) == null) {
-			networkProperties.put(BasicPropertiesTable.MAX_NODE_DEGREE, NetworkStatistics.getMaxNodeDegree(this.getNetwork(networkName)));
+			return -1;
 		}
 		return (int) networkProperties.get(BasicPropertiesTable.MAX_NODE_DEGREE);
 	}
@@ -146,5 +146,43 @@ public class NetworkController {
 			this.networksProperties.put(networkName, new HashMap<Integer, Object>());
 		}
 		return this.networksProperties.get(networkName);
+	}
+	
+	public void refreshNetworkProperty(int propertyId) {
+		String networkName = ControllerService.getAppController().getSelectedNetworkName();
+		if (networkName == null) {
+			return;
+		}
+		Object value = null;
+		Network network = this.getNetwork(networkName);
+		switch (propertyId) {
+			case BasicPropertiesTable.TOTAL_NODES_COUNT : {
+				value = network.getNumberOfNodes();
+				break;
+			}
+			case BasicPropertiesTable.AVERAGE_NODE_DEGREE : {
+				value = NetworkStatistics.getAverageNodeDegree(network);
+				break;
+			}
+			case BasicPropertiesTable.AVERAGE_CLUSTER_RATIO : {
+				value = NetworkStatistics.getAverageClusteRatios(network);
+				break;
+			}
+			case BasicPropertiesTable.AVERAGE_DISTANCE : {
+				value = NetworkStatistics.getAverageDistanceBetweenNodes(network, false);
+				break;
+			}
+			case BasicPropertiesTable.NUMBER_OF_NEIGHBORING_NODES : {
+				value = network.getPairsOfNeighboringNodes().size();
+				break;
+			}
+			case BasicPropertiesTable.MAX_NODE_DEGREE : {
+				value = NetworkStatistics.getMaxNodeDegree(network);
+				break;
+			}
+		}
+		Map<Integer, Object> networkProperties = this.getNetworkProperties(networkName);
+		networkProperties.put(propertyId, value);
+		ControllerService.getAppController().updatePropertyInPropertiesTable(propertyId, value);
 	}
 }
