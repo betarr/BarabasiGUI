@@ -173,7 +173,7 @@ public class NetworkController {
 				break;
 			}
 			case BasicPropertiesTable.NUMBER_OF_NEIGHBORING_NODES : {
-				value = network.getPairsOfNeighboringNodes().size();
+				value = NetworkStatistics.getNumberOfNeighboringNodes(network);
 				break;
 			}
 			case BasicPropertiesTable.MAX_NODE_DEGREE : {

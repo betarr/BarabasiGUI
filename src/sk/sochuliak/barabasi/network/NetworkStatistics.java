@@ -17,7 +17,7 @@ public class NetworkStatistics {
 			return 0d;
 		}
 		TaskTimeCounter.getInstance().startTask(String.format("Calculating average distance for network %s", network.getName()));
-		int numberOfDistances = 10;
+		int numberOfDistances = 15;
 		int[] distances = new int[numberOfDistances];
 		
 		int[] nodesIds = network.getNodesIds();
@@ -220,6 +220,13 @@ public class NetworkStatistics {
 			result.put(degree, averageCluster);
 		}
 		TaskTimeCounter.getInstance().endTask(String.format("Calculating cluster distribution for network %s", network.getName()));
+		return result;
+	}
+	
+	public static int getNumberOfNeighboringNodes(Network network) {
+		TaskTimeCounter.getInstance().startTask(String.format("Calculating number of neighboring nodes for network %s", network.getName()));
+		int result = network.getPairsOfNeighboringNodes().size();
+		TaskTimeCounter.getInstance().endTask(String.format("Calculating number of neighboring nodes for network %s", network.getName()));
 		return result;
 	}
 }
