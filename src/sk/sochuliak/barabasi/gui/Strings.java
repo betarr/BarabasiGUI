@@ -2,7 +2,7 @@ package sk.sochuliak.barabasi.gui;
 
 public class Strings {
 
-	public static String APPLICATION_NAME = "Diplomova praca - Martin Sochuliak";
+	public static String APPLICATION_NAME = "Giraphe";
 	
 	// COMMON
 	public static String OK = "OK";
@@ -29,8 +29,8 @@ public class Strings {
 	public static String MENU_ANALYSIS = "Analýza";
 	public static String MENU_ANALYSIS_SHOW_DEGREE_DISTRIBUTION = "Distribúcia stupòa uzlov";
 	public static String MENU_ANALYSIS_SHOW_DEGREE_DISTRIBUTION_LOG = "Distribúcia stupòa uzlov - Log";
-	public static String MENU_ANALYSIS_SHOW_CLUSTER_DISTRIBUTION = "Distribúcia klasterizaèných koeficientov";
-	public static String MENU_ANALYSIS_SHOW_CLUSTER_DISTRIBUTION_LOG = "Distribúcia klasterizaèných koeficientov - Log";
+	public static String MENU_ANALYSIS_SHOW_CLUSTER_DISTRIBUTION = "Distribúcia klasterizaèného koeficientu uzlov";
+	public static String MENU_ANALYSIS_SHOW_CLUSTER_DISTRIBUTION_LOG = "Distribúcia klasterizaèného koeficientu uzlov - Log";
 	public static String MENU_INFO = "Info";
 	public static String MENU_INFO_ABOUT_SOFTWARE = "O programe";
 	public static String MENU_INFO_ABOUT_SOFTWARE_TEXT = "Program vznikol za úèelom generovania a analýzy sietí vrámci diplomovej práce Rast siete riadený klasterizáciou.";
@@ -83,17 +83,17 @@ public class Strings {
 	
 	// DEGREE DISTRIBUTION
 	public static String DEGREE_DISTRIBUTION_TITLE = "Distribúcia stupòa uzlov";
-	public static String DEGREE_DISTRIBUTION_X_AXIS_LABEL = "Stupeò vrchola";
+	public static String DEGREE_DISTRIBUTION_X_AXIS_LABEL = "k";
 	public static String DEGREE_DISTRIBUTION_Y_AXIS_LABEL = "Normovaný # uzlov stupòa k";
 	
 	public static String DEGREE_DISTRIBUTION_LOG_TITLE = "Distribúcia stupòa uzlov - Log";
 	
 	// CLUSTER DISTRIBUTION
-	public static String CLUSTER_DISTRIBUTION_TITLE = "Distribúcia klasterizácie uzlov";
-	public static String CLUSTER_DISTRIBUTION_X_AXIS_LABEL = "Stupeò vrchola";
-	public static String CLUSTER_DISTRIBUTION_Y_AXIS_LABEL = "Priemerná klasterizácia uzla stupòa k";
+	public static String CLUSTER_DISTRIBUTION_TITLE = "Distribúcia klasterizaèného koeficientu uzlov";
+	public static String CLUSTER_DISTRIBUTION_X_AXIS_LABEL = "k";
+	public static String CLUSTER_DISTRIBUTION_Y_AXIS_LABEL = "C(k)";
 	
-	public static String CLUSTER_DISTRIBUTION_LOG_TITLE = "Distribúcia klasterizácie uzlov - Log";
+	public static String CLUSTER_DISTRIBUTION_LOG_TITLE = "Distribúcia klasterizaèného koeficientu uzlov - Log";
 	
 	// INFO
 	public static String INFO_PANEL_START_POINT = "Zaèiatoèný bod";
