@@ -205,7 +205,7 @@ public class NewNetworkDialog extends JDialog {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				NetworkBuildConfiguration config = new NetworkBuildConfiguration();
+				NetworkBuildConfiguration config = null;
 				StringBuffer sb = new StringBuffer();
 				String networkNameText = networkNameTextField.getText();
 				if (networkNameText.equals("")) {
@@ -239,6 +239,7 @@ public class NewNetworkDialog extends JDialog {
 						config = NetworkBuildConfiguration.createDefaultConfig(growthManagement, networkNameText, numberOfNodes, numberOfEdges);
 					}
 				} else { // own configuration
+					config = NetworkBuildConfiguration.getInstance(networkNameText);
 					String firstEdgeConnectingMethodComboBoxValue = (String) firstEdgeConnectingMethodComboBox.getSelectedItem();
 					int firstEdgeConnectingMethod = -1;
 					if (firstEdgeConnectingMethodComboBoxValue.equals(Strings.NEW_NETWORK_DIALOG_GROWTH_MANAGEMENT_NODE_DEGREE)) {

@@ -9,9 +9,10 @@ public class NetworkBuildConfiguration {
 	public static final int CLUSTER_DRIVEN = 1;
 	public static final int RANDOM_DRIVEN = 2;
 	
-	private Network network = null;
 	
 	private String name = "";
+	
+	private Network network = new MapNetwork(this.name);
 	
 	private int numberOfNodes = 0;
 	
@@ -19,8 +20,10 @@ public class NetworkBuildConfiguration {
 	
 	private List<EdgeConnectingMethodRowConfig> edgeConnectingMethodRowConfigs = null;
 	
-	public static NetworkBuildConfiguration getInstance() {
-		return new NetworkBuildConfiguration();
+	public static NetworkBuildConfiguration getInstance(String name) {
+		NetworkBuildConfiguration config = new NetworkBuildConfiguration();
+		config.setNetwork(new MapNetwork(name));
+		return config;
 	}
 	
 	public static NetworkBuildConfiguration createDefaultConfig(int method, String name, int numberOfNodes, int numberOfEdges) {
