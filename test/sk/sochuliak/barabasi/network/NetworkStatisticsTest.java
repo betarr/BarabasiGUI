@@ -5,6 +5,10 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import sk.sochuliak.giraphe.network.MapNetwork;
+import sk.sochuliak.giraphe.network.Network;
+import sk.sochuliak.giraphe.network.NetworkStatistics;
+
 public class NetworkStatisticsTest {
 	
 	Network network = null;

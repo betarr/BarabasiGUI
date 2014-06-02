@@ -10,6 +10,9 @@ import java.util.SortedSet;
 import org.junit.Before;
 import org.junit.Test;
 
+import sk.sochuliak.giraphe.network.ArrayNetwork;
+import sk.sochuliak.giraphe.network.Network;
+
 public class ArrayNetworkTest {
 
 	private Network network;

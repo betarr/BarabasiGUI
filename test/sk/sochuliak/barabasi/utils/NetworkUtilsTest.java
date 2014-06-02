@@ -6,6 +6,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import sk.sochuliak.giraphe.utils.NetworkUtils;
+
 public class NetworkUtilsTest {
 
 	@Test

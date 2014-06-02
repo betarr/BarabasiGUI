@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import sk.sochuliak.giraphe.network.Network;
+
 public class TestUtils {
 
 	private static int[] edgesFrom = new int[]{0, 6,  12, 7, 2, 1, 12, 18, 5,  12, 16, 6,  10, 0,  14, 14, 22, 19, 23, 12, 17, 3, 4,  8, 8,  12, 2,  5,  7,  7,  2};

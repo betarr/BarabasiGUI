@@ -8,6 +8,8 @@ import java.text.NumberFormat;
 
 import org.junit.Test;
 
+import sk.sochuliak.giraphe.utils.CommonUtils;
+
 public class CommonUtilsTest {
 
 	@Test
